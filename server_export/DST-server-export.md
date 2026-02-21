@@ -244,6 +244,8 @@ Hjemsend så vidt muligt tabeller og ikke figurer, da
     explicitly calling `gc()` rarely speeds up this process
     significantly.
 
+### Running analyses in parallel
+
 # Flow diagram
 
 Pending input from Lars…
