@@ -1,6 +1,8 @@
 DST-server export
 ================
 
+<!-- Don't edit the md-file; edit the Rmd-file and knit-to-md! -->
+
 # This is a DRAFT document
 
 In this guideline we seek to describe how we export analysis results
@@ -139,6 +141,108 @@ Hjemsend så vidt muligt tabeller og ikke figurer, da
   we need to mention here
 - [ ] Review the guideline from NCRR for things that we need to mention
   here
+
+## Guidelines for behaviour on the DST servers
+
+1.  There are two ways to “exit” the servers:
+    1.  If you *sign out* from the servers your user interface is reset;
+        it is like closing your computer. When you boot-up you computer
+        you have to open programs again; when you *sign in* to the
+        servers after a *sign out* you similarly have to open all
+        programs again.
+    2.  If you *disconnect* from the servers it is like putting your
+        (Windows) computer to sleep (DK: Slumre). When you boot up again
+        your programs are still running and your can continue work right
+        away. On the DST servers the use of *disconnect* entails a big
+        risk so use it sparingly—see further below.
+2.  Ensure that you have an up-to-date entry in
+    `Workdata/708237/README.txt`
+3.  Ensure that you have a *home* or *personal* folder:
+    `Workdata/708237/INIT` where `INIT` are your unique server-wide
+    initials.
+4.  Only ever execute programs or edit files in your home folder. You
+    are not allowed to change (add, remove or modify) anything
+    (e.g. files, settings) outside of your home folder. Technically all
+    users have unrestricted access to read *and* write to all folders so
+    you need to be very careful that you don’t (even accidentally)
+    change a setting or file in another users home folder or in the
+    common/joint folders.
+5.  If your want to look at a file located in another users home folder,
+    just copy the file(s) or the containing folder to a place in your
+    home folder and look at it there. If you accidentally change
+    something it is only your local copy that you change.
+    1.  A common problem is that **RStudio** will place `.Rhistory`
+        files if you execute commands in other users folders. You may
+        not see these files if you do not ask to see them, but the user
+        whose folder you were working in will see that their setup has
+        changed. Worse still, by executing commands in another users
+        home folder you may change derived files, or you may change the
+        time stamp on files that may have consequences.
+6.  We strongly advice that you use a folder and file structure similar
+    to that under `RHBC`, `CSG` and many other users. A common
+    organization makes it easy for us all to navigate the different
+    projects, learn from each other and help each other.
+7.  Always open a task-manager and choose the User-pane so you can
+    1.  check the server load in terms of memory and CPU
+    2.  ensure that you don’t use too much memory or CPU resources
+8.  As a rule of thumb you should never use more than X.X Gb of memory
+    (or use less if the load is high) or more than 10% CPU. If the
+    memory is exhausted essentially all users will experience that they
+    programs freeze and all or most running jobs will terminate with
+    error (e.g., some version of “failed to allocate memory…”)
+9.  One of the biggest sins is loading a lot of data into memory and
+    then *disconnect*’ing from the servers. This essentially means that
+    you unnecessarily block a big portion of memory that other users
+    then cannot use and you prevent them from running their analyses.
+    Before using *disconnect* rather than *sign out* ensure that you
+    have released all memory (you can see this from the task manager).
+    In **RStudio** this is easily achieved by restarting the
+    **R**-process: `Session` -\> `Restart R` or use `ctrl-shift F10`.
+10. A valid use of *disconnect* is when you have a long-running job such
+    as a big-data statistical analysis or, say, a bootstrap simulation.
+    Then you *disconnect* the server and let the job run so that you can
+    check in later and retrieve the results when the job is done. Before
+    initiating the job, make sure that only the relevant data are loaded
+    and other non-relevant **R** processes have been closed or
+    restarted.
+
+### If you use **R** or **Rstudio** on the DST servers
+
+1.  Initiate RStudio projects. This is the first thing you do after
+    making a folder for your new project. This will generate a
+    `<name_of_your_project>.Rproj` file. Whenever you login to the
+    registers and want to work in the project simply double-click on the
+    `Rproj` file to open RStudio and you are ready to work in the
+    correct folder.
+2.  Before working change the following settings by going to
+    `Tools`-\>`Global options`.
+    1.  Under **Workspace** you
+        1.  remove the tick-mark for
+            `Restore .RData into workspace at startup:`
+        2.  and set `Save workspace to .RData on exit:` to **Never**.
+    2.  Under **History** you
+        1.  removed the tick-mark for
+            `Always save history (even when not saving .RData)`
+3.  The DST servers are re-booted every night between Sunday and Monday
+    which clears all your RStudio settings. The first time every week
+    you login to the DST servers and open RStudio, you have to change
+    these settings again.
+4.  These settings are necessary because any saved `.RData` files can be
+    extremely big an take up a lot of file space which we pay big money
+    for, they are the number one method to shoot yourself in the foot,
+    screw up your analyses or in a best case scenario just make your
+    analyses impossible to replicate. You also want to avoid populating
+    the world with unnecessary `.Rhistory` files.
+5.  Use relative paths within the project and absolute paths outside of
+    the project, e.g., absolute paths to raw data files.
+6.  Never use `setwd` to set a working directory. This is all handled by
+    the RStudio project.
+7.  Some users think that it is a good idea to use `gc()` (for garbage
+    collection) but that relies on a misunderstanding. The role of
+    `gc()` is to release memory to the system that is no longer used to
+    objects in **R**, but **R** continuously runs `gc()` itself and
+    explicitly calling `gc()` rarely speeds up this process
+    significantly.
 
 # Flow diagram
 
