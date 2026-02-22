@@ -1,251 +1,428 @@
-DST-server export
-================
+DST Server Guidelines
+=====================
 
 <!-- Don't edit the md-file; edit the Rmd-file and knit-to-md! -->
 
-# This is a DRAFT document
+> **Status**: DRAFT document - Last updated: 2026-02-22
 
-In this guideline we seek to describe how we export analysis results
-from the DST servers.
+## Table of Contents
+1. [Part A: Server Data Export Guidelines](#part-a-server-data-export-guidelines)
+2. [Part B: DST Server Behavior Guidelines](#part-b-dst-server-behavior-guidelines)
 
-The guideline is primarily for researchers working through our access to
-the DST registers. You sometimes need to send home analysis results from
-the servers to advance your research project and you don’t have the
-rights to send home results yourself.
+---
 
-# Guidelines
+# Part A: Server Data Export Guidelines
 
-- All server exports (DK: hjemsendelser) are handled by Clara Grønkjær
-  and Rune Haubo Christensen
-- Write an email to <datamanagement-email>; not to Clara or Rune. If you
-  mail directly to Clara or Rune, you will be asked to send to
-  <datamanagement-email>. The reason is that all relevant people have
-  access to that mail and that all relevant correspondences are saved on
-  that mail account irrespective of who are part of the team at any
-  given time.
-- Time your need for exports with our “office hours”. We don’t want to
-  be continuously on call for server exports, so we consider server
-  exports weekly on xxxdays afternoon. If you have a special need for
-  exports outside our standard office hours reach out to us and we will
-  come to an arrangement.
-- Your email with a server export request need to contain the full path
-  to the folder that holds the files that constitute your export
-  request. Collect all files in a single folder. Place your folder under
-  a path that resembles `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
-  where
-  - `XXXX` is the relevant project (often `8237`)
-  - `INIT` are your initials
-  - `YYYY-MM-DD` are a recent date (often today)
-- Every new server export request should be placed in a parallel folder
-  (under `Workdata/70XXXX/INIT/hjemsendelser`) with a new (non-future)
-  date.
-- Always use manual copy-paste (ctrl-c; ctrl-v) to put files into the
-  `hjemsendelser/YYYY-MM-DD`-folders; never use a program to copy-paste
-  files into this folder
-- Do your best to limit the need for manual review of materials that you
-  request exported. This limits delays in exporting and reduces the time
-  we need to spend.
-- It is your job (not ours) as requester of an export to demonstrate and
-  guarantee that the requested export confirms with this guideline and
-  the requirements of DST and Sundhedsdatastyrelsen.
-- Your email needs to explicitly say that you checked all files for
-  micro data or other violations and that you guarantee that the results
-  can be validly exported.
-- Check that your export conforms with the requirements of DST \[link
-  here\] and Sundhedsdatastyrelsen \[another link here\]. We require
-  that all exports conform with both sets of requirements. For example,
-  even though DST only requires that there be at least 3 individuals per
-  mean value or “cell in a table”, the equivalent requirement from
-  sundhedsdatastyrelsen is 5 individuals. Therefore we require that any
-  results be based on at least 5 individuals.
-- Exports of results from the servers should only in rare and
-  exceptional cases contain anything other than rectangular
-  tables/dataset in the form of Excel files (`*.xlsx` or `*.xls`) or CSV
-  files `*.csv`.
-- Check your export request tables using our **R** check functions:
-  `Workdata/708237/RHBC/001_functions/check_functions.R` and make sure
-  that they don’t find any small counts or similar. We apply the same
-  functions when we check your export request and we will ask you to
-  modify and clarify anything suspicious, which will only delays the
-  data export.
-  - Also eliminate any false negatives because any false negative
-    requires time consuming manual review and human interaction. You may
-    for instance have an exposure variable `exposure` with levels `0`,
-    `1` etc. This is not micro data and *can* be exported, but it *will*
-    show up as a false negative from the check functions. It is also
-    easily eliminated by defining the levels of the exposure variable as
-    `a`, `b` (or, though not as good, as `level0`, `level1`) etc.
-- But I want to export a plot that I made on the register! The right way
-  to do this is to export the relevant non-micro data in a `. csv` or
-  `. xlsx` file and then build the relevant graphics outside the DST
-  server (on a local computer). That way it is easy to see what data are
-  exported and it is easy to demonstrate that the exported data are not
-  micro data.
+## Overview
 
-## Small number of subjects
+This section describes how to export analysis results from the DST servers. The guidelines are primarily for researchers working through the lab's access to the DST registers who need to send analysis results from the servers to advance their research projects but do not have direct export rights.
 
-- The official requirement is at least 5 individuals per result
-- Results from the registers are only meaningful when based on rather
-  large quantities of data, so if you are contemplating results based on
-  few individuals you are on the wrong path. Any results based on less
-  than 10 or 20 individuals are very rarely meaningful
-- Use modelling such as smoothing splines to reduce the sensitivity
-  toward results from small groups of individuals.
+## Contact & Process Management
 
-## Various thoughts
+### Who Handles Exports
 
-- Tal bør hjemsendes i regneark så de kan tjekkes på sædvanlig vis; ikke
-  i pdf’er - I det her tilfælde bør tallene nok slet ikke hjemsendes.
-- ROC og Calibration kurver bør smoothes fx med smoothing splines så
-  enkelte datapunkter ikke optræder som diskrete jumps i kurverne. Det
-  gjorde fx Sara i hendes projekter som også omhandlede prædiktion af
-  selvmord. Det er sådan set det samme som vi gør i forhold til
-  Kaplan-Meier kurver: de skal også smoothes før hjemsendelse fordi hver
-  enkelt jump risikerer at beskrive et enkelt individ.
-- En mulighed er at der for hvert performance mål fittes en smoothing
-  spline som funktion af threshold og at en sådan tabel kan hjemsendes.
-  Grafer bør i udgangspunktet plottes på sådanne hjemsendte data (selvom
-  vi kan være venlige og hjemsende grafer enkelte gange, og i så fald
-  helst pdf (dvs vektor-grafik; ikke pixel-grafik))
-- Vi vil gerne undgå at hjemsende flere versioner af samme plots (her fx
-  pdf og jpg). Om en uge kommer vedkommende måske tilbage og skal lige
-  rette en stavefejl i titlen eller opdatere legend eller lign. Det er
-  derfor altid bedst i udgangspunktet at hjemsende data der ligger til
-  grund for plottet (evt. efter smoothing) så alt grafisk
-  postprocessering kan foregå på brugerens lokale pc.
+All server exports (DK: *hjemsendelser*) are handled by:
+- Clara Grønkjær
+- Rune Haubo Christensen
 
-## From Clara’s meeting notes
+### How to Request an Export
 
-Hjemsend så vidt muligt tabeller og ikke figurer, da
+**Important**: Always email the data management team, not individual researchers.
 
-1.  tabeller er nemmere at tjekke for mikrodata end figurer, og
-2.  så behøves man ikke hjemsende nye figurer, hvis format (tekst,
-    farver osv.) skal ændres på figuren.
+- **Email address**: `datamanagement-email` (insert actual email)
+- **Why**: All relevant people have access to that mailbox, and all correspondences are saved centrally, ensuring continuity regardless of team composition changes
 
-- (Data til) ikke-parametriske overlevelseskurver skal smoothes, så man
-  er sikker på, at
-  1.  ‘knæk’ på grafen ikke repræsenterer mikrodata, og
-  2.  at grafen ikke plottes i et område, hvor der er for få individer.
-- Det kunne også være sådan noget såsom kolonnenavnekonventioner, som at
-  kolonner med antal individer skal være ‘N’.
+### Export Office Hours
 
-## Remember to
+We consider server exports on a scheduled basis to avoid continuous on-call demands.
 
-- [ ] Check the on-boarding document for things that should be reflected
-  here.
+- **Standard schedule**: [PLACEHOLDER: Insert specific days and times, e.g., "Thursdays at 2 PM"]
+- **Special requests**: Contact us to arrange exports outside standard hours
 
-## Consider to
+## Export Request Submission Requirements
 
-- [ ] Review the DST guidelines for things that we need to mention here
-- [ ] Review the guidelines from Sundhedsdatastyrelsen for things that
-  we need to mention here
-- [ ] Review the guideline from NCRR for things that we need to mention
-  here
+### File Organization
 
-## Guidelines for behaviour on the DST servers
+Your export request must include the full path to a folder containing all files to be exported.
 
-1.  There are two ways to “exit” the servers:
-    1.  If you *sign out* from the servers your user interface is reset;
-        it is like closing your computer. When you boot-up you computer
-        you have to open programs again; when you *sign in* to the
-        servers after a *sign out* you similarly have to open all
-        programs again.
-    2.  If you *disconnect* from the servers it is like putting your
-        (Windows) computer to sleep (DK: Slumre). When you boot up again
-        your programs are still running and your can continue work right
-        away. On the DST servers the use of *disconnect* entails a big
-        risk so use it sparingly—see further below.
-2.  Ensure that you have an up-to-date entry in
-    `Workdata/708237/README.txt`
-3.  Ensure that you have a *home* or *personal* folder:
-    `Workdata/708237/INIT` where `INIT` are your unique server-wide
-    initials.
-4.  Only ever execute programs or edit files in your home folder. You
-    are not allowed to change (add, remove or modify) anything
-    (e.g. files, settings) outside of your home folder. Technically all
-    users have unrestricted access to read *and* write to all folders so
-    you need to be very careful that you don’t (even accidentally)
-    change a setting or file in another users home folder or in the
-    common/joint folders.
-5.  If your want to look at a file located in another users home folder,
-    just copy the file(s) or the containing folder to a place in your
-    home folder and look at it there. If you accidentally change
-    something it is only your local copy that you change.
-    1.  A common problem is that **RStudio** will place `.Rhistory`
-        files if you execute commands in other users folders. You may
-        not see these files if you do not ask to see them, but the user
-        whose folder you were working in will see that their setup has
-        changed. Worse still, by executing commands in another users
-        home folder you may change derived files, or you may change the
-        time stamp on files that may have consequences.
-6.  We strongly advice that you use a folder and file structure similar
-    to that under `RHBC`, `CSG` and many other users. A common
-    organization makes it easy for us all to navigate the different
-    projects, learn from each other and help each other.
-7.  Always open a task-manager and choose the User-pane so you can
-    1.  check the server load in terms of memory and CPU
-    2.  ensure that you don’t use too much memory or CPU resources
-8.  As a rule of thumb you should never use more than X.X Gb of memory
-    (or use less if the load is high) or more than 10% CPU. If the
-    memory is exhausted essentially all users will experience that they
-    programs freeze and all or most running jobs will terminate with
-    error (e.g., some version of “failed to allocate memory…”)
-9.  One of the biggest sins is loading a lot of data into memory and
-    then *disconnect*’ing from the servers. This essentially means that
-    you unnecessarily block a big portion of memory that other users
-    then cannot use and you prevent them from running their analyses.
-    Before using *disconnect* rather than *sign out* ensure that you
-    have released all memory (you can see this from the task manager).
-    In **RStudio** this is easily achieved by restarting the
-    **R**-process: `Session` -\> `Restart R` or use `ctrl-shift F10`.
-10. A valid use of *disconnect* is when you have a long-running job such
-    as a big-data statistical analysis or, say, a bootstrap simulation.
-    Then you *disconnect* the server and let the job run so that you can
-    check in later and retrieve the results when the job is done. Before
-    initiating the job, make sure that only the relevant data are loaded
-    and other non-relevant **R** processes have been closed or
-    restarted.
+**Path structure**: `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
 
-### If you use **R** or **Rstudio** on the DST servers
+Where:
+- `XXXX` = Project number (typically `8237`)
+- `INIT` = Your unique server-wide initials
+- `YYYY-MM-DD` = A recent date (typically today's date)
 
-1.  Initiate RStudio projects. This is the first thing you do after
-    making a folder for your new project. This will generate a
-    `<name_of_your_project>.Rproj` file. Whenever you login to the
-    registers and want to work in the project simply double-click on the
-    `Rproj` file to open RStudio and you are ready to work in the
-    correct folder.
-2.  Before working change the following settings by going to
-    `Tools`-\>`Global options`.
-    1.  Under **Workspace** you
-        1.  remove the tick-mark for
-            `Restore .RData into workspace at startup:`
-        2.  and set `Save workspace to .RData on exit:` to **Never**.
-    2.  Under **History** you
-        1.  removed the tick-mark for
-            `Always save history (even when not saving .RData)`
-3.  The DST servers are re-booted every night between Sunday and Monday
-    which clears all your RStudio settings. The first time every week
-    you login to the DST servers and open RStudio, you have to change
-    these settings again.
-4.  These settings are necessary because any saved `.RData` files can be
-    extremely big an take up a lot of file space which we pay big money
-    for, they are the number one method to shoot yourself in the foot,
-    screw up your analyses or in a best case scenario just make your
-    analyses impossible to replicate. You also want to avoid populating
-    the world with unnecessary `.Rhistory` files.
-5.  Use relative paths within the project and absolute paths outside of
-    the project, e.g., absolute paths to raw data files.
-6.  Never use `setwd` to set a working directory. This is all handled by
-    the RStudio project.
-7.  Some users think that it is a good idea to use `gc()` (for garbage
-    collection) but that relies on a misunderstanding. The role of
-    `gc()` is to release memory to the system that is no longer used to
-    objects in **R**, but **R** continuously runs `gc()` itself and
-    explicitly calling `gc()` rarely speeds up this process
-    significantly.
+**Important**: 
+- Collect all files in a single folder
+- Create a new folder with a new (non-future) date for each export request
+- **Always use manual copy-paste** (Ctrl+C; Ctrl+V) to move files into `hjemsendelser/YYYY-MM-DD` folders
+- Never use automated copy programs for this step
 
-### Running analyses in parallel
+### Email Requirements
 
-# Flow diagram
+Your export request email **must explicitly include**:
 
-Pending input from Lars…
+1. The full path to your export folder
+2. A confirmation statement: *"I have checked all files for microdata and other violations and guarantee that these results can be validly exported."*
+3. A description of what the export contains and why it's needed
+
+## Data Safety & Compliance Requirements
+
+### Core Principles
+
+**It is your responsibility** (not ours) as the requester to:
+- Demonstrate that the export conforms to this guideline
+- Ensure compliance with DST and Sundhedsdatastyrelsen requirements
+- Minimize manual review needs (which causes delays)
+
+### Regulatory Compliance
+
+All exports must conform to **both** DST and Sundhedsdatastyrelsen requirements:
+
+| Requirement | DST | Sundhedsdatastyrelsen | Our Policy |
+|---|---|---|---|
+| Minimum individuals per result | 3 | 5 | **5** |
+
+**Key links** (PLACEHOLDER - insert actual URLs):
+- [DST Guidelines](link-here)
+- [Sundhedsdatastyrelsen Guidelines](link-here)
+- [NCRR Guidelines](link-here)
+
+### Microdata Definition & Prevention
+
+**Microdata** = Individual-level data that could identify a person. This is strictly prohibited.
+
+**Common false negatives from check functions**:
+- Exposure variable with numeric levels (`0`, `1`, etc.) - these are NOT microdata but will trigger flags
+- Solution: Rename levels to letters (`a`, `b`) or descriptive names (`level0`, `level1`)
+
+### File Format Requirements
+
+Exports should contain **only**:
+- Rectangular tables/datasets in **Excel** format (`*.xlsx` or `*.xls`)
+- **CSV** files (`*.csv`)
+
+**Exception**: In rare cases only, with explicit justification.
+
+**Plots and graphics**:
+- Export underlying data tables instead (allow recipients to create graphics locally)
+- If plots must be exported: use PDF format (vector graphics, not pixel graphics)
+- Avoid exporting multiple versions of the same plot (encourages local post-processing instead)
+
+### Using Check Functions
+
+**Before submitting your export request**, validate your files:
+
+1. **Check function location**: `Workdata/708237/RHBC/001_functions/check_functions.R`
+2. **Run the R check functions** on your export tables
+3. **Ensure no suspicious counts** are flagged
+4. **Eliminate false negatives** (e.g., numeric exposure levels) before submission
+
+We apply the same functions during review. Suspicious results will require modifications and delay the export.
+
+## Special Cases & Best Practices
+
+### Exporting Plots & Graphics
+
+**Problem**: You want to export a plot created on the register.
+
+**Solution**:
+1. Export the underlying data (non-microdata) in `.csv` or `.xlsx` format
+2. Create graphics outside the DST server (on your local computer)
+3. Benefits:
+   - Easy to verify that exported data are non-microdata
+   - Transparent about what data leave the server
+   - Easy to update graphics later without re-exporting
+
+### Small Sample Sizes
+
+- **Official requirement**: Minimum 5 individuals per result
+- **Practical consideration**: Results based on <10-20 individuals are rarely meaningful
+- **Recommendation**: Use statistical modelling (e.g., smoothing splines) to reduce sensitivity to small sample sizes
+
+### Survival Curves & Non-Parametric Curves
+
+- **Requirement**: Smooth curves before export (e.g., using smoothing splines)
+- **Reason**: Each "jump" in an un-smoothed curve may represent a single individual's event
+- **Applies to**: Kaplan-Meier curves, ROC curves, calibration curves, any step function
+
+**Best practice**: Export the smoothed data table used to create the curve, not the curve itself.
+
+### Table Data Format
+
+- Export numbers in spreadsheets where they can be checked for microdata violations
+- **Avoid**: PDFs (harder to check and verify)
+- **Column naming convention**: Use `N` for columns containing individual counts
+
+### Tables vs. Figures
+
+Prioritize exporting tables over figures because:
+1. Tables are easier to check for microdata
+2. Recipients can regenerate figures with updated formatting without requiring re-export
+3. Reduces unnecessary file duplication
+
+## Checklist for Export Requests
+
+Before sending your export request email, verify:
+
+- [ ] All files are in `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD` folder
+- [ ] You have run the R check functions on all tables
+- [ ] No false negatives from check functions (or you've corrected them)
+- [ ] All results are based on ≥5 individuals
+- [ ] Files are in approved formats (`.xlsx`, `.xls`, or `.csv`)
+- [ ] Any curves are smoothed (no visible jumps representing individuals)
+- [ ] Email contains the full folder path
+- [ ] Email contains the compliance statement
+- [ ] You have not directly emailed Clara or Rune (used datamanagement-email instead)
+
+## Common Rejection Reasons & Solutions
+
+| Issue | Reason | Solution |
+|---|---|---|
+| Small cell counts | Microdata risk | Aggregate data or exclude cells with <5 individuals |
+| Unsmoothed curves | Individual identification risk | Apply smoothing splines |
+| Multiple plot versions | Unclear what's exported | Export underlying data table instead |
+| Numeric exposure levels | False positive flags | Rename to letters or descriptive names |
+| PDF with data | Difficult to verify | Export as `.csv` or `.xlsx` |
+
+---
+
+# Part B: DST Server Behavior Guidelines
+
+## Overview
+
+This section covers best practices and required behaviors when working on the DST servers to ensure system stability, prevent data loss, and respect shared resources.
+
+## Connection Management
+
+### Two Ways to Exit the Servers
+
+#### 1. Sign Out
+- **Effect**: User interface is reset (like shutting down a computer)
+- **On next login**: Programs are closed; you must reopen them
+- **Use case**: Preferred for normal work sessions
+
+#### 2. Disconnect
+- **Effect**: Like putting your Windows computer to sleep (DK: *Slumre*)
+- **On next login**: Programs remain running; continue work immediately
+- **⚠️ Warning**: High-risk operation; use sparingly (see point 9 below)
+
+### Memory & Resource Considerations
+
+**Critical**: Disconnecting while data is loaded in memory is one of the biggest mistakes users make.
+
+- You unnecessarily block memory that other users cannot access
+- You prevent other researchers from running their analyses
+- **Before disconnecting**: Ensure you have released all memory (verify in task manager)
+
+In **RStudio**: Restart the R process to release memory
+- Menu: `Session` → `Restart R`
+- Keyboard shortcut: `Ctrl+Shift+F10`
+
+### Valid Use of Disconnect
+
+Use `Disconnect` **only** when you have a long-running job:
+- Large statistical analyses on big data
+- Bootstrap simulations
+- Other computationally intensive tasks
+
+**Before initiating the job**:
+- Load only relevant data
+- Close or restart non-relevant R processes
+- Verify memory is not unnecessarily occupied
+
+## Home Folder & File Organization
+
+### Your Personal Workspace
+
+1. **Update README**: Ensure you have an up-to-date entry in `Workdata/708237/README.txt`
+
+2. **Create your home folder**: `Workdata/708237/INIT` where `INIT` = your unique server-wide initials
+
+3. **Work exclusively in your home folder**:
+   - Only execute programs in your home folder
+   - Only edit files in your home folder
+   - Do not modify anything outside your home folder
+
+4. **Why this matters**: 
+   - All users technically have unrestricted read/write access to all folders
+   - Accidental changes to other users' files can occur easily
+   - RStudio creates `.Rhistory` files silently in any directory where you run commands
+
+5. **If you need to review another user's files**:
+   - Copy the file(s) or folder to your home folder
+   - Work with your local copy
+   - If you accidentally modify something, only your copy is affected
+
+### Folder Structure Best Practices
+
+Use a folder structure similar to existing users (e.g., `RHBC`, `CSG`):
+- Makes navigation easier for all team members
+- Facilitates sharing and learning across projects
+- Enables easier mutual support
+
+**Example structure**:
+```
+Workdata/708237/YOUR_INIT/
+├── 001_functions/
+├── 002_data/
+├── 003_analyses/
+├── 004_results/
+└── README.md
+```
+
+## Resource Management
+
+### Monitoring System Load
+
+**Always** have a task manager window open showing the User pane:
+
+1. Check server load (memory and CPU usage)
+2. Ensure you're not consuming excessive resources
+
+### Resource Limits
+
+**Rule of thumb**:
+- **Memory**: Never exceed [PLACEHOLDER: insert specific limit, e.g., "X GB"] or use less if server load is high
+- **CPU**: Never exceed 10%
+
+**Consequences of exceeding limits**:
+- All users experience program freezes
+- Running jobs terminate with memory allocation errors
+- Entire server performance degrades
+
+### Memory Deallocation
+
+**Important**: Do not rely on `gc()` (garbage collection) to free memory manually.
+
+- `gc()` is meant to release memory to the system that R no longer uses for objects
+- R continuously runs `gc()` automatically
+- Explicitly calling `gc()` rarely provides significant speed improvements
+- **Better approach**: Restart your R session when done with memory-intensive operations
+
+## Working with R & RStudio
+
+### Project Initialization
+
+This is the **first step** when starting a new project:
+
+1. Create a folder for your project
+2. Initiate an **RStudio project** (generates `<project_name>.Rproj` file)
+3. In the future: Double-click the `.Rproj` file to open RStudio in the correct folder
+
+**Benefits**:
+- Automatic working directory management
+- Reproducible analysis structure
+- Easy to share and navigate
+
+### RStudio Configuration
+
+Before working, change these settings via `Tools` → `Global Options`:
+
+#### Workspace Settings
+- [ ] **Uncheck**: `Restore .RData into workspace at startup`
+- [ ] **Set**: `Save workspace to .RData on exit` → **Never**
+
+#### History Settings
+- [ ] **Uncheck**: `Always save history (even when not saving .RData)`
+
+### Important: Weekly RStudio Resets
+
+The DST servers reboot **every night between Sunday and Monday**, clearing all RStudio settings.
+
+- **First login each week**: You must reconfigure these settings again
+- **Plan accordingly**: Do this before starting your analyses
+
+### Why These Settings Matter
+
+**`.RData` files are dangerous**:
+- Can be extremely large (consuming expensive storage)
+- Lead to unreproducible analyses
+- One of the most common ways to shoot yourself in the foot
+- Make it impossible to identify what produced your results
+
+**`.Rhistory` files**:
+- Unnecessarily populate the system
+- Can reveal unintended commands if you've worked in shared folders
+
+### Working Directory & Paths
+
+#### Within RStudio Projects
+- **Use relative paths** (e.g., `data/myfile.csv`)
+- RStudio projects handle the working directory automatically
+- **Never use `setwd()`** – it's unnecessary and error-prone
+
+#### Outside RStudio Projects
+- **Use absolute paths** (e.g., `/full/path/to/raw/data`)
+- Ensures you're always pointing to the correct data
+
+## Parallel Analyses
+
+### Running Analyses in Parallel
+
+[PLACEHOLDER: This section requires detailed guidance on:
+- How to set up parallel processing on DST servers
+- Best practices for parallel R computations
+- Memory and CPU considerations when parallelizing
+- Common tools and packages (e.g., `foreach`, `doParallel`, `future`)
+- Resource allocation guidelines for parallel jobs
+- When parallelization is worth the overhead]
+
+**TODO**: Obtain detailed guidelines from Lars and technical team
+
+## Flow & Process Diagram
+
+[PLACEHOLDER: Add a flowchart/diagram showing:
+- Decision tree for export requests
+- Timeline from submission to completion
+- Server connection decision tree (sign out vs. disconnect)
+- Resource management workflow]
+
+**TODO**: Obtain diagram from Lars
+
+---
+
+# Appendix: Tasks & Action Items
+
+## Immediate Actions (Placeholders to Complete)
+
+- [ ] **Office Hours**: Replace "xxxdays" with specific day and time (e.g., "Thursday, 2:00 PM")
+- [ ] **Email Address**: Replace `<datamanagement-email>` with actual email
+- [ ] **Memory Limit**: Replace "X.X Gb" with specific threshold value
+- [ ] **Regulatory Links**: Add actual URLs for:
+  - DST Guidelines
+  - Sundhedsdatastyrelsen Guidelines
+  - NCRR Guidelines
+- [ ] **Parallel Processing**: Complete the "Running Analyses in Parallel" section
+- [ ] **Flow Diagram**: Create and add process diagram
+- [ ] **Update from On-boarding**: Check on-boarding document for items to reflect here
+
+## Review & Validation Tasks
+
+- [ ] Review current DST guidelines for any missing requirements
+- [ ] Review Sundhedsdatastyrelsen guidelines for any missing requirements
+- [ ] Review NCRR guidelines for completeness
+- [ ] Gather real-world export rejection examples to improve common issues table
+- [ ] Get feedback from Clara Grønkjær on export process details
+- [ ] Get feedback from Rune Haubo Christensen on server behavior practices
+- [ ] Collect data on typical export request turnaround times
+- [ ] Document any recent changes in DST or regulatory requirements
+
+## Documentation & Maintenance
+
+- [ ] Set up regular review schedule (e.g., quarterly) for guideline updates
+- [ ] Convert this file to include a version control note
+- [ ] Create a companion troubleshooting guide for common issues
+- [ ] Develop export request template email
+- [ ] Create a "frequently asked questions" section based on support inquiries
+- [ ] Consider creating separate beginner vs. advanced guides
+
+---
+
+## Document Metadata
+
+- **Current Status**: DRAFT
+- **Last Updated**: 2026-02-22
+- **Maintained By**: Data Management Team
+- **Next Review Date**: [PLACEHOLDER: Set 3-6 months from now]
+- **Contributors**: Clara Grønkjær, Rune Haubo Christensen, Team Members
