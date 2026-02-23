@@ -2,9 +2,9 @@ Definition of Study Population and Variables
 =====================
 
 > - **Status:** DRAFT document
-> - **Author:** Clara Springhorn Grønkjær
+> - **Author:** Clara S. Grønkjær, Rune H. B. Christensen, Eva N. S. Wandall
 > - **Date:** 2024-12-18
-> - **Last edit**: 2026-02-22 (RHBC)
+> - **Last edit**: 2026-02-23 (ENSW)
 
 ---
 
@@ -118,11 +118,25 @@ Individuals are categorized into **population-level income quintiles**:
 
 # Education
 
-Highest attained education level is derived from the **UDDA register** (DK: Uddannelsesregister).
+Highest attained education level is derived from the **UDDF register** (DK: Uddannelsesregister).
 
-Education is categorized based on variable `XXX` (exact variable name to be specified).
+Information on education are obtained from various sources of different quality. The proportion of different source types over time can be found here: https://www.dst.dk/da/TilSalg/Forskningsservice/Dokumentation/hoejkvalitetsvariable/hoejst-fuldfoerte-uddannelse/hf-kilde
 
-| Group                          | XXX Value | Mapping Description                           |
+Note that:
+
+* All information on education obtained before 1970 are self-reported.
+
+* Education for foreigners might be self-reported, based on previous qualifications needed to begin education or work in Denmark, or imputed.
+
+The variable `hf_kilde` identifies imputed information (given by values 10,16,18,7,9).
+
+The imputation is based on information that we do not have access to in the registers. DST provides details on the imputation in the following: https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=formid&fo=medbragt-udd--pdf&ext=%7B2%7D
+
+Education is categorized based on variable `hfaudd`.
+
+
+
+| Group                          | hfaudd value | Mapping Description                           |
 | ------------------------------ | --------- | --------------------------------------------- |
 | No education                   | —         | No registered education                       |
 | Primary school                 | —         | Primary education                             |
@@ -130,6 +144,8 @@ Education is categorized based on variable `XXX` (exact variable name to be spec
 | Gymnasium                      | —         | Upper secondary school                        |
 | Higher education (short cycle) | —         | Short tertiary education                      |
 | Higher education (long cycle)  | —         | Long tertiary education                       |
+
+ A mapping can be found in ./03_keys/N_AUUD_HOVED_E_L5L5_KT.txt and ./03_keys/N_AUDD_HOVED_L1L5_KT.txt. 
 
 *(Note: Vocational training and gymnasium may optionally be separated.)*
 
@@ -139,13 +155,13 @@ Education is categorized based on variable `XXX` (exact variable name to be spec
 
 * Older individuals and immigrants may have self-reported education.
 * Immigrants (particularly pre-1970 migrants) have self-reported education.
-* Missing education values for immigrants are imputed by DST.
+* Missing education values for immigrants are imputed by DST. Imputed values can be a problem for prediction models and uncertainty measurements in statistical analyses.
 * No explicit missing category exists.
 
 ✔ **Possible Solutions**
 
 * Exclude individuals with imputed education.
-* Create binary indicator for imputed education using `UDDF` (exact variable to confirm).
+* Create binary indicator for imputed education using `hf_kilde`.
 * Stratify analyses by imputed vs non-imputed education.
 * Separate vocational training and gymnasium into distinct categories.
 
@@ -211,14 +227,29 @@ Primary variable used: `SOCIO_13` (from AKM)
 
 Derived from:
 
+* PCR (DK: Det Psykiatriske Centrale Forskningsregister)
 * LPR2 (DK: Landspatientregisteret version 2)
 * LPR3 (DK: Landspatientregisteret version 3)
+
+The definition of contacts changes from LPR2 to LPR3. In LPR2, a contact is recorded at the level of a complete treatment sequence, which can be either
+* an inpatient admission
+* an outpatient treatment course
+* an emergency department visit.
+
+In LPR3 2019, a contact is recorded at the level of an element in a treatment sequence, e.g. an inpatient admission where the patient has three meetings with a psychiatrist is recorded as one contact in LPR2 and three contacts in LPR3. The number of contacts and diagnoses increases significantly after 2019. Several potential issues arises when combining data from LPR2 and LPR3, e.g. around the time of transition some contacts are artificially closed and reopened. 
+
+Currently, only diagnoses given at psychiatric departments are considered. Adding diagnoses from neurological departments (or all somatic departments) might make sense, especially for organic mental disorders.
+
+b1diag, b2diag, b3diag are coded as supplementary codes in PCR8. 
+
+An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and ASD diagnoses) as a tillægskode before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the primary diagnosis will be a Z-code.
 
 ---
 
 ⚠ **Possible Problems**
 
-* Autism and ADHD diagnoses may appear as supplementary codes in LPR2 rather than primary diagnoses.
+* It might be more appropriate to classify b1diag, b2diag, b3diag in PCR8 as secondary diagnoses, cf: https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette.
+* An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and autism spectrum diagnoses) as a supplementary codes before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the suplementray code specify a primary Z-code diagnosis.
 * Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined.
 * In LPR2, `c_adiag` should not be used — use `c_diag`.
 
@@ -227,6 +258,7 @@ Derived from:
 * Harmonize diagnosis definitions across LPR2 and LPR3.
 * Explicitly document primary vs supplementary diagnosis strategy.
 * Conduct sensitivity analyses across register versions.
+* A mapping of inpatient contacts across LPR2 and LPR3 can be found in *Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study* (Grønkjær et al., 2025)
 
 ---
 
