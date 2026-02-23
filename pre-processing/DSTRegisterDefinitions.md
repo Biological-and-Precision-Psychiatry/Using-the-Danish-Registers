@@ -94,37 +94,16 @@ to the most common group/0-20% group (?).
 ## Education
 
 The highest attained education level is derived from the UDDA register.
+They are divided based on the XXX variable
 
-The following levels are currently used:
--	No education information
--	Mandatory school
--	High school or vocational training
--	Short higher education (Bsc-level)
--	Higher education  (Ms/Phd-level)
-
-With nearly 5000 different educations, it does not make sense to make the table in the current document. A mapping can be found in ./03_keys/N_AUUD_HOVED_E_L5L5_KT.txt and ./03_keys/N_AUDD_HOVED_L1L5_KT.txt.
-
-Information on education are obtained from various sources of different quality. 
-The proportion of different source types over time can be found here: https://www.dst.dk/da/TilSalg/Forskningsservice/Dokumentation/hoejkvalitetsvariable/hoejst-fuldfoerte-uddannelse/hf-kilde
-
-Note that 
-
-1.	All information on education obtained before 1970 are self-reported. 
-
-2.	Education for foreigners might be self-reported, based on previous 
-qualifications needed to begin education or work in Denmark, or imputed.
-
-Note that imputed values can be a problem for prediction models and uncertainty
-measurements in statistical analyses.
-
-The variable hf_kilde in UDDF can be used to identify imputed information (given 
-by values 10,16,18,7,9).
-
-The imputation is based on information that we do not have access to in the 
-registers, and it seems like it does a reasonable job. DST provides details on 
-the imputation in the following file: 
-
-https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=formid&fo=medbragt-udd--pdf&ext=%7B2%7D
+|  |  |  |
+|----|----|----|
+| **Group** | **XXX value** | **XXX mapping** |
+| No education |  |  |
+| Primary school |  |  |
+| Vocational training or gymnasium |  | <span class="mark">Vocational training and high school could be divided in two categories</span> |
+| Higher education, short cycle |  |  |
+| Higher education, long cycle |  |  |
 
 <u>(!) Possible problems:</u>
 
@@ -132,10 +111,10 @@ https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=formid&fo=medbrag
   self-reported data or is imputed by DST. Therefore, there are no
   missing values in this data.
 
-- Education for immigrants (and Danes before 1970) are in some cases
-  self-reported
+- Uddannelsesniveau for indvandrere (danskere før 1970) er
+  selvrapporteret
 
-- Missing values for immigrants are in some cases imputed (er markeret,i variabel )
+- Missing værdier for indvandrere er imputeret (er markeret,i variabel )
 
 <u>Possible solutions:</u>
 
@@ -143,7 +122,8 @@ https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=formid&fo=medbrag
 
 - Impute individuals with missing values
 
-- Create binary value marking imputed values
+- Lav binær om uddannelsesnivueau er imputeret fra variable UDDF
+  (Hvilken variabel Eva)
 
 - Vocational training and high school could be divided in two
   categories.
@@ -174,7 +154,7 @@ variable:
   considered people of less severe socioeconomic status, thus more
   similar to unemployed.
 
-- Cash benefits (*kontakthjælp*) is allocated to the Retired group but
+- Cash benefits (k*ontakthjælp*) is allocated to the Retired group but
   are potentially able to resume work.
 
 - Missing values are allocated to the Unemployed group (?).
@@ -204,31 +184,18 @@ SOCIO13: ”Øvrige ude af erhverv( kode 410) ”)
 
 323: Efterløn. Retired instead of not in workforce?
 
+<span id="_Toc185432417" class="anchor"></span>Psykiatriske diagnoser
 
+## 
 
-## Psykiatriske diagnoser
+## Potentielle problemer:
 
-(!) Potentielle problemer:
+## Især for Autisme of ADHD diagnoser kan ligge som tillægskoder (i LPR2 og før) og ikke som primær diagnose som kunne være en Z-kode (Jonas)
 
-The psych_diags_all file only contains diagnoses given at psychiatric departments.
-We could consider adding diagnoses from neurological departments (or all somatic departments). Especially relevant for organic mental disorders.
+Stor forskel i hvordan psykiatriske diagnoser er rapporteret i LPR2 og
+LPR3
 
-b1diag, b2diag, b3diag are coded as "tillægskoder" for PCR8. ENSW: Maybe it is more 
-appropriate to consider them as secondary diagnoses (https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette).
-
-An increasing number of individuals receive a F-chapter diagnosis (especially 
-ADHD and ASD diagnoses) as a tillægskode before receiving the diagnosis as a primary or
-secondary diagnosis. In most cases, the primary diagnosis will be a Z-code.
-
-The definition of contacts changes from LPR2 to LPR3. In LPR2, a contact is recorded at the level of a complete treatment sequence, which can be either
-
-1. an inpatient admission 
-2. an outpatient treatment course
-3. an emergency department visit. 
-
-In LPR3 2019, a contact is recorded at the level of an element in a treatment sequence, e.g. an inpatient admission where the patient has three meetings with a psychiatrist is recorded as one contact in LPR2 and three contacts in LPR3. The number of contacts and diagnoses increases significantly after 2019. Several potential issues arises when combining data from LPR2 and LPR3, e.g. around the time of transition some contacts are artificially closed and reopened. A mapping of inpatient contacts can be found in *Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study* (Grønkjær et al., 2025)
-
-LPR2: Don't use c_adiag, use instead c_diag (Why?)
+LPR2: Brug ikke C_adiag, men brug C_diag
 
 LPR2:
 
@@ -236,9 +203,10 @@ LPR2:
 
 (!) Possible problems:
 
-Some fathers are not registred and some fathers are not the real ones.
+Nogle fædre er ikke registret og nogle fædre er ikke de rigtige.
 
-Please note that there is a difference between growing up with parents who have a mental illness and parents who are diagnosed later in life.
+Vær opmærksom på at der er forskel på at vokse op med forældre med
+psykisk sygdom og hvis forældre får diagnosen senere i livet.
 
 Possible solutions:
 
