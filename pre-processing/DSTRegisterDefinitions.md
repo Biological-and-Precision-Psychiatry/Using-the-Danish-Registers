@@ -28,17 +28,17 @@ The topics covered are:
 
 [Study population and flags](#study-population-and-flags)
 
-[Income [3](#income)](#income)
+[Income](#income)
 
-[Education [4](#education)](#education)
+[Education](#education)
 
-[Employment/work status
-[5](#employmentwork-status)](#employmentwork-status)
+[Employment/work status](#employmentwork-status)
 
-[Parental psychiatric disorder [6](#_Toc185432417)](#_Toc185432417)
+[Psychiatric diagnoses](#psychiatric-diagnoses)
 
-[Charlson Comorbidity Index
-[7](#charlson-comorbidity-index-cci)](#charlson-comorbidity-index-cci)
+[Parental psychiatric disorder](#parental-psychiatric-disorder)
+
+[Charlson Comorbidity Index](#charlson-comorbidity-index-cci)
 
 ## Study population and flags
 
@@ -209,7 +209,7 @@ SOCIO13: ”Øvrige ude af erhverv( kode 410) ”)
 
 
 
-## Psykiatriske diagnoser
+## Psychiatric diagnoses
 
 (!) Potentielle problemer:
 
