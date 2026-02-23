@@ -8,7 +8,7 @@ Authors: [Clara S. Grønkjær](https://github.com/claragronkjar),
 Date started: 2024-12-18
 Last edit: 2026-02-23
 
-## Purpose of this document
+**Purpose of this document**
 
 This document is aimed for people who are going to start a
 register-based study. It covers the definition of study population and
@@ -26,7 +26,7 @@ The topics covered are:
 
 ## Table of Contents
 
-[Study population and flags](#study-population-and-flags)
+[Study population and flags] (#study-population-and-flags)
 
 [Income [3](#income)](#income)
 
