@@ -50,7 +50,7 @@ Defined in: `10_make_population.rmd`
 The flag `i_valid = 1` when all of the following conditions are met:
 
 ```r
-I_cprstart == 1 &
+i_cprstart == 1 &
 f_dkstatus != "exit" &
 is_dead == 0 &
 f_cprsens == "00"
@@ -155,8 +155,8 @@ Education is categorized based on variable `XXX` (exact variable name to be spec
 
 Derived from:
 
-* **AKM** (DK: Arbejdsmarkedsregister)
-* **RAS** (DK: Registerbaseret Arbejdsstyrkestatistik)
+* AKM (DK: Arbejdsmarkedsregister)
+* RAS (DK: Registerbaseret Arbejdsstyrkestatistik)
 
 Primary variable used: `SOCIO_13` (from AKM)
 
@@ -207,7 +207,7 @@ Primary variable used: `SOCIO_13` (from AKM)
 
 ---
 
-# Psychiatric Diagnoses (DK: Psykiatriske diagnoser)
+# Psychiatric Diagnoses 
 
 Derived from:
 
@@ -219,8 +219,8 @@ Derived from:
 ⚠ **Possible Problems**
 
 * Autism and ADHD diagnoses may appear as supplementary codes in LPR2 rather than primary diagnoses.
-* Substantial differences exist between LPR2 and LPR3 coding practices.
-* In LPR2, `C_adiag` should not be used — use `C_diag`.
+* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined.
+* In LPR2, `c_adiag` should not be used — use `c_diag`.
 
 ✔ **Possible Solutions**
 
