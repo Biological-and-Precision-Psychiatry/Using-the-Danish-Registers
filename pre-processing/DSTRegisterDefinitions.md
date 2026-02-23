@@ -1,12 +1,11 @@
-# Definition of study population and variables on the Statistics Denmark Registers
+**Definition of study population and variables  
+on the Statistics Denmark Registers**
 
 (work in progress)
 
-Authors: [Clara S. Grønkjær](https://github.com/claragronkjar), 
-[Eva N. S. Wandall](https://github.com/evaninawandall), 
+Author: Clara Springhorn Grønkjær
 
-Date started: 2024-12-18
-Last edit: 2026-02-23
+Date: 2024-12-18
 
 **Purpose of this document**
 
@@ -23,10 +22,8 @@ As well as their possible solutions, marked as:
 
 The topics covered are:
 
-
-## Table of Contents
-
-[Study population and flags] (#study-population-and-flags)
+[Study population and flags
+[2](#study-population-and-flags)](#study-population-and-flags)
 
 [Income [3](#income)](#income)
 
@@ -96,7 +93,7 @@ to the most common group/0-20% group (?).
 
 ## Education
 
-The highest attained education level is derived from the UDDF register.
+The highest attained education level is derived from the UDDA register.
 
 The following levels are currently used:
 -	No education information
@@ -105,7 +102,7 @@ The following levels are currently used:
 -	Short higher education (Bsc-level)
 -	Higher education  (Ms/Phd-level)
 
-With nearly 5000 different educations, it does not make sense to make the table in the current document. A mapping can be found in ./03_keys/N_AUUD_HOVED_E_L5L5_KT.txt and ./03_keys/N_AUDD_HOVED_L1L5_KT.txt. **(ENSW: From SAS formater?)**
+With nearly 5000 different educations, it does not make sense to make the table in the current document. A mapping can be found in ./03_keys/N_AUUD_HOVED_E_L5L5_KT.txt and ./03_keys/N_AUDD_HOVED_L1L5_KT.txt.
 
 Information on education are obtained from various sources of different quality. 
 The proportion of different source types over time can be found here: https://www.dst.dk/da/TilSalg/Forskningsservice/Dokumentation/hoejkvalitetsvariable/hoejst-fuldfoerte-uddannelse/hf-kilde
@@ -216,7 +213,8 @@ SOCIO13: ”Øvrige ude af erhverv( kode 410) ”)
 The psych_diags_all file only contains diagnoses given at psychiatric departments.
 We could consider adding diagnoses from neurological departments (or all somatic departments). Especially relevant for organic mental disorders.
 
-b1diag, b2diag, b3diag are coded as "tillægskoder" for PCR8. **ENSW: Maybe it is more appropriate to consider them as secondary diagnoses: https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette.**
+b1diag, b2diag, b3diag are coded as "tillægskoder" for PCR8. ENSW: Maybe it is more 
+appropriate to consider them as secondary diagnoses (https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette).
 
 An increasing number of individuals receive a F-chapter diagnosis (especially 
 ADHD and ASD diagnoses) as a tillægskode before receiving the diagnosis as a primary or
