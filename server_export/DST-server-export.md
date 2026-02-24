@@ -29,7 +29,7 @@ All server exports (DK: *hjemsendelser*) are handled by:
 
 **Important**: Always email the data management team, not individual researchers.
 
-- **Email address**: `datamanagement-email` (insert actual email)
+- **Email address**: `pck-cribp-datamanagement.region-hovedstadens-psykiatri@regionh.dk`
 - **Why**: All relevant people have access to that mailbox, and all correspondences are saved centrally, ensuring continuity regardless of team composition changes
 
 ### Export Office Hours
@@ -84,8 +84,8 @@ All exports must conform to **both** DST and Sundhedsdatastyrelsen requirements:
 | Minimum individuals per result | 3 | 5 | **5** |
 
 **Key links** (PLACEHOLDER - insert actual URLs):
-- [DST Guidelines](link-here)
-- [Sundhedsdatastyrelsen Guidelines](link-here)
+- [DST Guidelines](https://www.dst.dk/da/TilSalg/data-til-forskning/regler-og-datasikkerhed/regler-for-hjemtagelse-af-analyseresultater)
+- [Sundhedsdatastyrelsen Guidelines](https://sundhedsdatastyrelsen.dk/data-og-registre/forskerservice/forskermaskinen/hjemsendelse-af-analyseresultater)
 - [NCRR Guidelines](link-here)
 
 ### Microdata Definition & Prevention
@@ -173,7 +173,7 @@ Before sending your export request email, verify:
 - [ ] Any curves are smoothed (no visible jumps representing individuals)
 - [ ] Email contains the full folder path
 - [ ] Email contains the compliance statement
-- [ ] You have not directly emailed Clara or Rune (used datamanagement-email instead)
+- [ ] The recipient of the email is the datamanagement-email and not Clara or Rune
 
 ## Common Rejection Reasons & Solutions
 
@@ -283,8 +283,8 @@ Workdata/708237/YOUR_INIT/
 ### Resource Limits
 
 **Rule of thumb**:
-- **Memory**: Never exceed [PLACEHOLDER: insert specific limit, e.g., "X GB"] or use less if server load is high
-- **CPU**: Never exceed 10%
+- **Memory**: Never exceed [PLACEHOLDER: insert specific limit, e.g., "X GB"]. Use less memory if the server load is high
+- **CPU**: Never exceed 10%. For parallel processing, use a maximum of [PLACEHOLDER: insert specific limit, e.g., 3 nodes]
 
 **Consequences of exceeding limits**:
 - All users experience program freezes
@@ -389,6 +389,7 @@ The DST servers reboot **every night between Sunday and Monday**, clearing all R
 - [ ] **Office Hours**: Replace "xxxdays" with specific day and time (e.g., "Thursday, 2:00 PM")
 - [ ] **Email Address**: Replace `<datamanagement-email>` with actual email
 - [ ] **Memory Limit**: Replace "X.X Gb" with specific threshold value
+- [ ] **Node limit**: Replace "x nodes" with number of nodes
 - [ ] **Regulatory Links**: Add actual URLs for:
   - DST Guidelines
   - Sundhedsdatastyrelsen Guidelines
