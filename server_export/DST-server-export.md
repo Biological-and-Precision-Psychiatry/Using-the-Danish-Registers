@@ -29,7 +29,7 @@ All server exports (DK: *hjemsendelser*) are handled by:
 
 **Important**: Always email the data management team, not individual researchers.
 
-- **Email address**: `pck-cribp-datamanagement.region-hovedstadens-psykiatri@regionh.dk`
+- **Email address**: <pck-cribp-datamanagement.region-hovedstadens-psykiatri@regionh.dk>
 - **Why**: All relevant people have access to that mailbox, and all correspondences are saved centrally, ensuring continuity regardless of team composition changes
 
 ### Export Office Hours
