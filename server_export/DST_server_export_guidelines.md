@@ -183,7 +183,7 @@ You may use the following email template:
 
 **It is your responsibility** (not ours) as the requester to:
 
-- Demonstrate that the export conforms to this guideline
+- Demonstrate that the requested export conforms to this guideline
 - Ensure compliance with DST and Sundhedsdatastyrelsen requirements
 - Minimize manual review needs (which causes delays)
 
@@ -207,7 +207,7 @@ Most concerns center around two concepts:
     the servers. See the regulatory requirements linked to above for
     definition and details.
 2.  **Small cell counts**: DST specifies that any result has to
-    represent at least 3 individuals; Sundhedsdatastyrelsen requies at
+    represent at least 3 individuals; Sundhedsdatastyrelsen requires at
     least 5 individuals. Because we have data from both DST and
     Sundhedsdatastyrelsen on our server access all server exports have
     to comply with the stricter requirement of at least 5 individuals.
@@ -266,33 +266,33 @@ or table, or at least relevant for inclusion in supplementary materials.
     1.  there are at least 5 events per rate estimate
     2.  the number of events is included as a separate column in the
         data table.
-4.  Other relative measures such as percentages or risks have subjects
-    in both numerator and denominator. Here the numerator (eg.
-    `subjects_with_event`) also has be included as a separate column and
-    it has to be obvious that the denominator also contains a sufficient
-    number of subjects.
+4.  Other relative measures, such as percentages or risks, reflect a
+    number of subjects in both the numerator and the denominator. Here
+    the numerator (eg. `N_subjects_with_event`) also has to be included
+    as a separate column and it has to be obvious that the denominator
+    also contains a sufficient number of subjects.
 5.  Pay attention to the rule of totals described in the DST
     requirements linked to above: you cannot simply hide a cell with too
-    few subjects behind `<= 5` (or equivalently remove the corresponding
+    few subjects behind `<5` (or equivalently remove the corresponding
     row in the data table) because it is possible to figure out how many
     are in that cell by extraction from the total number. Instead you
     have to collapse categories. In short: it should not be possible to
     reverse engineer small cell counts.
 6.  Reverse engineering small counts should also not be possible across
-    multiple tables that may be exported throughout the course of the
+    multiple tables that may be exported throughout the course of yoour
     project.
 7.  Use intuitive variable names, especially for variables that are key
-    to our review. Use for example `no_subjects` or `persons` rather
+    to our review. Use for example `N_subjects` or `N_persons` rather
     than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based
     such as most survival-type analyses you should also have a column
-    named `Events` and potentially `Subjects_with_events` if subjects
-    can have more than one event.
+    named `N_events` and potentially `N_subjects_with_events` if
+    subjects can have more than one event.
 8.  If your export request contains the results of analyses such as
     predictions, hazard ratios, percentages etc. (as many requests do)
     it has to be clear to us how many subjects and how many events (or
     similar) went into the computation. This is because estimates such
     as hazard ratios, rates, percentages etc. cannot be exported if they
-    are based on groups of ≤5 subjects or groups of any size with ≤5
+    are based on groups of \<5 subjects or groups of any size with \<5
     subjects with the event of interest.
 
 ## Summary Statistics and Quantiles
@@ -317,11 +317,10 @@ or table, or at least relevant for inclusion in supplementary materials.
     4.  Though rarely used, more details on the distributional shape can
         be obtained by also reporting the [skweness and
         kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)).
-        In **R**, package
-        [e1071](https://cran.r-project.org/package=e1071) provides
-        `skewness()` and `moments()`, and package
-        [moments](https://cran.r-project.org/package=moments) provides
-        `skewness()`, `kurtosis()` and `moment()`
+        In **R**, packages
+        [e1071](https://cran.r-project.org/package=e1071) and
+        [moments](https://cran.r-project.org/package=moments) provide
+        functions `skewness()`, `kurtosis()` and `moment()`.
 2.  The statistics *min* and *max* (and thus *range* as well) identify
     extreme individuals and we strongly discourage these.
 
@@ -365,7 +364,7 @@ any meaningful definition of a *baseline*.
   in your baseline table. This gives rise to, say, 3, 5 or 10 subjects
   in an “Unknown” or `"NA"` category. It could for instance be subjects
   with an unknown income level.
-- It is not allowed to export data if a cell refers to ≤5 subjects even
+- It is not allowed to export data if a cell refers to \<5 subjects even
   if the category is “Unknown”. There can be reasons (unknown to you or
   to us) that would allow identification of such subjects. In the income
   example, subjects with unknown income could be subjects recently

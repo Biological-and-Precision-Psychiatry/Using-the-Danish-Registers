@@ -125,7 +125,7 @@ Donald Duck
 
 **It is your responsibility** (not ours) as the requester to:
 
-- Demonstrate that the export conforms to this guideline
+- Demonstrate that the requested export conforms to this guideline
 - Ensure compliance with DST and Sundhedsdatastyrelsen requirements
 - Minimize manual review needs (which causes delays)
 
@@ -139,7 +139,7 @@ All exports must conform to **both** DST and Sundhedsdatastyrelsen requirements:
 Most concerns center around two concepts:
 
 1. **Microdata**: It is strictly prohibited to export microdata from the servers. See the regulatory requirements linked to above for definition and details.
-1. **Small cell counts**: DST specifies that any result has to represent at least 3 individuals; Sundhedsdatastyrelsen requies at least 5 individuals. Because we have data from both DST and Sundhedsdatastyrelsen on our server access all server exports have to comply with the stricter requirement of at least 5 individuals. Additionally we have our own policy on this subject explained below.
+1. **Small cell counts**: DST specifies that any result has to represent at least 3 individuals; Sundhedsdatastyrelsen requires at least 5 individuals. Because we have data from both DST and Sundhedsdatastyrelsen on our server access all server exports have to comply with the stricter requirement of at least 5 individuals. Additionally we have our own policy on this subject explained below.
    1. The small cell count requirement applies not only to individuals, but also companies, institutions and other entities.
 
 Also note the requirement from both regulatory bodies that server exports should be "publication ready". We interpret this to mean that all exports should aim to be included in a publication as a main figure or table, or at least relevant for inclusion in supplementary materials. 
@@ -167,11 +167,11 @@ Also note the requirement from both regulatory bodies that server exports should
 1. Rates (events per time-unit) can only be validly exported if 
    a. there are at least 5 events per rate estimate
    b. the number of events is included as a separate column in the data table.
-1. Other relative measures such as percentages or risks have subjects in both numerator and denominator. Here the numerator (eg. `subjects_with_event`) also has be included as a separate column and it has to be obvious that the denominator also contains a sufficient number of subjects.
-1. Pay attention to the rule of totals described in the DST requirements linked to above: you cannot simply hide a cell with too few subjects behind `<= 5` (or equivalently remove the corresponding row in the data table) because it is possible to figure out how many are in that cell by extraction from the total number. Instead you have to collapse categories. In short: it should not be possible to reverse engineer small cell counts.
-1. Reverse engineering small counts should also not be possible across multiple tables that may be exported throughout the course of the project.
-1. Use intuitive variable names, especially for variables that are key to our review. Use for example `no_subjects` or `persons` rather than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such as most survival-type analyses you should also have a column named `Events` and potentially `Subjects_with_events` if subjects can have more than one event.
-1. If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of ≤5 subjects or groups of any size with ≤5 subjects with the event of interest.
+1. Other relative measures, such as percentages or risks, reflect a number of subjects in both the numerator and the denominator. Here the numerator (eg. `N_subjects_with_event`) also has to be included as a separate column and it has to be obvious that the denominator also contains a sufficient number of subjects.
+1. Pay attention to the rule of totals described in the DST requirements linked to above: you cannot simply hide a cell with too few subjects behind `<5` (or equivalently remove the corresponding row in the data table) because it is possible to figure out how many are in that cell by extraction from the total number. Instead you have to collapse categories. In short: it should not be possible to reverse engineer small cell counts.
+1. Reverse engineering small counts should also not be possible across multiple tables that may be exported throughout the course of yoour project.
+1. Use intuitive variable names, especially for variables that are key to our review. Use for example `N_subjects` or `N_persons` rather than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such as most survival-type analyses you should also have a column named `N_events` and potentially `N_subjects_with_events` if subjects can have more than one event.
+1. If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of <5 subjects or groups of any size with <5 subjects with the event of interest.
 
 ## Summary Statistics and Quantiles
 
@@ -179,7 +179,7 @@ Also note the requirement from both regulatory bodies that server exports should
    1. For baseline tables (and similar) mean(SD) is an alternative to median(IQR). 
    1. If the data are right-skewed the [geometric mean and SD](https://en.wikipedia.org/wiki/Geometric_mean) is an appropriate alternative
    1. The distribution of a categorized version of the variable is often the best addition to mean(SD) and facilitates a rather fine-grained characterization of the distribution. In **R**, the functions `cut()` and `quantile()` can be combined to provide this.
-   1. Though rarely used, more details on the distributional shape can be obtained by also reporting the [skweness and kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)). In **R**, package [e1071](https://cran.r-project.org/package=e1071) provides `skewness()` and `moments()`, and package [moments](https://cran.r-project.org/package=moments) provides `skewness()`, `kurtosis()` and `moment()`
+   1. Though rarely used, more details on the distributional shape can be obtained by also reporting the [skweness and kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)). In **R**, packages [e1071](https://cran.r-project.org/package=e1071) and [moments](https://cran.r-project.org/package=moments) provide functions `skewness()`, `kurtosis()` and `moment()`.
 1. The statistics _min_ and _max_ (and thus _range_ as well) identify extreme individuals and we strongly discourage these.
 
 ## Using Check Functions
@@ -210,7 +210,7 @@ By _Baseline table_ we mean the typical `Table 1` that is used to describe the c
 **Problem**: 
 
 - There is a small number of missing values for some of the covariates in your baseline table. This gives rise to, say, 3, 5 or 10 subjects in an "Unknown" or `"NA"` category. It could for instance be subjects with an unknown income level.
-- It is not allowed to export data if a cell refers to ≤5 subjects even if the category is "Unknown". There can be reasons (unknown to you or to us) that would allow identification of such subjects. In the income example, subjects with unknown income could be subjects recently emigrated to DK who were not available at the income register cutoff date, and that would allow an external party to identify that small group of subjects.
+- It is not allowed to export data if a cell refers to <5 subjects even if the category is "Unknown". There can be reasons (unknown to you or to us) that would allow identification of such subjects. In the income example, subjects with unknown income could be subjects recently emigrated to DK who were not available at the income register cutoff date, and that would allow an external party to identify that small group of subjects.
 
 **Solution**:
 
