@@ -6,6 +6,7 @@ The repo contains user guides and documents relevant for work on the registers a
 
 ## Guidelines
 
+1. [DST server behaviour guidelines](/server_export/DST_server_behaviour_guidelines.md) describes best practices for working on the DST servers.
 1. [DST server export guidelines](/server_export/DST_server_export_guidelines.md) describes how to export results from the DST servers.
 1. [Register guide](pre-processing/DSTRegisterDefinitions.md) describes important aspects of key registers
 1. [Population description](/population/2022-10-21 Documentation of Register Populations on DST Project 708237.docx) describes the generation of the full Danish population on from various registry sources. Note that this documented is **outdated**, but it still describes relevant considerations about working on the registers. A new population is in use and its description is work in progress. For the time being, users with DST server access are guided to `ProjektDB/PSYK/Workdata/708237/02_data_derived_2023/reports/10_make_population.html` for further information.
