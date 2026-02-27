@@ -173,9 +173,9 @@ Also note the requirement from both regulatory bodies that server exports should
 1. Use intuitive variable names, especially for variables that are key to our review. Use for example `no_subjects` or `persons` rather than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such as most survival-type analyses you should also have a column named `Events` and potentially `Subjects_with_events` if subjects can have more than one event.
 1. If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of ≤5 subjects or groups of any size with ≤5 subjects with the event of interest.
 
-## Summary statistics and estimates
+## Summary Statistics and Quantiles
 
-1. Quantiles such as median, Q1, Q3 (and thus IQR) usually refer to single individuals. There are cases where that is not a problem, eg. if the median age in a large population is 32 there are probably many 32 year olds. However, each of these cases requires manual review, so **we ask that quantiles are avoided if at all possible**. Fortunately, there are almost always reasonable alternatives. 
+1. Percentiles or quantiles such as median, Q1, Q3 (and thus IQR) usually refer to single individuals. There are cases where that is not a problem, eg. if the median age in a large population is stated as `32` (no decimals) there are probably many 32 year olds. However, each of these cases requires manual review, so **we ask that quantiles are avoided if at all possible**. Fortunately, there are almost always reasonable alternatives. 
    1. For baseline tables (and similar) mean(SD) is an alternative to median(IQR). 
    1. If the data are right-skewed the [geometric mean and SD](https://en.wikipedia.org/wiki/Geometric_mean) is an appropriate alternative
    1. The distribution of a categorized version of the variable is often the best addition to mean(SD) and facilitates a rather fine-grained characterization of the distribution. In **R**, the functions `cut()` and `quantile()` can be combined to provide this.

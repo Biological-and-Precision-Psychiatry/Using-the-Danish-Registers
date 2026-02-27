@@ -17,8 +17,8 @@ DST Server Export Guidelines
   - [Regulatory Compliance](#regulatory-compliance)
   - [File Format Requirements](#file-format-requirements)
   - [Number of Subjects Requirements](#number-of-subjects-requirements)
-  - [Summary statistics and
-    estimates](#summary-statistics-and-estimates)
+  - [Summary Statistics and
+    Quantiles](#summary-statistics-and-quantiles)
   - [Using Check Functions](#using-check-functions)
 - [Special Cases and Best Practices](#special-cases-and-best-practices)
   - [‘Missing’ Categories in Baseline
@@ -295,14 +295,15 @@ or table, or at least relevant for inclusion in supplementary materials.
     are based on groups of ≤5 subjects or groups of any size with ≤5
     subjects with the event of interest.
 
-## Summary statistics and estimates
+## Summary Statistics and Quantiles
 
-1.  Quantiles such as median, Q1, Q3 (and thus IQR) usually refer to
-    single individuals. There are cases where that is not a problem, eg.
-    if the median age in a large population is 32 there are probably
-    many 32 year olds. However, each of these cases requires manual
-    review, so **we ask that quantiles are avoided if at all possible**.
-    Fortunately, there are almost always reasonable alternatives.
+1.  Percentiles or quantiles such as median, Q1, Q3 (and thus IQR)
+    usually refer to single individuals. There are cases where that is
+    not a problem, eg. if the median age in a large population is stated
+    as `32` (no decimals) there are probably many 32 year olds. However,
+    each of these cases requires manual review, so **we ask that
+    quantiles are avoided if at all possible**. Fortunately, there are
+    almost always reasonable alternatives.
     1.  For baseline tables (and similar) mean(SD) is an alternative to
         median(IQR).
     2.  If the data are right-skewed the [geometric mean and
