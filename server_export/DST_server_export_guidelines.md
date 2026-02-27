@@ -1,16 +1,49 @@
+DST Server Export Guidelines
+================
+
+- [Overview](#top)
+- [Contact and Process Management](#contact-and-process-management)
+  - [Who Handles Exports](#who-handles-exports)
+  - [How to Request an Export](#how-to-request-an-export)
+  - [Export Office Hours](#export-office-hours)
+  - [Retrieveing Exports](#retrieveing-exports)
+- [Export Request Submission
+  Requirements](#export-request-submission-requirements)
+  - [File Organization](#file-organization)
+  - [Email Requirements](#email-requirements)
+- [Data Safety and Compliance
+  Requirements](#data-safety-and-compliance-requirements)
+  - [Core Principles](#core-principles)
+  - [Regulatory Compliance](#regulatory-compliance)
+  - [File Format Requirements](#file-format-requirements)
+  - [Number of Subjects Requirements](#number-of-subjects-requirements)
+  - [Summary statistics and
+    estimates](#summary-statistics-and-estimates)
+  - [Using Check Functions](#using-check-functions)
+- [Special Cases and Best Practices](#special-cases-and-best-practices)
+  - [‘Missing’ Categories in Baseline
+    Tables](#missing-categories-in-baseline-tables)
+  - [Exporting Plots & Graphics](#exporting-plots--graphics)
+  - [Curves for Step Functions, ROC curves
+    etc.](#curves-for-step-functions-roc-curves-etc)
+- [Checklist for Export Requests](#checklist-for-export-requests)
 
 <!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md !! -->
-
-# DST Server Export Guidelines
 
 ------------------------------------------------------------------------
 
 > - **Version**: DRAFT document
-> - **Last updated**: 2026-02-26
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
+> - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
+>   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
+> - **Last edits**: 2026-02-27
 > - **Responsible**: The data management team (defined below)
 
-## Overview
+------------------------------------------------------------------------
+
+# Overview
+
+------------------------------------------------------------------------
 
 These guidelines describes how to export analysis results from the DST
 servers. The guidelines are meant for researchers working under Michael
@@ -32,18 +65,7 @@ as detailed in DST requirements. We also aim to stay clear of boundary
 cases so we can safely export results without spending too much time on
 manual review. We hope for your understanding on this policy.
 
-------------------------------------------------------------------------
-
-# Table of Contents
-
-1.  [Contact and Process Management](#contact-and-process-management)
-2.  [Export Request Submission
-    Requirements](#export-request-submission-requirements)
-3.  [Data Safety and Compliance
-    Requirements](#data-safety-and-compliance-requirements)
-4.  [Special Cases and Best
-    Practices](#special-cases-and-best-practices)
-5.  [Checklist for Export Requests](#checklist-for-export-requests)
+[Back to top](#top)
 
 # Contact and Process Management
 
@@ -154,6 +176,8 @@ You may use the following email template:
 
     Best Regards
     Donald Duck
+
+[Back to top](#top)
 
 # Data Safety and Compliance Requirements
 
@@ -328,6 +352,8 @@ We apply the same functions during review. Suspicious results will
 require extended manual review, may lead to requests for modifications
 and delay the export.
 
+[Back to top](#top)
+
 # Special Cases and Best Practices
 
 ------------------------------------------------------------------------
@@ -395,6 +421,8 @@ but also ROC curves and calibration curves from prediction models.
   individual’s event
 - **Always**: Export the smoothed data table used to create the curve,
   not the curve itself.
+
+[Back to top](#top)
 
 # Checklist for Export Requests
 

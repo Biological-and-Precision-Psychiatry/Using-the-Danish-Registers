@@ -1,5 +1,8 @@
 ---
-output: github_document
+title: DST Server Export Guidelines
+output: 
+  github_document:
+    toc: true
 ---
 
 <!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md !! -->
@@ -13,18 +16,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-DST Server Export Guidelines
-=====================
+---
+
+> - **Version**: DRAFT document 
+> - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
+> - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S. Wandall
+<!-- > - **Approved by**: Michael E. Benros (version) -->
+> - **Last edits**: `r Sys.Date()`
+> - **Responsible**: The data management team (defined below)
 
 ---
 
-> - **Version**: DRAFT document
-> - **Last updated**: `r Sys.Date()`
-> - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
-> - **Responsible**: The data management team (defined below)
+# Overview {#top}
 
-
-## Overview
+---
 
 These guidelines describes how to export analysis results from the DST servers. The guidelines are meant for researchers working under Michael Eriksen Benros' authorization at the DST registers, and who need to send analysis results from the servers to advance their research projects but do not have direct export rights.
 
@@ -32,16 +37,7 @@ You make a _server export request_ by sending an email to the data management te
 
 Our hope is that the guidelines will make for a smooth process for you as well as us with as little waste of time for all involved. If you find our interpretation of regulatory requirements strict, recall that [the consequences for the research on many projects involving a lot of people can be quite severe](https://www.dst.dk/da/TilSalg/data-til-forskning/regler-og-datasikkerhed/sanktionsregler) as detailed in DST requirements. We also aim to stay clear of boundary cases so we can safely export results without spending too much time on manual review. We hope for your understanding on this policy.
 
----
-
-# Table of Contents
-
-1. [Contact and Process Management](#contact-and-process-management)
-1. [Export Request Submission Requirements](#export-request-submission-requirements)
-1. [Data Safety and Compliance Requirements](#data-safety-and-compliance-requirements)
-1. [Special Cases and Best Practices](#special-cases-and-best-practices)
-1. [Checklist for Export Requests](#checklist-for-export-requests)
-
+[Back to top](#top)
 
 # Contact and Process Management
 
@@ -123,6 +119,8 @@ Purpose: These results are needed for the project on XXX ...
 Best Regards
 Donald Duck
 ```
+
+[Back to top](#top)
 
 # Data Safety and Compliance Requirements
 
@@ -206,6 +204,8 @@ Also note the requirement from both regulatory bodies that server exports should
 
 We apply the same functions during review. Suspicious results will require extended manual review, may lead to requests for modifications and delay the export. 
 
+[Back to top](#top)
+
 # Special Cases and Best Practices
 
 ---
@@ -248,6 +248,8 @@ This includes Kaplan-Meier survival curves, other non-parametric curves, but als
 - **Reason**: Each step in an un-smoothed curve may represent a single individual's event
 - **Always**: Export the smoothed data table used to create the curve, not the curve itself.
 
+
+[Back to top](#top)
 
 # Checklist for Export Requests
 
