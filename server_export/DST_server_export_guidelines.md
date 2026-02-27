@@ -38,12 +38,12 @@ DST Server Export Guidelines
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
 > - **Last edits**: 2026-02-27
 > - **Responsible**: The data management team (defined below)
+> - **Source document**:
+>   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
 
 ------------------------------------------------------------------------
 
 # Overview
-
-------------------------------------------------------------------------
 
 These guidelines describes how to export analysis results from the DST
 servers. The guidelines are meant for researchers working under Michael
@@ -68,8 +68,6 @@ manual review. We hope for your understanding on this policy.
 [Back to top](#top)
 
 # Contact and Process Management
-
-------------------------------------------------------------------------
 
 ## Who Handles Exports
 
@@ -180,8 +178,6 @@ You may use the following email template:
 [Back to top](#top)
 
 # Data Safety and Compliance Requirements
-
-------------------------------------------------------------------------
 
 ## Core Principles
 
@@ -356,8 +352,6 @@ and delay the export.
 
 # Special Cases and Best Practices
 
-------------------------------------------------------------------------
-
 ## ‘Missing’ Categories in Baseline Tables
 
 By *Baseline table* we mean the typical `Table 1` that is used to
@@ -425,8 +419,6 @@ but also ROC curves and calibration curves from prediction models.
 [Back to top](#top)
 
 # Checklist for Export Requests
-
-------------------------------------------------------------------------
 
 Before sending your export request email, verify that:
 

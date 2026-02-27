@@ -24,12 +24,11 @@ knitr::opts_chunk$set(
 <!-- > - **Approved by**: Michael E. Benros (version) -->
 > - **Last edits**: `r Sys.Date()`
 > - **Responsible**: The data management team (defined below)
+> - **Source document**: [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
 
 ---
 
 # Overview {#top}
-
----
 
 These guidelines describes how to export analysis results from the DST servers. The guidelines are meant for researchers working under Michael Eriksen Benros' authorization at the DST registers, and who need to send analysis results from the servers to advance their research projects but do not have direct export rights.
 
@@ -40,8 +39,6 @@ Our hope is that the guidelines will make for a smooth process for you as well a
 [Back to top](#top)
 
 # Contact and Process Management
-
----
 
 ## Who Handles Exports
 
@@ -123,8 +120,6 @@ Donald Duck
 [Back to top](#top)
 
 # Data Safety and Compliance Requirements
-
----
 
 ## Core Principles
 
@@ -208,8 +203,6 @@ We apply the same functions during review. Suspicious results will require exten
 
 # Special Cases and Best Practices
 
----
-
 ## 'Missing' Categories in Baseline Tables
 
 By _Baseline table_ we mean the typical `Table 1` that is used to describe the characteristics of a cohort. It may not actually refer to any meaningful definition of a _baseline_. 
@@ -252,8 +245,6 @@ This includes Kaplan-Meier survival curves, other non-parametric curves, but als
 [Back to top](#top)
 
 # Checklist for Export Requests
-
----
 
 Before sending your export request email, verify that:
 
