@@ -7,10 +7,6 @@ DST Server Export Guidelines
   - [How to Request an Export](#how-to-request-an-export)
   - [Export Office Hours](#export-office-hours)
   - [Retrieveing Exports](#retrieveing-exports)
-- [Export Request Submission
-  Requirements](#export-request-submission-requirements)
-  - [File Organization](#file-organization)
-  - [Email Requirements](#email-requirements)
 - [Data Safety and Compliance
   Requirements](#data-safety-and-compliance-requirements)
   - [Core Principles](#core-principles)
@@ -26,6 +22,10 @@ DST Server Export Guidelines
   - [Exporting Plots & Graphics](#exporting-plots--graphics)
   - [Curves for Step Functions, ROC curves
     etc.](#curves-for-step-functions-roc-curves-etc)
+- [Export Request Submission
+  Requirements](#export-request-submission-requirements)
+  - [File Organization](#file-organization)
+  - [Email Requirements](#email-requirements)
 - [Checklist for Export Requests](#checklist-for-export-requests)
 
 <!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md !! -->
@@ -110,70 +110,6 @@ scheduled basis to avoid continuous on-call demands.
 - When we export your results we notify you by email.
 - The exported results are available for download through “Danmarks Data
   Vindue” (DDV) accessible via <https://remote.dst.dk>
-
-# Export Request Submission Requirements
-
-## File Organization
-
-Your export request must include the full path to a folder containing
-all files to be exported.
-
-**Path structure**: `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
-
-Where:
-
-- `XXXX` = Project number (typically `8237`)
-- `INIT` = Your unique server-wide initials
-- `YYYY-MM-DD` = A recent date (typically today’s date)
-
-**Important**:
-
-- Collect all files in a single folder
-- Create a new folder with a new (non-future) date for each export
-  request.
-- Never request a new export with a path that was used in a previous
-  export request
-- If you already used today’s date, you may append a version number,
-  eg., `YYYY-MM-DD-v2`
-- **Always use manual copy-paste** (Ctrl+C; Ctrl+V) to move files into
-  `hjemsendelser/YYYY-MM-DD` folders. Picking out files and copy-pasting
-  them for server export should always be done manually and
-  deliberately, not potentially unintentionally by a program. Your
-  programs should write result files to another folder such as
-  `Workdata/70XXXX/INIT/results`; never to any folder under
-  `Workdata/70XXXX/INIT/hjemsendelser`.
-
-## Email Requirements
-
-Your export request email **must explicitly include**:
-
-1.  The full path to your export folder
-2.  A confirmation statement: *“I have checked all files for microdata,
-    small cell counts and other potential violations, I have manually
-    opened and reviewed all files, and I guarantee that all files
-    requested for export complies with the requirements by DST and
-    Sundhedsdatastyrelsen and the DST_server_export_guidelines
-    document.”*
-3.  A description of what the export contains and why it’s needed
-
-You may use the following email template:
-
-    Dear data management team,
-
-    I would like to make a DST server export request. 
-    The files that I would like to export are here:
-
-    `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
-
-    I have checked all files for microdata, small cell counts and other potential
-    violations, I have manually opened and reviewed all files, and I guarantee that
-    all files requested for export complies with the requirements by DST and
-    Sundhedsdatastyrelsen and the DST_server_export_guidelines document.
-
-    Purpose: These results are needed for the project on XXX ... 
-
-    Best Regards
-    Donald Duck
 
 [Back to top](#top)
 
@@ -415,6 +351,72 @@ but also ROC curves and calibration curves from prediction models.
   individual’s event
 - **Always**: Export the smoothed data table used to create the curve,
   not the curve itself.
+
+[Back to top](#top)
+
+# Export Request Submission Requirements
+
+## File Organization
+
+Your export request must include the full path to a folder containing
+all files to be exported.
+
+**Path structure**: `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
+
+Where:
+
+- `XXXX` = Project number (typically `8237`)
+- `INIT` = Your unique server-wide initials
+- `YYYY-MM-DD` = A recent date (typically today’s date)
+
+**Important**:
+
+- Collect all files in a single folder
+- Create a new folder with a new (non-future) date for each export
+  request.
+- Never request a new export with a path that was used in a previous
+  export request
+- If you already used today’s date, you may append a version number,
+  eg., `YYYY-MM-DD-v2`
+- **Always use manual copy-paste** (Ctrl+C; Ctrl+V) to move files into
+  `hjemsendelser/YYYY-MM-DD` folders. Picking out files and copy-pasting
+  them for server export should always be done manually and
+  deliberately, not potentially unintentionally by a program. Your
+  programs should write result files to another folder such as
+  `Workdata/70XXXX/INIT/results`; never to any folder under
+  `Workdata/70XXXX/INIT/hjemsendelser`.
+
+## Email Requirements
+
+Your export request email **must explicitly include**:
+
+1.  The full path to your export folder
+2.  A confirmation statement: *“I have checked all files for microdata,
+    small cell counts and other potential violations, I have manually
+    opened and reviewed all files, and I guarantee that all files
+    requested for export complies with the requirements by DST and
+    Sundhedsdatastyrelsen and the DST_server_export_guidelines
+    document.”*
+3.  A description of what the export contains and why it’s needed
+
+You may use the following email template:
+
+    Dear data management team,
+
+    I would like to make a DST server export request. 
+    The files that I would like to export are here:
+
+    `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
+
+    I have checked all files for microdata, small cell counts and other potential
+    violations, I have manually opened and reviewed all files, and I guarantee that
+    all files requested for export complies with the requirements by DST and
+    Sundhedsdatastyrelsen and the DST_server_export_guidelines document.
+
+    Purpose: These results are needed for the project on XXX ... 
+
+    Best Regards
+    Donald Duck
 
 [Back to top](#top)
 
