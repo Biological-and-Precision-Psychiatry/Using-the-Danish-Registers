@@ -32,7 +32,7 @@ DST Server Export Guidelines
 
 ------------------------------------------------------------------------
 
-> - **Version**: DRAFT document
+> - **Version**: DRAFT - Ready for review
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
