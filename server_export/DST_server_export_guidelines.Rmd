@@ -1,0 +1,262 @@
+---
+title: DST Server Export Guidelines
+output: 
+  github_document:
+    toc: true
+---
+
+<!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md !! -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+---
+
+> - **Version**: DRAFT - Ready for review
+> - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
+> - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S. Wandall
+<!-- > - **Approved by**: Michael E. Benros (version) -->
+> - **Last edits**: `r Sys.Date()`
+> - **Responsible**: The data management team (defined below)
+> - **Source document**: [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
+
+---
+
+# Overview {#top}
+
+These guidelines describes how to export analysis results from the DST servers. The guidelines are meant for researchers working under Michael Eriksen Benros' authorization at the DST registers, and who need to send analysis results from the servers to advance their research projects but do not have direct export rights.
+
+You make a _server export request_ by sending an email to the data management team. The following sections describes the process and requirements in further detail. 
+
+Our hope is that the guidelines will make for a smooth process for you as well as us with as little waste of time for all involved. If you find our interpretation of regulatory requirements strict, recall that [the consequences for the research on many projects involving a lot of people can be quite severe](https://www.dst.dk/da/TilSalg/data-til-forskning/regler-og-datasikkerhed/sanktionsregler) as detailed in DST requirements. We also aim to stay clear of boundary cases so we can safely export results without spending too much time on manual review. We hope for your understanding on this policy.
+
+[Back to top](#top)
+
+# Contact and Process Management
+
+## Who Handles Exports
+
+All server exports (DK: *hjemsendelser*) are handled by the data management team, which currently consists of:
+
+- Clara S. Grønkjær
+- Rune Haubo B. Christensen
+
+## How to Request an Export
+
+- Send an email to the data management team
+- **Email address**: <pck-cribp-datamanagement.region-hovedstadens-psykiatri@regionh.dk>
+- **Why**: All relevant people have access to that mailbox, and all correspondences are saved centrally, ensuring continuity regardless of team composition changes
+- **Note**: Never email members of the data management via their personal email addresses; always use the address for the data management team.
+
+## Export Office Hours
+
+We (ie., the data management team) consider server exports on a scheduled basis to avoid continuous on-call demands.
+
+- **Standard schedule**: We consider exports on Mondays. Make sure your export request email is sent to the data management team **by 8:00 Monday morning (CET)** and we will do our best that you hear from us by Tuesday morning. 
+- **Special requests**: We acknowledge that there may be time-critical exports for instance during manuscript review processes. Contact us in advance to arrange exports outside standard hours.
+- **Vacation periods**: We may be out of office during vacation periods, so contact us to make arrangements if you have time-critical exports during such periods.
+
+## Retrieveing Exports
+
+- When we export your results we notify you by email.
+- The exported results are available for download through "Danmarks Data Vindue" (DDV) accessible via <https://remote.dst.dk>
+
+
+[Back to top](#top)
+
+# Data Safety and Compliance Requirements
+
+## Core Principles
+
+**It is your responsibility** (not ours) as the requester to:
+
+- Demonstrate that the requested export conforms to this guideline
+- Ensure compliance with DST and Sundhedsdatastyrelsen requirements
+- Minimize manual review needs (which causes delays)
+
+## Regulatory Compliance
+
+All exports must conform to **both** DST and Sundhedsdatastyrelsen requirements:
+
+- [DST Requirements](https://www.dst.dk/da/TilSalg/data-til-forskning/regler-og-datasikkerhed/regler-for-hjemtagelse-af-analyseresultater) and in particular [this pdf](https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=158751994932&fo=0&ext=forskning). **Note**: These texts are in Danish.
+- [Sundhedsdatastyrelsen Requirements](https://cdn.sundhedsdatastyrelsen.dk/sundhedsdatastyrelsen/Media/638695056438446333/Hjemsendelse-af-analyseresultater.pdf). **Note**: This text is in Danish.
+
+Most concerns center around two concepts:
+
+1. **Microdata**: It is strictly prohibited to export microdata from the servers. See the regulatory requirements linked to above for definition and details.
+1. **Small cell counts**: DST specifies that any result has to represent at least 3 individuals; Sundhedsdatastyrelsen requires at least 5 individuals. Because we have data from both DST and Sundhedsdatastyrelsen on our server access all server exports have to comply with the stricter requirement of at least 5 individuals. Additionally we have our own policy on this subject explained below.
+   1. The small cell count requirement applies not only to individuals, but also companies, institutions and other entities.
+
+Also note the requirement from both regulatory bodies that server exports should be "publication ready". We interpret this to mean that all exports should aim to be included in a publication as a main figure or table, or at least relevant for inclusion in supplementary materials. 
+
+## File Format Requirements
+
+- Exports should contain **only** rectangular data tables in (preferably) **Excel** (`*.xlsx` or `*.xls`) or (if need be) **CSV** format (`*.csv`)
+- All columns should have meaningful variable names.
+- Group data tables: If you have 5 tables, then put them all in the same Excel-file because it is easy to browse between sheets when we review you export request. If you have 40 data tables then group them into a handful of files, so that the number of sheets is more manageable.
+- Describe the meaning of variables whose meaning is not obvious. Add a `variable_explanation` sheet in your Excel file, put a `README.txt` file in the data request folder or put a bullet list in your request email. Remember to ensure that the variable explanation or `README.txt` can be safely exported.
+- Occasionally server export of code files (eg. `.R`) is needed. This requires substantial manual review and needs to be agreed with the data management team in advance.
+- Any other exceptions need to be agreed with the data management team in advance.
+
+## Number of Subjects Requirements
+
+**Background**
+
+1. It is our position that the registers are useful for population and large-scale results. We view any result based on less than ~20 subjects as practically, scientifically and statistically insufficiently informative.
+1. From a practical point of view we aim to stay clear of boundary cases. This allows us to make server request reviews much faster because we don't have to worry that we may have overlooked a minor condition. This benefits all of us: We spend less time and you get the requested exports right away. 
+
+**Our Policy**
+
+1. We encourage you to ensure that all results are based on at least 10 subjects and we suggest that you aim for more than that as a standard.
+1. All results must be based on at least 5 subjects
+1. Rates (events per time-unit) can only be validly exported if 
+   a. there are at least 5 events per rate estimate
+   b. the number of events is included as a separate column in the data table.
+1. Other relative measures, such as percentages or risks, reflect a number of subjects in both the numerator and the denominator. Here the numerator (eg. `N_subjects_with_event`) also has to be included as a separate column and it has to be obvious that the denominator also contains a sufficient number of subjects.
+1. Pay attention to the rule of totals described in the DST requirements linked to above: you cannot simply hide a cell with too few subjects behind `<5` (or equivalently remove the corresponding row in the data table) because it is possible to figure out how many are in that cell by extraction from the total number. Instead you have to collapse categories. In short: it should not be possible to reverse engineer small cell counts.
+1. Reverse engineering small counts should also not be possible across multiple tables that may be exported throughout the course of yoour project.
+1. Use intuitive variable names, especially for variables that are key to our review. Use for example `N_subjects` or `N_persons` rather than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such as most survival-type analyses you should also have a column named `N_events` and potentially `N_subjects_with_events` if subjects can have more than one event.
+1. If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of <5 subjects or groups of any size with <5 subjects with the event of interest.
+
+## Summary Statistics and Quantiles
+
+1. Percentiles or quantiles such as median, Q1, Q3 (and thus IQR) usually refer to single individuals. There are cases where that is not a problem, eg. if the median age in a large population is stated as `32` (no decimals) there are probably many 32 year olds. However, each of these cases requires manual review, so **we ask that quantiles are avoided if at all possible**. Fortunately, there are almost always reasonable alternatives. 
+   1. For baseline tables (and similar) mean(SD) is an alternative to median(IQR). 
+   1. If the data are right-skewed the [geometric mean and SD](https://en.wikipedia.org/wiki/Geometric_mean) is an appropriate alternative
+   1. The distribution of a categorized version of the variable is often the best addition to mean(SD) and facilitates a rather fine-grained characterization of the distribution. In **R**, the functions `cut()` and `quantile()` can be combined to provide this.
+   1. Though rarely used, more details on the distributional shape can be obtained by also reporting the [skweness and kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)). In **R**, packages [e1071](https://cran.r-project.org/package=e1071) and [moments](https://cran.r-project.org/package=moments) provide functions `skewness()`, `kurtosis()` and `moment()`.
+1. The statistics _min_ and _max_ (and thus _range_ as well) identify extreme individuals and we strongly discourage these.
+
+## Using Check Functions
+
+**Before submitting your export request**, validate your files:
+
+1. **Manually review all files**: Open all files and scrutinize them for potential violations
+2. **Run the R check functions** on your export tables
+   1. Location of check functions: `Workdata/708237/06_data_management/001_functions/check_functions.R`
+3. **Ensure no suspicious counts** are flagged
+4. **Eliminate false negatives** (e.g., numeric exposure levels) before submission
+
+**Common false negatives from check functions**:
+
+- Exposure variable with numeric levels (`0`, `1`, etc.) - these are not microdata but will trigger flags
+- **Solution**: Rename levels to letters (`a`, `b`) or descriptive names (`level0`, `level1`)
+
+We apply the same functions during review. Suspicious results will require extended manual review, may lead to requests for modifications and delay the export. 
+
+[Back to top](#top)
+
+# Special Cases and Best Practices
+
+## 'Missing' Categories in Baseline Tables
+
+By _Baseline table_ we mean the typical `Table 1` that is used to describe the characteristics of a cohort. It may not actually refer to any meaningful definition of a _baseline_. 
+
+**Problem**: 
+
+- There is a small number of missing values for some of the covariates in your baseline table. This gives rise to, say, 3, 5 or 10 subjects in an "Unknown" or `"NA"` category. It could for instance be subjects with an unknown income level.
+- It is not allowed to export data if a cell refers to <5 subjects even if the category is "Unknown". There can be reasons (unknown to you or to us) that would allow identification of such subjects. In the income example, subjects with unknown income could be subjects recently emigrated to DK who were not available at the income register cutoff date, and that would allow an external party to identify that small group of subjects.
+
+**Solution**:
+
+- The best solution is often to merge the subjects with unknown income (or other characteristic) into another group. That could be the majority group or the another group which you find more natural.
+- In your statistical methods notes you can add something like "Subjects with missing values on any attribute are single-imputed to the majority group", and further state that "The proportion of missing values for any attribute unless explicitly stated is less than $(6 / N)\cdot 100\%$" where $N$ is the relevant number of subjects. 
+- This single-imputation approach is usually also the preferred approach for the statistical analyses: Leaving the subjects with unknown income with a value of `NA` will case these subjects to be excluded from the statistical analyses resulting in a so-called complete case analysis, which should generally be avoided.
+- More advanced approaches such as multiple imputation are rarely worth the effort because the number of subjects with missing values are few and the number of subjects in the analysis are in the millions.
+
+
+## Exporting Plots & Graphics
+
+**Problem**: You want to export a plot created on the register.
+
+**Solution**:
+
+1. Export a data table with the relevant data to produce the plot
+2. Create graphics outside the DST server (on your local computer)
+3. Benefits:
+   - Easy to verify that exported data comply with requirements
+   - Transparent about what data leave the server
+   - Easy to update graphical layout without re-exporting
+   
+## Curves for Step Functions, ROC curves etc.
+
+This includes Kaplan-Meier survival curves, other non-parametric curves, but also ROC curves and calibration curves from prediction models.
+
+- **Requirement**: Smooth the data behind the curves before export (e.g., using smoothing splines; `smooth.spline()` in **R**)
+- **Reason**: Each step in an un-smoothed curve may represent a single individual's event
+- **Always**: Export the smoothed data table used to create the curve, not the curve itself.
+
+[Back to top](#top)
+
+# Export Request Submission Requirements
+
+## File Organization
+
+Your export request must include the full path to a folder containing all files to be exported.
+
+**Path structure**: `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
+
+Where:
+
+- `XXXX` = Project number (typically `8237`)
+- `INIT` = Your unique server-wide initials
+- `YYYY-MM-DD` = A recent date (typically today's date)
+
+**Important**: 
+
+- Collect all files in a single folder
+- Create a new folder with a new (non-future) date for each export request.
+- Never request a new export with a path that was used in a previous export request
+- If you already used today's date, you may append a version number, eg., `YYYY-MM-DD-v2`
+- **Always use manual copy-paste** (Ctrl+C; Ctrl+V) to move files into `hjemsendelser/YYYY-MM-DD` folders. Picking out files and copy-pasting them for server export should always be done manually and deliberately, not potentially unintentionally by a program. Your programs should write result files to another folder such as `Workdata/70XXXX/INIT/results`; never to any folder under `Workdata/70XXXX/INIT/hjemsendelser`.
+
+## Email Requirements
+
+Your export request email **must explicitly include**:
+
+1. The full path to your export folder
+2. A confirmation statement: *"I have checked all files for microdata, small cell counts and other potential violations, I have manually opened and reviewed all files, and I guarantee that all files requested for export complies with the requirements by DST and Sundhedsdatastyrelsen and the DST_server_export_guidelines document."*
+3. A description of what the export contains and why it's needed
+
+You may use the following email template:
+```
+Dear data management team,
+
+I would like to make a DST server export request. 
+The files that I would like to export are here:
+
+`Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
+
+I have checked all files for microdata, small cell counts and other potential
+violations, I have manually opened and reviewed all files, and I guarantee that
+all files requested for export complies with the requirements by DST and
+Sundhedsdatastyrelsen and the DST_server_export_guidelines document.
+
+Purpose: These results are needed for the project on XXX ... 
+
+Best Regards
+Donald Duck
+```
+
+[Back to top](#top)
+
+# Checklist for Export Requests
+
+Before sending your export request email, verify that:
+
+- [ ] All files are in `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD` folder
+- [ ] You have manually scrutinized all files for potential violations
+- [ ] You have run the R check functions on all tables
+- [ ] No false negatives from check functions (or you've corrected them)
+- [ ] All results are based on ≥5 individuals and on ≥5 events
+- [ ] Files are in approved formats (`.xlsx`, `.xls`)
+- [ ] Email contains the full folder path
+- [ ] Email contains the compliance statement
+- [ ] The recipient of the email is the datamanagement-email.
+

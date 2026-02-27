@@ -1,227 +1,302 @@
-**Definition of study population and variables  
-on the Statistics Denmark Registers**
+Definition of Study Population and Variables
+=====================
 
-(work in progress)
+> - **Status:** DRAFT document
+> - **Author:** Clara S. Grønkjær, Rune H. B. Christensen, Eva N. S. Wandall
+> - **Date:** 2024-12-18
+> - **Last edit**: 2026-02-23 (ENSW)
 
-Author: Clara Springhorn Grønkjær
+---
 
-Date: 2024-12-18
 
-**Purpose of this document**
+# Purpose of This Document
 
-This document is aimed for people who are going to start a
-register-based study. It covers the definition of study population and
-variables currently implemented on the registers. Also, it points out
-things to be aware of and make decisions about, marked as:
+This document is intended for researchers initiating a register-based study using data from Statistics Denmark (DK: Danmarks Statistik, DST).
 
-<u>(!) Possible problems</u>
+It describes:
 
-As well as their possible solutions, marked as:
+* The definition of the study population
+* Implemented variables derived from national registers
+* Known methodological issues
+* Points requiring analytical decisions
 
-<u>Possible solutions</u>
+Potential methodological concerns are marked as:
 
-The topics covered are:
+⚠ **Possible Problems**
 
-[Study population and flags
-[2](#study-population-and-flags)](#study-population-and-flags)
+Proposed mitigations are marked as:
 
-[Income [3](#income)](#income)
+✔ **Possible Solutions**
 
-[Education [4](#education)](#education)
+---
 
-[Employment/work status
-[5](#employmentwork-status)](#employmentwork-status)
+# Table of Contents
 
-[Parental psychiatric disorder [6](#_Toc185432417)](#_Toc185432417)
+1. [Study Population and Flags](#study-population-and-flags)
+2. [Income](#income)
+3. [Education](#education)
+4. [Employment / Work Status](#employment--work-status)
+5. [Parental Psychiatric Disorder](#parental-psychiatric-disorder)
+6. [Charlson Comorbidity Index (CCI)](#charlson-comorbidity-index-cci)
 
-[Charlson Comorbidity Index
-[7](#charlson-comorbidity-index-cci)](#charlson-comorbidity-index-cci)
+---
 
-## Study population and flags
+# Study Population and Flags
 
-Flag i_valid (see 10_make_population.rmd) marks if the observation
-period is valid.
+## Valid Observation Flag: `i_valid`
 
-i_valid =1:
+Defined in: `10_make_population.rmd`
 
-I_cprstart == 1 and f_dkstatus != “exit” and is_dead == 0 and f_cprsens
-== “00”
+The flag `i_valid = 1` when all of the following conditions are met:
 
-<u>(!) Possible problems:</u>
+```r
+i_cprstart == 1 &
+f_dkstatus != "exit" &
+is_dead == 0 &
+f_cprsens == "00"
+```
 
-<u>Possible solutions:</u>
+### Variable Definitions
 
-## Income
+* `I_cprstart` — Individual has valid Civil Registration Number start (DK: CPR-start)
+* `f_dkstatus` — Residency status (DK: bopælsstatus)
+* `is_dead` — Mortality indicator
+* `f_cprsens` — CPR sensitivity flag (DK: CPR-følsomhed)
 
-The personal income per individual is derived from the IND register. The
-incomes are divided in quintiles on a population level:
+---
 
-- 0-20%
+⚠ **Possible Problems**
 
-- 20-40%
+* Definitions of residency exit (`"exit"`) may differ across cohorts.
+* CPR sensitivity (`f_cprsens`) exclusions may bias specific subpopulations.
+* Mortality timing relative to observation window may introduce misclassification.
 
-- 40-60%
+✔ **Possible Solutions**
 
-- 60-80%
+* Explicitly define residency eligibility criteria per study.
+* Perform sensitivity analyses with and without CPR-sensitive individuals.
+* Ensure time-aligned mortality filtering.
 
-- 80-100%
+---
 
-Note, kids are not excluded from this definition and therefore make up
-x% of the 0-20% quintile. Also note, that missing values are allocated
-to the most common group/0-20% group (?).
+# Income
 
-<u>(!) Possible problems:</u>
+Income is derived from the **IND register** (DK: Indkomstregister).
 
-- The quintiles are not true quintiles in every study population, we
-  make in this group. For example, when excluding individuals with
-  pre-existing psychiatric disorders, we might exclude a lot of
-  individuals in one quintile, thus skewing the variable. Another
-  example is excluding kids, which makes the 0-20% group very small.
+Individuals are categorized into **population-level income quintiles**:
 
-<u>Possible solutions:</u>
+* 0–20%
+* 20–40%
+* 40–60%
+* 60–80%
+* 80–100%
 
-- We could consider using husstandsindkomst.(available in IND and FAIK)
+### Important Notes
 
-- Use numerical/continuous variables instead of categorical, e.g., 0.13
-  if 13% of individuals have lower income values than the individual.
+* Children are **not excluded**, and therefore constitute a substantial proportion of the lowest quintile.
+* Missing income values may be allocated to the most common group (often 0–20%) — this must be verified.
 
-- Quintiles should be defined per study population for each study and
-  cannot be made on a general level. A function that does this should be
-  made available to everyone in the group.
+---
 
-- Family income from FAIK mapped onto income from IND by BEF
+⚠ **Possible Problems**
 
-## Education
+* Quintiles are defined at a general population level and may not represent true quintiles within specific study populations.
+* Exclusion of specific subgroups (e.g., psychiatric history, children) can distort distribution.
+* Allocation of missing values to the lowest quintile may introduce bias.
 
-The highest attained education level is derived from the UDDA register.
-They are divided based on the XXX variable
+✔ **Possible Solutions**
 
-|  |  |  |
-|----|----|----|
-| **Group** | **XXX value** | **XXX mapping** |
-| No education |  |  |
-| Primary school |  |  |
-| Vocational training or gymnasium |  | <span class="mark">Vocational training and high school could be divided in two categories</span> |
-| Higher education, short cycle |  |  |
-| Higher education, long cycle |  |  |
+* Define quintiles **within each study population**.
+* Use continuous income ranking (e.g., percentile position such as `0.13` for 13th percentile).
+* Use household income (DK: husstandsindkomst) from:
+  * `IND`
+  * `FAIK`
+* Map family income from `FAIK` via `BEF` (population register, DK: Befolkningsregister).
+* Develop a standardized quintile-generation function for internal use.
 
-<u>(!) Possible problems:</u>
+---
 
-- Values for older people and immigrants are highly based on
-  self-reported data or is imputed by DST. Therefore, there are no
-  missing values in this data.
+# Education
 
-- Uddannelsesniveau for indvandrere (danskere før 1970) er
-  selvrapporteret
+Highest attained education level is derived from the **UDDF register** (DK: Uddannelsesregister).
 
-- Missing værdier for indvandrere er imputeret (er markeret,i variabel )
+Information on education are obtained from various sources of different quality. The proportion of different source types over time can be found here: https://www.dst.dk/da/TilSalg/Forskningsservice/Dokumentation/hoejkvalitetsvariable/hoejst-fuldfoerte-uddannelse/hf-kilde
 
-<u>Possible solutions:</u>
+Note that:
 
-- Exclude individuals with missing values.
+* All information on education obtained before 1970 are self-reported.
 
-- Impute individuals with missing values
+* Education for foreigners might be self-reported, based on previous qualifications needed to begin education or work in Denmark, or imputed.
 
-- Lav binær om uddannelsesnivueau er imputeret fra variable UDDF
-  (Hvilken variabel Eva)
+The variable `hf_kilde` identifies imputed information (given by values 10,16,18,7,9).
 
-- Vocational training and high school could be divided in two
-  categories.
+The imputation is based on information that we do not have access to in the registers. DST provides details on the imputation in the following: https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=formid&fo=medbragt-udd--pdf&ext=%7B2%7D
 
-## Employment/work status
+Education is categorized based on variable `hfaudd`.
 
-Employment status is derived from the AKM and RAS registries. They are
-divided in 5 groups based on the AKM\$SOCIO_13 and RAS\$ARBSTILL
-variable:
 
-|  |  |  |
-|----|----|----|
-| **VERSION IMPLEMENTED 2024-12-18** |  |  |
-| **Group** | **SOCIO_13 value** | **SOCIO_13 mapping** |
-| Kids and Education | 310, 420 | Under education |
-| Employed | 110-139, 410 | Employed, self-employed, others |
-| Unemployed | 210 | Unemployment benefits |
-| Not in workforce | 220, 330 | Cash benefits (*kontakthjælp*), sick leaves, etc. |
-| Retired | 321-323 | Retired, voluntary early retirement (efterløn), incapacity benefits (*førtidspension*) |
 
-(!) Possible problems:
+| Group                          | hfaudd value | Mapping Description                           |
+| ------------------------------ | --------- | --------------------------------------------- |
+| No education                   | —         | No registered education                       |
+| Primary school                 | —         | Primary education                             |
+| Vocational training            | —         | Vocational education (DK: erhvervsuddannelse) |
+| Gymnasium                      | —         | Upper secondary school                        |
+| Higher education (short cycle) | —         | Short tertiary education                      |
+| Higher education (long cycle)  | —         | Long tertiary education                       |
 
-- Retired will have normal retired people and people who may have health
-  or social problems, thus there is a mix of socio economic statusses in
-  Not in Workforce
+ A mapping can be found in ./03_keys/N_AUUD_HOVED_E_L5L5_KT.txt and ./03_keys/N_AUDD_HOVED_L1L5_KT.txt. 
 
-- Same idea as above applies to people on kontanthjælp. They may be
-  considered people of less severe socioeconomic status, thus more
-  similar to unemployed.
+*(Note: Vocational training and gymnasium may optionally be separated.)*
 
-- Cash benefits (k*ontakthjælp*) is allocated to the Retired group but
-  are potentially able to resume work.
+---
 
-- Missing values are allocated to the Unemployed group (?).
+⚠ **Possible Problems**
 
-Possible solutions:
+* Older individuals and immigrants may have self-reported education.
+* Immigrants (particularly pre-1970 migrants) have self-reported education.
+* Missing education values for immigrants are imputed by DST. Imputed values can be a problem for prediction models and uncertainty measurements in statistical analyses.
+* No explicit missing category exists.
 
-- Exclude individuals with missing values
+✔ **Possible Solutions**
 
-- Impute missing values
+* Exclude individuals with imputed education.
+* Create binary indicator for imputed education using `hf_kilde`.
+* Stratify analyses by imputed vs non-imputed education.
+* Separate vocational training and gymnasium into distinct categories.
 
-- New definition of employment groups:
+---
 
-|  |  |  |
-|----|----|----|
-| **REVISED VERSION** |  |  |
-| **Group** | **SOCIO_13 value** | **SOCIO_13 mapping** |
-| Kids and Education | 310, 420 | Under education |
-| Employed | 110-139, 410 | Employed, self-employed, others |
-| Unemployed | 210, 330 | Unemployment benefits, **<span class="mark">cash benefits (*kontakthjælp*)</span>** |
-| Not in workforce | 220,321,323 | **<span class="mark">Incapacity benefits</span> (*førtidspension*)**, voluntary early retirement (efterløn), sick leaves, etc. |
-| Retired | 322 | Retired |
+# Employment / Work Status
 
-**ENSW** **(suggestions):**
+Derived from:
 
-410: Others. Not in workforce instead of employed? (fra beskrivelsen af
-SOCIO13: ”Øvrige ude af erhverv( kode 410) ”)
+* AKM (DK: Arbejdsmarkedsregister)
+* RAS (DK: Registerbaseret Arbejdsstyrkestatistik)
 
-323: Efterløn. Retired instead of not in workforce?
+Primary variable used: `SOCIO_13` (from AKM)
 
-<span id="_Toc185432417" class="anchor"></span>Psykiatriske diagnoser
+---
 
-## 
+## Version Implemented (2024-12-18)
 
-## Potentielle problemer:
+| Group              | SOCIO_13 Values | Mapping                                                                           |
+| ------------------ | --------------- | --------------------------------------------------------------------------------- |
+| Kids and Education | 310, 420        | Under education                                                                   |
+| Employed           | 110–139, 410    | Employed, self-employed, others                                                   |
+| Unemployed         | 210             | Unemployment benefits                                                             |
+| Not in workforce   | 220, 330        | Cash benefits (DK: kontanthjælp), sick leave                                      |
+| Retired            | 321–323         | Retired, early retirement (DK: efterløn), disability pension (DK: førtidspension) |
 
-## Især for Autisme of ADHD diagnoser kan ligge som tillægskoder (i LPR2 og før) og ikke som primær diagnose som kunne være en Z-kode (Jonas)
+---
 
-Stor forskel i hvordan psykiatriske diagnoser er rapporteret i LPR2 og
-LPR3
+⚠ **Possible Problems**
 
-LPR2: Brug ikke C_adiag, men brug C_diag
+* “Retired” includes both standard retirees and disability pension recipients.
+* Individuals on cash benefits (DK: kontanthjælp) may resemble unemployed rather than retired.
+* `SOCIO_13 = 410` (“Others, outside workforce”) may not fit the employed category.
+* Missing values may be allocated to unemployed.
 
-LPR2:
+✔ **Possible Solutions**
 
-## Parental psychiatric disorder
+* Exclude or impute missing values explicitly.
+* Reclassify employment categories.
 
-(!) Possible problems:
+---
 
-Nogle fædre er ikke registret og nogle fædre er ikke de rigtige.
+## Revised Version (Proposed)
 
-Vær opmærksom på at der er forskel på at vokse op med forældre med
-psykisk sygdom og hvis forældre får diagnosen senere i livet.
+| Group              | SOCIO_13 Values | Mapping                                                                              |
+| ------------------ | --------------- | ------------------------------------------------------------------------------------ |
+| Kids and Education | 310, 420        | Under education                                                                      |
+| Employed           | 110–139, 410    | Employed, self-employed                                                              |
+| Unemployed         | 210, 330        | Unemployment benefits, cash benefits (DK: kontanthjælp)                              |
+| Not in workforce   | 220, 321, 323   | Disability pension (DK: førtidspension), early retirement (DK: efterløn), sick leave |
+| Retired            | 322             | Standard retirement                                                                  |
 
-Possible solutions:
+---
 
-## Charlson Comorbidity Index (CCI)
+## Open Classification Questions
 
-(!) Possible problems:
+* Should `SOCIO_13 = 410` (“Others outside workforce”, DK: øvrige ude af erhverv) be moved to “Not in workforce”?
+* Should `SOCIO_13 = 323` (early retirement, DK: efterløn) be classified as “Retired”?
 
-Charlson Comorbidity Index is an old instrument which does not estimate
-disease burden with state-of-the-art treatments available. Today for
-example HIV is treatable and should probably not be weighted as high as
-cancer.
+---
 
-In a Dementia study, the diagnosis should not be included in a
-comorbidity index.
+# Psychiatric Diagnoses 
 
-Possible solutions:
+Derived from:
 
-Review alternative definitions (Andreas)
+* PCR (DK: Det Psykiatriske Centrale Forskningsregister)
+* LPR2 (DK: Landspatientregisteret version 2)
+* LPR3 (DK: Landspatientregisteret version 3)
+
+The definition of contacts changes from LPR2 to LPR3. In LPR2, a contact is recorded at the level of a complete treatment sequence, which can be either
+* an inpatient admission
+* an outpatient treatment course
+* an emergency department visit.
+
+In LPR3 2019, a contact is recorded at the level of an element in a treatment sequence, e.g. an inpatient admission where the patient has three meetings with a psychiatrist is recorded as one contact in LPR2 and three contacts in LPR3. The number of contacts and diagnoses increases significantly after 2019. Several potential issues arises when combining data from LPR2 and LPR3, e.g. around the time of transition some contacts are artificially closed and reopened. 
+
+Currently, only diagnoses given at psychiatric departments are considered. Adding diagnoses from neurological departments (or all somatic departments) might make sense, especially for organic mental disorders.
+
+b1diag, b2diag, b3diag are coded as supplementary codes in PCR8. 
+
+An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and ASD diagnoses) as a tillægskode before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the primary diagnosis will be a Z-code.
+
+---
+
+⚠ **Possible Problems**
+
+* It might be more appropriate to classify b1diag, b2diag, b3diag in PCR8 as secondary diagnoses, cf: https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette.
+* An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and autism spectrum diagnoses) as a supplementary codes before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the suplementray code specify a primary Z-code diagnosis.
+* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined.
+* In LPR2, `c_adiag` should not be used — use `c_diag`.
+
+✔ **Possible Solutions**
+
+* Harmonize diagnosis definitions across LPR2 and LPR3.
+* Explicitly document primary vs supplementary diagnosis strategy.
+* Conduct sensitivity analyses across register versions.
+* A mapping of inpatient contacts across LPR2 and LPR3 can be found in *Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study* (Grønkjær et al., 2025)
+
+---
+
+# Parental Psychiatric Disorder
+
+---
+
+⚠ **Possible Problems**
+
+* Some fathers are not registered.
+* Some registered fathers may not be biological fathers.
+* Exposure definition varies depending on timing of parental diagnosis.
+* Growing up with a parent with psychiatric illness differs from parental diagnosis occurring later in life.
+
+✔ **Possible Solutions**
+
+* Restrict to biologically verified parents where possible.
+* Define exposure window explicitly (e.g., before age 18).
+* Perform time-dependent exposure modelling.
+
+---
+
+# Charlson Comorbidity Index (CCI)
+
+The Charlson Comorbidity Index (CCI) is used to estimate disease burden.
+
+---
+
+⚠ **Possible Problems**
+
+* CCI is based on historical mortality weights.
+* Some conditions (e.g., HIV) are now treatable and may be overweighted.
+* In disease-specific studies (e.g., dementia), the outcome diagnosis should not be included in the index.
+
+✔ **Possible Solutions**
+
+* Review updated or alternative comorbidity indices.
+* Modify weights for contemporary treatment contexts.
+* Exclude outcome diagnosis from CCI calculation.
+* Review alternative definitions (Andreas).
+
