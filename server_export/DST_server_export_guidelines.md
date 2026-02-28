@@ -22,6 +22,7 @@ DST Server Export Guidelines
   - [Exporting Plots & Graphics](#exporting-plots--graphics)
   - [Curves for Step Functions, ROC curves
     etc.](#curves-for-step-functions-roc-curves-etc)
+  - [Decimal precision](#decimal-precision)
 - [Export Request Submission
   Requirements](#export-request-submission-requirements)
   - [File Organization](#file-organization)
@@ -387,6 +388,12 @@ but also ROC curves and calibration curves from prediction models.
   individual’s event
 - **Always**: Export the smoothed data table used to create the curve,
   not the curve itself.
+
+## Decimal precision
+
+Round numerical values to a maximum of 8 decimal places to maintain
+precision while avoiding unnecessary floating-point complexity, and
+prevent potential micro data warnings in the DST system.
 
 [Back to top](#top)
 
