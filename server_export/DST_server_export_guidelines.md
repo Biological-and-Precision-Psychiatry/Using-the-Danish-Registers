@@ -36,7 +36,7 @@ DST Server Export Guidelines
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
-> - **Last edits**: 2026-02-27
+> - **Last edits**: 2026-02-28
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
@@ -250,13 +250,32 @@ or table, or at least relevant for inclusion in supplementary materials.
         fine-grained characterization of the distribution. In **R**, the
         functions `cut()` and `quantile()` can be combined to provide
         this.
-    4.  Though rarely used, more details on the distributional shape can
-        be obtained by also reporting the [skweness and
-        kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)).
-        In **R**, packages
-        [e1071](https://cran.r-project.org/package=e1071) and
-        [moments](https://cran.r-project.org/package=moments) provide
-        functions `skewness()`, `kurtosis()` and `moment()`.
+
+``` r
+# Example usage of creating and summarizing quartile-based factors
+
+# Require data.table
+library(data.table)
+
+# Assuming `data` is a data.table object:
+# Create quartile-based factor from numeric variable n_var
+data[, f_var := cut(
+  n_var, 
+  breaks = quantile(n_var, probs = c(0, 0.25, 0.5, 0.75, 1)),
+  include.lowest = TRUE,
+  labels = c( "Q1", "Q2", "Q3","Q4")
+)]
+
+# Count observations per quartile
+data[, .N, by = f_var]
+```
+
+1.  Though rarely used, more details on the distributional shape can be
+    obtained by also reporting the [skweness and
+    kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)). In
+    **R**, packages [e1071](https://cran.r-project.org/package=e1071)
+    and [moments](https://cran.r-project.org/package=moments) provide
+    functions `skewness()`, `kurtosis()` and `moment()`.
 2.  The statistics *min* and *max* (and thus *range* as well) identify
     extreme individuals and we strongly discourage these.
 
@@ -269,6 +288,23 @@ or table, or at least relevant for inclusion in supplementary materials.
 2.  **Run the R check functions** on your export tables
     1.  Location of check functions:
         `Workdata/708237/06_data_management/001_functions/check_functions.R`
+
+``` r
+# Example usage of R check functions
+
+# Load functions
+source("../../06_data_managment/001_functions/functions.R")
+source("../../06_data_managment/001_functions/check_functions.R")
+
+# Read tables
+path <- path_to_folder
+tabs <- read_all_tables(path)
+
+# Check potential violations
+res <- list_check_all(tabs)
+res[n > 0]
+```
+
 3.  **Ensure no suspicious counts** are flagged
 4.  **Eliminate false negatives** (e.g., numeric exposure levels) before
     submission
