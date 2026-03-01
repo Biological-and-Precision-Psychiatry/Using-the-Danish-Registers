@@ -216,7 +216,7 @@ or table, or at least relevant for inclusion in supplementary materials.
     have to collapse categories. In short: it should not be possible to
     reverse engineer small cell counts.
 6.  Reverse engineering small counts should also not be possible across
-    multiple tables that may be exported throughout the course of yoour
+    multiple tables that may be exported throughout the course of your
     project.
 7.  Use intuitive variable names, especially for variables that are key
     to our review. Use for example `N_subjects` or `N_persons` rather
@@ -243,51 +243,49 @@ or table, or at least relevant for inclusion in supplementary materials.
     almost always reasonable alternatives.
     1.  For baseline tables (and similar) mean(SD) is an alternative to
         median(IQR).
-
     2.  If the data are right-skewed the [geometric mean and
         SD](https://en.wikipedia.org/wiki/Geometric_mean) is an
         appropriate alternative
-
     3.  The distribution of a categorized version of the variable is
         often the best addition to mean(SD) and facilitates a rather
         fine-grained characterization of the distribution. In **R**, the
         functions `cut()` and `quantile()` can be combined to provide
-        this.
+        this:
 
-        ``` r
-        # Example: Create a categorized version of a numerical variable:
+    ``` r
+    # Example: Create a categorized version of a numerical variable:
 
-        # 0: Make example numerical variable `n_var`
-        set.seed(1234)              # For reproducibility 
-        n_var = rnorm(1e3, 100, 5)
+    # 0: Make example numerical variable `n_var`
+    set.seed(1234)              # For reproducibility 
+    n_var = rnorm(1e3, 100, 5)
 
-        # 1. Get cut-points for categories
-        cuts <- round(quantile(n_var, probs = seq(.2, .8, by=.2)))
+    # 1. Get cut-points for categories
+    cuts <- round(quantile(n_var, probs = seq(.2, .8, by=.2)))
 
-        # 2. Make readable labels for the categories
-        labs <- c(
-          paste0("<", cuts[1]),
-          paste(cuts[-length(cuts)], cuts[-1], sep = " - "),
-          paste0(">", cuts[length(cuts)]))
+    # 2. Make readable labels for the categories
+    labs <- c(
+      paste0("<", cuts[1]),
+      paste(cuts[-length(cuts)], cuts[-1], sep = " - "),
+      paste0(">", cuts[length(cuts)]))
 
-        # 3. Create factor for categorized version of `n_var`
-        f_var <- cut(
-          n_var, 
-          breaks = c(-Inf, cuts, Inf),
-          include.lowest = TRUE,
-          labels = labs)
+    # 3. Create factor for categorized version of `n_var`
+    f_var <- cut(
+      n_var, 
+      breaks = c(-Inf, cuts, Inf),
+      include.lowest = TRUE,
+      labels = labs)
 
-        # 4. Count observations per category
-        as.data.frame(table(f_var))
-        #>       f_var Freq
-        #> 1       <96  217
-        #> 2   96 - 99  216
-        #> 3  99 - 101  171
-        #> 4 101 - 104  205
-        #> 5      >104  191
-        ```
+    # 4. Count observations per category
+    as.data.frame(table(f_var))
+    #>       f_var Freq
+    #> 1       <96  217
+    #> 2   96 - 99  216
+    #> 3  99 - 101  171
+    #> 4 101 - 104  205
+    #> 5      >104  191
+    ```
 
-    4.  Though rarely used, more details on the distributional shape can
+    1.  Though rarely used, more details on the distributional shape can
         be obtained by also reporting the [skweness and
         kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)).
         In **R**, packages
@@ -306,25 +304,25 @@ or table, or at least relevant for inclusion in supplementary materials.
 2.  **Run the R check functions** on your export tables
     1.  Location of check functions:
         `Workdata/708237/06_data_management/001_functions/check_functions.R`
-
-    ``` r
-    # Example: Running R check functions
-
-    # Load functions
-    source("../../06_data_managment/001_functions/functions.R")
-    source("../../06_data_managment/001_functions/check_functions.R")
-
-    # Read tables
-    path <- path_to_folder
-    tabs <- read_all_tables(path)
-
-    # Check potential violations
-    res <- list_check_all(tabs)
-    res[n > 0]
-    ```
 3.  **Ensure no suspicious counts** are flagged
 4.  **Eliminate false negatives** (e.g., numeric exposure levels) before
     submission
+
+``` r
+# Example: Running R check functions
+
+# Load functions
+source("../../06_data_managment/001_functions/functions.R")
+source("../../06_data_managment/001_functions/check_functions.R")
+
+# Read tables
+path <- path_to_folder
+tabs <- read_all_tables(path)
+
+# Check potential violations
+res <- list_check_all(tabs)
+res[n > 0]
+```
 
 **Common false negatives from check functions**:
 

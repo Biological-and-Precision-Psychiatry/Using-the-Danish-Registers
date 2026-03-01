@@ -3,6 +3,8 @@ title: DST Server Export Guidelines
 output: 
   github_document:
     toc: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md !! -->
@@ -120,42 +122,42 @@ Also note the requirement from both regulatory bodies that server exports should
    b. the number of events is included as a separate column in the data table.
 1. Other relative measures, such as percentages or risks, reflect a number of subjects in both the numerator and the denominator. Here the numerator (eg. `N_subjects_with_event`) also has to be included as a separate column and it has to be obvious that the denominator also contains a sufficient number of subjects.
 1. Pay attention to the rule of totals described in the DST requirements linked to above: you cannot simply hide a cell with too few subjects behind `<5` (or equivalently remove the corresponding row in the data table) because it is possible to figure out how many are in that cell by extraction from the total number. Instead you have to collapse categories. In short: it should not be possible to reverse engineer small cell counts.
-1. Reverse engineering small counts should also not be possible across multiple tables that may be exported throughout the course of yoour project.
+1. Reverse engineering small counts should also not be possible across multiple tables that may be exported throughout the course of your project.
 1. Use intuitive variable names, especially for variables that are key to our review. Use for example `N_subjects` or `N_persons` rather than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such as most survival-type analyses you should also have a column named `N_events` and potentially `N_subjects_with_events` if subjects can have more than one event.
 1. If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of <5 subjects or groups of any size with <5 subjects with the event of interest.
 
 ## Summary Statistics and Quantiles
 
-1. Percentiles or quantiles such as median, Q1, Q3 (and thus IQR) usually refer to single individuals. There are cases where that is not a problem, eg. if the median age in a large population is stated as `32` (no decimals) there are probably many 32 year olds. However, each of these cases requires manual review, so **we ask that quantiles are avoided if at all possible**. Fortunately, there are almost always reasonable alternatives. 
+1. Percentiles or quantiles such as median, Q1, Q3 (and thus IQR) usually refer to single individuals. There are cases where that is not a problem, eg. if the median age in a large population is stated as `32` (no decimals) there are probably many 32 year olds. However, each of these cases requires manual review, so **we ask that quantiles are avoided if at all possible**. Fortunately, there are almost always reasonable alternatives.
    1. For baseline tables (and similar) mean(SD) is an alternative to median(IQR). 
    1. If the data are right-skewed the [geometric mean and SD](https://en.wikipedia.org/wiki/Geometric_mean) is an appropriate alternative
-   1. The distribution of a categorized version of the variable is often the best addition to mean(SD) and facilitates a rather fine-grained characterization of the distribution. In **R**, the functions `cut()` and `quantile()` can be combined to provide this.
-      ```{r, eval=TRUE, include=TRUE}
-      # Example: Create a categorized version of a numerical variable:
-        
-      # 0: Make example numerical variable `n_var`
-      set.seed(1234)              # For reproducibility 
-      n_var = rnorm(1e3, 100, 5)
+   1. The distribution of a categorized version of the variable is often the best addition to mean(SD) and facilitates a rather fine-grained characterization of the distribution. In **R**, the functions `cut()` and `quantile()` can be combined to provide this:
+    ```{r, eval=TRUE, include=TRUE}
+    # Example: Create a categorized version of a numerical variable:
       
-      # 1. Get cut-points for categories
-      cuts <- round(quantile(n_var, probs = seq(.2, .8, by=.2)))
-      
-      # 2. Make readable labels for the categories
-      labs <- c(
-        paste0("<", cuts[1]),
-        paste(cuts[-length(cuts)], cuts[-1], sep = " - "),
-        paste0(">", cuts[length(cuts)]))
-      
-      # 3. Create factor for categorized version of `n_var`
-      f_var <- cut(
-        n_var, 
-        breaks = c(-Inf, cuts, Inf),
-        include.lowest = TRUE,
-        labels = labs)
-  
-      # 4. Count observations per category
-      as.data.frame(table(f_var))
-      ```
+    # 0: Make example numerical variable `n_var`
+    set.seed(1234)              # For reproducibility 
+    n_var = rnorm(1e3, 100, 5)
+    
+    # 1. Get cut-points for categories
+    cuts <- round(quantile(n_var, probs = seq(.2, .8, by=.2)))
+    
+    # 2. Make readable labels for the categories
+    labs <- c(
+      paste0("<", cuts[1]),
+      paste(cuts[-length(cuts)], cuts[-1], sep = " - "),
+      paste0(">", cuts[length(cuts)]))
+    
+    # 3. Create factor for categorized version of `n_var`
+    f_var <- cut(
+      n_var, 
+      breaks = c(-Inf, cuts, Inf),
+      include.lowest = TRUE,
+      labels = labs)
+
+    # 4. Count observations per category
+    as.data.frame(table(f_var))
+    ```
    1. Though rarely used, more details on the distributional shape can be obtained by also reporting the [skweness and kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)). In **R**, packages [e1071](https://cran.r-project.org/package=e1071) and [moments](https://cran.r-project.org/package=moments) provide functions `skewness()`, `kurtosis()` and `moment()`.
 1. The statistics _min_ and _max_ (and thus _range_ as well) identify extreme individuals and we strongly discourage these.
 
@@ -166,25 +168,24 @@ Also note the requirement from both regulatory bodies that server exports should
 1. **Manually review all files**: Open all files and scrutinize them for potential violations
 2. **Run the R check functions** on your export tables
    1. Location of check functions: `Workdata/708237/06_data_management/001_functions/check_functions.R`
-
-    ```{r, eval=FALSE}
-    # Example: Running R check functions
-    
-    # Load functions
-    source("../../06_data_managment/001_functions/functions.R")
-    source("../../06_data_managment/001_functions/check_functions.R")
-    
-    # Read tables
-    path <- path_to_folder
-    tabs <- read_all_tables(path)
-    
-    # Check potential violations
-    res <- list_check_all(tabs)
-    res[n > 0]
-    ```
-
 3. **Ensure no suspicious counts** are flagged
 4. **Eliminate false negatives** (e.g., numeric exposure levels) before submission
+
+```{r, eval=FALSE}
+# Example: Running R check functions
+
+# Load functions
+source("../../06_data_managment/001_functions/functions.R")
+source("../../06_data_managment/001_functions/check_functions.R")
+
+# Read tables
+path <- path_to_folder
+tabs <- read_all_tables(path)
+
+# Check potential violations
+res <- list_check_all(tabs)
+res[n > 0]
+```
 
 **Common false negatives from check functions**:
 
