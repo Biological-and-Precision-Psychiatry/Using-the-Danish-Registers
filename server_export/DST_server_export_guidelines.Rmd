@@ -170,6 +170,7 @@ Also note the requirement from both regulatory bodies that server exports should
    1. Location of check functions: `Workdata/708237/06_data_management/001_functions/check_functions.R`
 3. **Ensure no suspicious counts** are flagged
 4. **Eliminate false negatives** (e.g., numeric exposure levels) before submission
+5. **Explain any false negatives that you were unable to remove** in a `README.txt`  file in your export request folder or in your export request email
 
 ```{r, eval=FALSE}
 # Example: Running R check functions
@@ -192,7 +193,7 @@ res[n > 0]
 - Exposure variable with numeric levels (`0`, `1`, etc.) - these are not microdata but will trigger flags
 - **Solution**: Rename levels to letters (`a`, `b`) or descriptive names (`level0`, `level1`)
 
-We apply the same functions during review. Suspicious results will require extended manual review, may lead to requests for modifications and delay the export. 
+We apply the same check functions during review. Unexplained suspicious results will require extended manual review, may lead to requests for modifications and delay the export. 
 
 [Back to top](#top)
 
@@ -242,7 +243,6 @@ This includes Kaplan-Meier survival curves, other non-parametric curves, but als
 Avoid exporting numerical values with 8-14 decimal places, as this will trigger a DST micro data warning that must be explained manually in a comment submitted with the data export.
 
 1. Numbers intended for publication or presentation should be rounded to 2-3 (significant) digits.
-
 2. Numbers intended for further processing in figures or similar should be formatted with up to 7 digits. This preserves sufficient precision while avoiding the warning trigger.
 
 

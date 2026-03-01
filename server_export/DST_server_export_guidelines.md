@@ -307,6 +307,9 @@ or table, or at least relevant for inclusion in supplementary materials.
 3.  **Ensure no suspicious counts** are flagged
 4.  **Eliminate false negatives** (e.g., numeric exposure levels) before
     submission
+5.  **Explain any false negatives that you were unable to remove** in a
+    `README.txt` file in your export request folder or in your export
+    request email
 
 ``` r
 # Example: Running R check functions
@@ -331,9 +334,8 @@ res[n > 0]
 - **Solution**: Rename levels to letters (`a`, `b`) or descriptive names
   (`level0`, `level1`)
 
-We apply the same functions during review. Suspicious results will
-require extended manual review, may lead to requests for modifications
-and delay the export.
+results will require extended manual review, may lead to requests for
+modifications and delay the export.
 
 [Back to top](#top)
 
@@ -411,7 +413,6 @@ comment submitted with the data export.
 
 1.  Numbers intended for publication or presentation should be rounded
     to 2-3 (significant) digits.
-
 2.  Numbers intended for further processing in figures or similar should
     be formatted with up to 7 digits. This preserves sufficient
     precision while avoiding the warning trigger.
