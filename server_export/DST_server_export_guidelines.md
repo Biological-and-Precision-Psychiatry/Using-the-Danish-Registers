@@ -22,7 +22,7 @@ DST Server Export Guidelines
   - [Exporting Plots & Graphics](#exporting-plots--graphics)
   - [Curves for Step Functions, ROC curves
     etc.](#curves-for-step-functions-roc-curves-etc)
-  - [Decimal precision](#decimal-precision)
+  - [Rounding](#rounding)
 - [Export Request Submission
   Requirements](#export-request-submission-requirements)
   - [File Organization](#file-organization)
@@ -37,7 +37,7 @@ DST Server Export Guidelines
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
-> - **Last edits**: 2026-02-28
+> - **Last edits**: 2026-03-01
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
@@ -243,40 +243,57 @@ or table, or at least relevant for inclusion in supplementary materials.
     almost always reasonable alternatives.
     1.  For baseline tables (and similar) mean(SD) is an alternative to
         median(IQR).
+
     2.  If the data are right-skewed the [geometric mean and
         SD](https://en.wikipedia.org/wiki/Geometric_mean) is an
         appropriate alternative
+
     3.  The distribution of a categorized version of the variable is
         often the best addition to mean(SD) and facilitates a rather
         fine-grained characterization of the distribution. In **R**, the
         functions `cut()` and `quantile()` can be combined to provide
         this.
 
-``` r
-# Example usage of creating and summarizing quartile-based factors
+        ``` r
+        # Example: Create a categorized version of a numerical variable:
 
-# Require data.table
-library(data.table)
+        # 0: Make example numerical variable `n_var`
+        set.seed(1234)              # For reproducibility 
+        n_var = rnorm(1e3, 100, 5)
 
-# Assuming `data` is a data.table object:
-# Create quartile-based factor from numeric variable n_var
-data[, f_var := cut(
-  n_var, 
-  breaks = quantile(n_var, probs = c(0, 0.25, 0.5, 0.75, 1)),
-  include.lowest = TRUE,
-  labels = c( "Q1", "Q2", "Q3","Q4")
-)]
+        # 1. Get cut-points for categories
+        cuts <- round(quantile(n_var, probs = seq(.2, .8, by=.2)))
 
-# Count observations per quartile
-data[, .N, by = f_var]
-```
+        # 2. Make readable labels for the categories
+        labs <- c(
+          paste0("<", cuts[1]),
+          paste(cuts[-length(cuts)], cuts[-1], sep = " - "),
+          paste0(">", cuts[length(cuts)]))
 
-1.  Though rarely used, more details on the distributional shape can be
-    obtained by also reporting the [skweness and
-    kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)). In
-    **R**, packages [e1071](https://cran.r-project.org/package=e1071)
-    and [moments](https://cran.r-project.org/package=moments) provide
-    functions `skewness()`, `kurtosis()` and `moment()`.
+        # 3. Create factor for categorized version of `n_var`
+        f_var <- cut(
+          n_var, 
+          breaks = c(-Inf, cuts, Inf),
+          include.lowest = TRUE,
+          labels = labs)
+
+        # 4. Count observations per category
+        as.data.frame(table(f_var))
+        #>       f_var Freq
+        #> 1       <96  217
+        #> 2   96 - 99  216
+        #> 3  99 - 101  171
+        #> 4 101 - 104  205
+        #> 5      >104  191
+        ```
+
+    4.  Though rarely used, more details on the distributional shape can
+        be obtained by also reporting the [skweness and
+        kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)).
+        In **R**, packages
+        [e1071](https://cran.r-project.org/package=e1071) and
+        [moments](https://cran.r-project.org/package=moments) provide
+        functions `skewness()`, `kurtosis()` and `moment()`.
 2.  The statistics *min* and *max* (and thus *range* as well) identify
     extreme individuals and we strongly discourage these.
 
@@ -290,22 +307,21 @@ data[, .N, by = f_var]
     1.  Location of check functions:
         `Workdata/708237/06_data_management/001_functions/check_functions.R`
 
-``` r
-# Example usage of R check functions
+    ``` r
+    # Example: Running R check functions
 
-# Load functions
-source("../../06_data_managment/001_functions/functions.R")
-source("../../06_data_managment/001_functions/check_functions.R")
+    # Load functions
+    source("../../06_data_managment/001_functions/functions.R")
+    source("../../06_data_managment/001_functions/check_functions.R")
 
-# Read tables
-path <- path_to_folder
-tabs <- read_all_tables(path)
+    # Read tables
+    path <- path_to_folder
+    tabs <- read_all_tables(path)
 
-# Check potential violations
-res <- list_check_all(tabs)
-res[n > 0]
-```
-
+    # Check potential violations
+    res <- list_check_all(tabs)
+    res[n > 0]
+    ```
 3.  **Ensure no suspicious counts** are flagged
 4.  **Eliminate false negatives** (e.g., numeric exposure levels) before
     submission
@@ -389,11 +405,18 @@ but also ROC curves and calibration curves from prediction models.
 - **Always**: Export the smoothed data table used to create the curve,
   not the curve itself.
 
-## Decimal precision
+## Rounding
 
-Round numerical values to a maximum of 8 decimal places to maintain
-precision while avoiding unnecessary floating-point complexity, and
-prevent potential micro data warnings in the DST system.
+Avoid exporting numerical values with 8-14 decimal places, as this will
+trigger a DST micro data warning that must be explained manually in a
+comment submitted with the data export.
+
+1.  Numbers intended for publication or presentation should be rounded
+    to 2-3 (significant) digits.
+
+2.  Numbers intended for further processing in figures or similar should
+    be formatted with up to 7 digits. This preserves sufficient
+    precision while avoiding the warning trigger.
 
 [Back to top](#top)
 
