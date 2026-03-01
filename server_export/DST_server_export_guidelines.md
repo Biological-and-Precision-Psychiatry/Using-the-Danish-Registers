@@ -22,6 +22,7 @@ DST Server Export Guidelines
   - [Exporting Plots & Graphics](#exporting-plots--graphics)
   - [Curves for Step Functions, ROC curves
     etc.](#curves-for-step-functions-roc-curves-etc)
+  - [Rounding](#rounding)
 - [Export Request Submission
   Requirements](#export-request-submission-requirements)
   - [File Organization](#file-organization)
@@ -36,7 +37,7 @@ DST Server Export Guidelines
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
-> - **Last edits**: 2026-02-27
+> - **Last edits**: 2026-03-01
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
@@ -215,7 +216,7 @@ or table, or at least relevant for inclusion in supplementary materials.
     have to collapse categories. In short: it should not be possible to
     reverse engineer small cell counts.
 6.  Reverse engineering small counts should also not be possible across
-    multiple tables that may be exported throughout the course of yoour
+    multiple tables that may be exported throughout the course of your
     project.
 7.  Use intuitive variable names, especially for variables that are key
     to our review. Use for example `N_subjects` or `N_persons` rather
@@ -249,8 +250,42 @@ or table, or at least relevant for inclusion in supplementary materials.
         often the best addition to mean(SD) and facilitates a rather
         fine-grained characterization of the distribution. In **R**, the
         functions `cut()` and `quantile()` can be combined to provide
-        this.
-    4.  Though rarely used, more details on the distributional shape can
+        this:
+
+    ``` r
+    # Example: Create a categorized version of a numerical variable:
+
+    # 0: Make example numerical variable `n_var`
+    set.seed(1234)              # For reproducibility 
+    n_var = rnorm(1e3, 100, 5)
+
+    # 1. Get cut-points for categories
+    cuts <- round(quantile(n_var, probs = seq(.2, .8, by=.2)))
+
+    # 2. Make readable labels for the categories
+    labs <- c(
+      paste0("<", cuts[1]),
+      paste(cuts[-length(cuts)], cuts[-1], sep = " - "),
+      paste0(">", cuts[length(cuts)]))
+
+    # 3. Create factor for categorized version of `n_var`
+    f_var <- cut(
+      n_var, 
+      breaks = c(-Inf, cuts, Inf),
+      include.lowest = TRUE,
+      labels = labs)
+
+    # 4. Count observations per category
+    as.data.frame(table(f_var))
+    #>       f_var Freq
+    #> 1       <96  217
+    #> 2   96 - 99  216
+    #> 3  99 - 101  171
+    #> 4 101 - 104  205
+    #> 5      >104  191
+    ```
+
+    1.  Though rarely used, more details on the distributional shape can
         be obtained by also reporting the [skweness and
         kurtosis](https://en.wikipedia.org/wiki/Moment_(mathematics)).
         In **R**, packages
@@ -272,6 +307,25 @@ or table, or at least relevant for inclusion in supplementary materials.
 3.  **Ensure no suspicious counts** are flagged
 4.  **Eliminate false negatives** (e.g., numeric exposure levels) before
     submission
+5.  **Explain any false negatives that you were unable to remove** in a
+    `README.txt` file in your export request folder or in your export
+    request email
+
+``` r
+# Example: Running R check functions
+
+# Load functions
+source("../../06_data_managment/001_functions/functions.R")
+source("../../06_data_managment/001_functions/check_functions.R")
+
+# Read tables
+path <- path_to_folder
+tabs <- read_all_tables(path)
+
+# Check potential violations
+res <- list_check_all(tabs)
+res[n > 0]
+```
 
 **Common false negatives from check functions**:
 
@@ -280,9 +334,9 @@ or table, or at least relevant for inclusion in supplementary materials.
 - **Solution**: Rename levels to letters (`a`, `b`) or descriptive names
   (`level0`, `level1`)
 
-We apply the same functions during review. Suspicious results will
-require extended manual review, may lead to requests for modifications
-and delay the export.
+We apply the same check functions during review. Unexplained suspicious
+results will require extended manual review, may lead to requests for
+modifications and delay the export.
 
 [Back to top](#top)
 
@@ -351,6 +405,18 @@ but also ROC curves and calibration curves from prediction models.
   individual’s event
 - **Always**: Export the smoothed data table used to create the curve,
   not the curve itself.
+
+## Rounding
+
+Avoid exporting numerical values with 8-14 decimal places, as this will
+trigger a DST micro data warning that must be explained manually in a
+comment submitted with the data export.
+
+1.  Numbers intended for publication or presentation should be rounded
+    to 2-3 (significant) digits.
+2.  Numbers intended for further processing in figures or similar should
+    be formatted with up to 7 digits. This preserves sufficient
+    precision while avoiding the warning trigger.
 
 [Back to top](#top)
 
