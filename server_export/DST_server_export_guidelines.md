@@ -334,6 +334,7 @@ res[n > 0]
 - **Solution**: Rename levels to letters (`a`, `b`) or descriptive names
   (`level0`, `level1`)
 
+We apply the same check functions during review. Unexplained suspicious
 results will require extended manual review, may lead to requests for
 modifications and delay the export.
 
