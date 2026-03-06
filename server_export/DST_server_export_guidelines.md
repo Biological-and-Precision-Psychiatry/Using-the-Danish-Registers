@@ -37,7 +37,7 @@ DST Server Export Guidelines
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
-> - **Last edits**: 2026-03-01
+> - **Last edits**: 2026-03-06
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
@@ -45,6 +45,8 @@ DST Server Export Guidelines
 ------------------------------------------------------------------------
 
 # Overview
+
+This is a test
 
 These guidelines describes how to export analysis results from the DST
 servers. The guidelines are meant for researchers working under Michael
