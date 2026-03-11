@@ -4,14 +4,14 @@ Definition of Study Population and Variables
 > - **Status:** DRAFT document
 > - **Author:** Clara S. Grønkjær, Rune H. B. Christensen, Eva N. S. Wandall
 > - **Date:** 2024-12-18
-> - **Last edit**: 2026-02-23 (ENSW)
+> - **Last edit**: 2026-03-11 (ENSW)
 
 ---
 
 
 # Purpose of This Document
 
-This document is intended for researchers initiating a register-based study using data from Statistics Denmark (DK: Danmarks Statistik, DST).
+This document is intended for researchers initiating a register-based study using data from Statistics Denmark (DK: Danmarks Statistik, DST) and Sundhedsdatastyrelsen.
 
 It describes:
 
@@ -28,6 +28,11 @@ Proposed mitigations are marked as:
 
 ✔ **Possible Solutions**
 
+Additional resources are marked as:
+
+🕮 **Resources**
+
+
 ---
 
 # Table of Contents
@@ -36,8 +41,12 @@ Proposed mitigations are marked as:
 2. [Income](#income)
 3. [Education](#education)
 4. [Employment / Work Status](#employment--work-status)
-5. [Parental Psychiatric Disorder](#parental-psychiatric-disorder)
-6. [Charlson Comorbidity Index (CCI)](#charlson-comorbidity-index-cci)
+5. [Psychiatric Diagnoses](#psychiatric-diagnoses)
+6. [Parental Psychiatric Disorder](#parental-psychiatric-disorder)
+7. [Hospital diagnoses](#hospital-diagnoses)
+8. [Charlson Comorbidity Index (CCI)](#charlson-comorbidity-index-(cci))
+9. [Prescription Registry](#prescription-registry)
+10. [Laboratory Results](#laboratory-results)
 
 ---
 
@@ -114,6 +123,12 @@ Individuals are categorized into **population-level income quintiles**:
 * Map family income from `FAIK` via `BEF` (population register, DK: Befolkningsregister).
 * Develop a standardized quintile-generation function for internal use.
 
+🕮 **Resources**
+
+* [Documentation from Statistics Denmark (in Danish)](https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/indkomststatistik)
+* [Baadsgaard and Quitzau (2011): Danish registers on personal income and transfer payments](https://journals.sagepub.com/doi/10.1177/1403494811405098)
+* [Ejlskov and Plana-Ripoll (2025): Income in epidemiological research: a guide to measurement and analytical treatment with a case study on mental disorders and mortality](https://pure.au.dk/portal/da/publications/income-in-epidemiological-research-a-guide-to-measurement-and-ana/)
+
 ---
 
 # Education
@@ -165,6 +180,11 @@ Education is categorized based on variable `hfaudd`.
 * Stratify analyses by imputed vs non-imputed education.
 * Separate vocational training and gymnasium into distinct categories.
 
+🕮 **Resources**
+
+* [Documentation from Statistics Denmark (in Danish)](https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/hoejest-fuldfoert-uddannelse)
+* [Jensen and Rasmussen (2011): Danish Education Registers](https://journals.sagepub.com/doi/10.1177/1403494810394715?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
+
 ---
 
 # Employment / Work Status
@@ -202,6 +222,7 @@ Primary variable used: `SOCIO_13` (from AKM)
 * Exclude or impute missing values explicitly.
 * Reclassify employment categories.
 
+
 ---
 
 ## Revised Version (Proposed)
@@ -220,6 +241,13 @@ Primary variable used: `SOCIO_13` (from AKM)
 
 * Should `SOCIO_13 = 410` (“Others outside workforce”, DK: øvrige ude af erhverv) be moved to “Not in workforce”?
 * Should `SOCIO_13 = 323` (early retirement, DK: efterløn) be classified as “Retired”?
+
+
+🕮 **Resources**
+
+* [Documentation on RAS from Statistics Denmark (in Danish)](https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/registerbaseret-arbejdsstyrkestatistik--ras-)
+* [Documentation on AKM from Statistics Denmark (in Danish)](https://www.dst.dk/da/TilSalg/data-til-forskning/generelt-om-data/dokumentation-af-data/hoejkvalitetsvariable/personers-tilknytning-til-arbejdsmarkedet-set-over-hele-aaret--akm-)
+* [Petersson, Baadsgaard and Thygesen (2011): Danish registers on personal labour market affiliation](https://journals.sagepub.com/doi/10.1177/1403494811408483?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 
 ---
 
@@ -260,6 +288,11 @@ An increasing number of individuals receive a F-chapter diagnosis (especially AD
 * Conduct sensitivity analyses across register versions.
 * A mapping of inpatient contacts across LPR2 and LPR3 can be found in *Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study* (Grønkjær et al., 2025)
 
+🕮 **Resources**
+
+* [Mors, Perto and Mortensen (2011): The Danish Psychiatric Central Research Register](https://journals.sagepub.com/doi/10.1177/1403494810395825?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
+* [Plana-Ripoll et al. (2024): Mental Disorders in Danish Hospital Registers: A Review of Content and Possibilities for Epidemiological Research](https://www.dovepress.com/mental-disorders-in-danish-hospital-registers-a-review-of-content-and--peer-reviewed-fulltext-article-CLEP)
+
 ---
 
 # Parental Psychiatric Disorder
@@ -278,6 +311,19 @@ An increasing number of individuals receive a F-chapter diagnosis (especially AD
 * Restrict to biologically verified parents where possible.
 * Define exposure window explicitly (e.g., before age 18).
 * Perform time-dependent exposure modelling.
+
+---
+
+# Hospital diagnoses
+
+Hospital diagnoses including both psychiatric and somatic diagnoses are available in Landspatientsregistret (LPR).
+
+---
+
+🕮 **Resources**
+
+* [Documentation from Sundhedsdatastyrelsen (in Danish)](https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/landspatientregisteret)
+* [Schmidt et al. (2015): The Danish National Patient Registry: a review of content, data quality, and research potential](https://pmc.ncbi.nlm.nih.gov/articles/PMC4655913/)
 
 ---
 
@@ -300,3 +346,31 @@ The Charlson Comorbidity Index (CCI) is used to estimate disease burden.
 * Exclude outcome diagnosis from CCI calculation.
 * Review alternative definitions (Andreas).
 
+---
+
+# Prescription Registry
+
+Prescription data are available in Lægemiddelstatistikregistret (LMDB)
+
+---
+
+🕮 **Resources**
+
+* [Documentation from Sundhedsdatastyrelsen (in Danish)](https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/laegemiddelstatistikregisteret)
+* [Pottegaard et al. (2015): Data Resource Profile: The Danish National
+Prescription Registry](https://www.antonpottegaard.dk/publications/reviews/o80.pdf)
+
+---
+
+
+# Laboratory results
+
+The first available register on laboratory results was the regional Clinical Laboratory Information
+System Research (LABKA) Database at Aarhus University. In the group, we have access to the more comprehensive nationwide Register of Laboratory Results for Research (RLRR). Colloquial (in our group), LABKA is however sometimes used to RLRR. 
+
+---
+
+🕮 **Resources**
+
+* [Documentation from Sundhedsdatastyrelsen (in Danish)](https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/laboratoriedatabasen)
+* [Håkonsen et al. (2020): Existing Data Sources in Clinical Epidemiology: Laboratory Information System Databases in Denmark](https://www.dovepress.com/article/download/53821)
