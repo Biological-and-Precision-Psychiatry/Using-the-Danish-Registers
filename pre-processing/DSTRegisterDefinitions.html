@@ -746,11 +746,12 @@ market affiliation</a></li>
 <hr />
 </div>
 </div>
-<div id="psychiatric-diagnoses" class="section level1">
-<h1>Psychiatric Diagnoses</h1>
-<p>Derived from:</p>
+<div id="hospital-diagnoses" class="section level1">
+<h1>Hospital diagnoses</h1>
+<p>Hospital diagnoses including both psychiatric and somatic diagnoses
+are available in Landspatientsregistret (LPR) which exits in several
+versions:</p>
 <ul>
-<li>PCR (DK: Det Psykiatriske Centrale Forskningsregister)</li>
 <li>LPR2 (DK: Landspatientregisteret version 2)</li>
 <li>LPR3 (DK: Landspatientregisteret version 3)</li>
 </ul>
@@ -765,10 +766,45 @@ and three contacts in LPR3. The number of contacts and diagnoses
 increases significantly after 2019. Several potential issues arises when
 combining data from LPR2 and LPR3, e.g. around the time of transition
 some contacts are artificially closed and reopened.</p>
-<p>Currently, only diagnoses given at psychiatric departments are
-considered. Adding diagnoses from neurological departments (or all
-somatic departments) might make sense, especially for organic mental
-disorders.</p>
+<hr />
+<p>⚠ <strong>Possible Problems</strong></p>
+<ul>
+<li>Substantial differences exist between LPR2 and LPR3 coding
+practices. This particularly affects how contacts are defined.</li>
+<li>In LPR2, <code>c_adiag</code> should not be used — use
+<code>c_diag</code>.</li>
+</ul>
+<p>✔ <strong>Possible Solutions</strong></p>
+<ul>
+<li>Harmonize diagnosis definitions across LPR2 and LPR3.</li>
+<li>Conduct sensitivity analyses across register versions.</li>
+<li>A mapping of inpatient contacts across LPR2 and LPR3 can be found in
+<a href="https://academic.oup.com/brain/article/148/5/1829/7879585?login=true">Mental
+health disorders before, during and after the COVID-19 pandemic: a
+nationwide study (Grønkjær et al., 2025)</a></li>
+</ul>
+<p>🕮 <strong>Resources</strong></p>
+<ul>
+<li><a href="https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/landspatientregisteret">Documentation
+from Sundhedsdatastyrelsen (in Danish)</a></li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4655913/">Schmidt
+et al. (2015): The Danish National Patient Registry: a review of
+content, data quality, and research potential</a></li>
+</ul>
+<hr />
+</div>
+<div id="psychiatric-diagnoses" class="section level1">
+<h1>Psychiatric Diagnoses</h1>
+<p>Derived from:</p>
+<ul>
+<li>PCR (DK: Det Psykiatriske Centrale Forskningsregister)</li>
+<li>LPR2 (DK: Landspatientregisteret version 2)</li>
+<li>LPR3 (DK: Landspatientregisteret version 3)</li>
+</ul>
+<p>Currently, only diagnoses given at psychiatric departments in LPR2
+and LPR3 are considered. Adding diagnoses from neurological departments
+(or all somatic departments) might make sense, especially for organic
+mental disorders.</p>
 <p>b1diag, b2diag, b3diag are coded as supplementary codes in PCR8.</p>
 <p>An increasing number of individuals receive a F-chapter diagnosis
 (especially ADHD and ASD diagnoses) as a tillægskode before receiving
@@ -785,7 +821,7 @@ before receiving the diagnosis as a primary or secondary diagnosis. In
 most cases, the suplementray code specify a primary Z-code
 diagnosis.</li>
 <li>Substantial differences exist between LPR2 and LPR3 coding
-practices. This particularly affects how contacts are defined.</li>
+practices. This particularly affects how contacts are defined <a href="#hospital-diagnoses">(cf. Hospital Diagnoses)</a>.</li>
 <li>In LPR2, <code>c_adiag</code> should not be used — use
 <code>c_diag</code>.</li>
 </ul>
@@ -796,8 +832,9 @@ practices. This particularly affects how contacts are defined.</li>
 strategy.</li>
 <li>Conduct sensitivity analyses across register versions.</li>
 <li>A mapping of inpatient contacts across LPR2 and LPR3 can be found in
-<em>Mental health disorders before, during and after the COVID-19
-pandemic: a nationwide study</em> (Grønkjær et al., 2025)</li>
+<a href="https://academic.oup.com/brain/article/148/5/1829/7879585?login=true">Mental
+health disorders before, during and after the COVID-19 pandemic: a
+nationwide study (Grønkjær et al., 2025)</a></li>
 </ul>
 <p>🕮 <strong>Resources</strong></p>
 <ul>
@@ -807,6 +844,14 @@ Register</a></li>
 <li><a href="https://www.dovepress.com/mental-disorders-in-danish-hospital-registers-a-review-of-content-and--peer-reviewed-fulltext-article-CLEP">Plana-Ripoll
 et al. (2024): Mental Disorders in Danish Hospital Registers: A Review
 of Content and Possibilities for Epidemiological Research</a></li>
+<li><a href="https://onlinelibrary.wiley.com/doi/10.1111/acps.13463">Bernstorff
+et al. (2022): Stability of diagnostic coding of psychiatric outpatient
+visits across the transition from the second to the third version of the
+Danish National Patient Registry</a></li>
+<li><a href="https://www.dovepress.com/validity-of-algorithm-for-classification-of-in--and-outpatient-hospita-peer-reviewed-fulltext-article-CLEP">Skjøth,
+Nielsen and Bodilsen (2022): Validity of Algorithm for Classification of
+In- and Outpatient Hospital Contacts in the Danish National Patient
+Registry</a></li>
 </ul>
 <hr />
 </div>
@@ -827,21 +872,6 @@ parental diagnosis occurring later in life.</li>
 <li>Restrict to biologically verified parents where possible.</li>
 <li>Define exposure window explicitly (e.g., before age 18).</li>
 <li>Perform time-dependent exposure modelling.</li>
-</ul>
-<hr />
-</div>
-<div id="hospital-diagnoses" class="section level1">
-<h1>Hospital diagnoses</h1>
-<p>Hospital diagnoses including both psychiatric and somatic diagnoses
-are available in Landspatientsregistret (LPR).</p>
-<hr />
-<p>🕮 <strong>Resources</strong></p>
-<ul>
-<li><a href="https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/landspatientregisteret">Documentation
-from Sundhedsdatastyrelsen (in Danish)</a></li>
-<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4655913/">Schmidt
-et al. (2015): The Danish National Patient Registry: a review of
-content, data quality, and research potential</a></li>
 </ul>
 <hr />
 </div>

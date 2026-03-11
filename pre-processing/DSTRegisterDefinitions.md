@@ -41,9 +41,9 @@ Additional resources are marked as:
 2. [Income](#income)
 3. [Education](#education)
 4. [Employment / Work Status](#employment--work-status)
-5. [Psychiatric Diagnoses](#psychiatric-diagnoses)
-6. [Parental Psychiatric Disorder](#parental-psychiatric-disorder)
-7. [Hospital diagnoses](#hospital-diagnoses)
+5. [Hospital diagnoses](#hospital-diagnoses)
+6. [Psychiatric Diagnoses](#psychiatric-diagnoses)
+7. [Parental Psychiatric Disorder](#parental-psychiatric-disorder)
 8. [Charlson Comorbidity Index (CCI)](#charlson-comorbidity-index-(cci))
 9. [Prescription Registry](#prescription-registry)
 10. [Laboratory Results](#laboratory-results)
@@ -251,11 +251,10 @@ Primary variable used: `SOCIO_13` (from AKM)
 
 ---
 
-# Psychiatric Diagnoses 
+# Hospital diagnoses
 
-Derived from:
+Hospital diagnoses including both psychiatric and somatic diagnoses are available in Landspatientsregistret (LPR) which exits in several versions: 
 
-* PCR (DK: Det Psykiatriske Centrale Forskningsregister)
 * LPR2 (DK: Landspatientregisteret version 2)
 * LPR3 (DK: Landspatientregisteret version 3)
 
@@ -266,7 +265,35 @@ The definition of contacts changes from LPR2 to LPR3. In LPR2, a contact is reco
 
 In LPR3 2019, a contact is recorded at the level of an element in a treatment sequence, e.g. an inpatient admission where the patient has three meetings with a psychiatrist is recorded as one contact in LPR2 and three contacts in LPR3. The number of contacts and diagnoses increases significantly after 2019. Several potential issues arises when combining data from LPR2 and LPR3, e.g. around the time of transition some contacts are artificially closed and reopened. 
 
-Currently, only diagnoses given at psychiatric departments are considered. Adding diagnoses from neurological departments (or all somatic departments) might make sense, especially for organic mental disorders.
+---
+
+⚠ **Possible Problems**
+
+* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined.
+* In LPR2, `c_adiag` should not be used — use `c_diag`.
+
+✔ **Possible Solutions**
+
+* Harmonize diagnosis definitions across LPR2 and LPR3.
+* Conduct sensitivity analyses across register versions.
+* A mapping of inpatient contacts across LPR2 and LPR3 can be found in [Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study (Grønkjær et al., 2025)](https://academic.oup.com/brain/article/148/5/1829/7879585?login=true)
+
+🕮 **Resources**
+
+* [Documentation from Sundhedsdatastyrelsen (in Danish)](https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/landspatientregisteret)
+* [Schmidt et al. (2015): The Danish National Patient Registry: a review of content, data quality, and research potential](https://pmc.ncbi.nlm.nih.gov/articles/PMC4655913/)
+
+---
+
+# Psychiatric Diagnoses 
+
+Derived from:
+
+* PCR (DK: Det Psykiatriske Centrale Forskningsregister)
+* LPR2 (DK: Landspatientregisteret version 2)
+* LPR3 (DK: Landspatientregisteret version 3)
+
+Currently, only diagnoses given at psychiatric departments in LPR2 and LPR3 are considered. Adding diagnoses from neurological departments (or all somatic departments) might make sense, especially for organic mental disorders.
 
 b1diag, b2diag, b3diag are coded as supplementary codes in PCR8. 
 
@@ -278,7 +305,7 @@ An increasing number of individuals receive a F-chapter diagnosis (especially AD
 
 * It might be more appropriate to classify b1diag, b2diag, b3diag in PCR8 as secondary diagnoses, cf: https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette.
 * An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and autism spectrum diagnoses) as a supplementary codes before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the suplementray code specify a primary Z-code diagnosis.
-* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined.
+* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined [(cf. Hospital Diagnoses)](#hospital-diagnoses).
 * In LPR2, `c_adiag` should not be used — use `c_diag`.
 
 ✔ **Possible Solutions**
@@ -286,12 +313,14 @@ An increasing number of individuals receive a F-chapter diagnosis (especially AD
 * Harmonize diagnosis definitions across LPR2 and LPR3.
 * Explicitly document primary vs supplementary diagnosis strategy.
 * Conduct sensitivity analyses across register versions.
-* A mapping of inpatient contacts across LPR2 and LPR3 can be found in *Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study* (Grønkjær et al., 2025)
+* A mapping of inpatient contacts across LPR2 and LPR3 can be found in [Mental health disorders before, during and after the COVID-19 pandemic: a nationwide study (Grønkjær et al., 2025)](https://academic.oup.com/brain/article/148/5/1829/7879585?login=true)
 
 🕮 **Resources**
 
 * [Mors, Perto and Mortensen (2011): The Danish Psychiatric Central Research Register](https://journals.sagepub.com/doi/10.1177/1403494810395825?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%20%200pubmed)
 * [Plana-Ripoll et al. (2024): Mental Disorders in Danish Hospital Registers: A Review of Content and Possibilities for Epidemiological Research](https://www.dovepress.com/mental-disorders-in-danish-hospital-registers-a-review-of-content-and--peer-reviewed-fulltext-article-CLEP)
+* [Bernstorff et al. (2022): Stability of diagnostic coding of psychiatric outpatient visits across the transition from the second to the third version of the Danish National Patient Registry](https://onlinelibrary.wiley.com/doi/10.1111/acps.13463)
+* [Skjøth, Nielsen and Bodilsen (2022): Validity of Algorithm for Classification of In- and Outpatient Hospital Contacts in the Danish National Patient Registry](https://www.dovepress.com/validity-of-algorithm-for-classification-of-in--and-outpatient-hospita-peer-reviewed-fulltext-article-CLEP)
 
 ---
 
@@ -311,19 +340,6 @@ An increasing number of individuals receive a F-chapter diagnosis (especially AD
 * Restrict to biologically verified parents where possible.
 * Define exposure window explicitly (e.g., before age 18).
 * Perform time-dependent exposure modelling.
-
----
-
-# Hospital diagnoses
-
-Hospital diagnoses including both psychiatric and somatic diagnoses are available in Landspatientsregistret (LPR).
-
----
-
-🕮 **Resources**
-
-* [Documentation from Sundhedsdatastyrelsen (in Danish)](https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/landspatientregisteret)
-* [Schmidt et al. (2015): The Danish National Patient Registry: a review of content, data quality, and research potential](https://pmc.ncbi.nlm.nih.gov/articles/PMC4655913/)
 
 ---
 
