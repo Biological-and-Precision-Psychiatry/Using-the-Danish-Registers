@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 > -   **Version**: Final
 > -   **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > -   **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S. Wandall 
-<!-- > - **Approved by**: Michael E. Benros (version) -->
+> -   **Approved by**: Michael E. Benros
 > -   **Last edits**: `r Sys.Date()`
 > -   **Responsible**: The data management team (defined below)
 > -   **Source document**: [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)

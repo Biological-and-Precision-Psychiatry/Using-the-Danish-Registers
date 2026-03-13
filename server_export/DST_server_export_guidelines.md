@@ -36,7 +36,8 @@ DST Server Export Guidelines
 > - **Version**: Final
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
->   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
+>   Wandall
+> - **Approved by**: Michael E. Benros
 > - **Last edits**: 2026-03-13
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
