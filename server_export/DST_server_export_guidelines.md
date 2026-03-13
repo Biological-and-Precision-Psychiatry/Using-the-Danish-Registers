@@ -33,7 +33,7 @@ DST Server Export Guidelines
 
 ------------------------------------------------------------------------
 
-> - **Version**: DRAFT - Ready for review
+> - **Version**: Final
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
@@ -186,22 +186,27 @@ or table, or at least relevant for inclusion in supplementary materials.
 
 **Background**
 
-1.  It is our position that the registers are useful for population and
-    large-scale results. We view any result based on less than ~20
-    subjects as practically, scientifically and statistically
-    insufficiently informative.
-2.  From a practical point of view we aim to stay clear of boundary
-    cases. This allows us to make server request reviews much faster
-    because we don’t have to worry that we may have overlooked a minor
-    condition. This benefits all of us: We spend less time and you get
-    the requested exports right away.
+1.  In our view the registers are most useful for population and
+    large-scale analyses. The registers are mostly obtained for
+    administrative purposes, not for research aims. Analyses based on
+    few individuals are fragile due to the idiosyncrasies of data
+    registration practices and such analyses would be much more valuable
+    if conducted on data procured for research aims.
+2.  In short, the practical, statistical and scientific value of
+    register based analyses decreases faster-than-usual with decreasing
+    sample sizes. What our analyses can hope to gain are therefore the
+    big pictures.
+3.  From a practical point of view ask for your collaboration to stay
+    clear of boundary cases for server exports. This allows us to make
+    server request reviews much faster because we don’t have to worry
+    that we may have overlooked a minor condition. This benefits all of
+    us: We spend less time and you get the requested exports right away.
 
-**Our Policy**
+**Requirements**
 
-1.  We encourage you to ensure that all results are based on at least 10
-    subjects and we suggest that you aim for more than that as a
-    standard.
-2.  All results must be based on at least 5 subjects
+1.  We encourage that you aim for all results to be based on at least 10
+    subjects.
+2.  All results **must** be based on at least 5 subjects
 3.  Rates (events per time-unit) can only be validly exported if
     1.  there are at least 5 events per rate estimate
     2.  the number of events is included as a separate column in the
@@ -222,11 +227,13 @@ or table, or at least relevant for inclusion in supplementary materials.
     multiple tables that may be exported throughout the course of your
     project.
 7.  Use intuitive variable names, especially for variables that are key
-    to our review. Use for example `N_subjects` or `N_persons` rather
-    than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based
-    such as most survival-type analyses you should also have a column
-    named `N_events` and potentially `N_subjects_with_events` if
-    subjects can have more than one event.
+    to our review. Begin all column names referring to subjects with
+    `N_` and use for example `N_subjects` or `N_persons` rather than
+    `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such
+    as most survival-type analyses you should also have a column named
+    `N_events` and potentially `N_subjects_with_events` if subjects can
+    have more than one event (note that the last two column names refer
+    to subjects and therefore begin with `N_`).
 8.  If your export request contains the results of analyses such as
     predictions, hazard ratios, percentages etc. (as many requests do)
     it has to be clear to us how many subjects and how many events (or
@@ -244,6 +251,7 @@ or table, or at least relevant for inclusion in supplementary materials.
     each of these cases requires manual review, so **we ask that
     quantiles are avoided if at all possible**. Fortunately, there are
     almost always reasonable alternatives.
+
     1.  For baseline tables (and similar) mean(SD) is an alternative to
         median(IQR).
     2.  If the data are right-skewed the [geometric mean and
@@ -295,6 +303,7 @@ or table, or at least relevant for inclusion in supplementary materials.
         [e1071](https://cran.r-project.org/package=e1071) and
         [moments](https://cran.r-project.org/package=moments) provide
         functions `skewness()`, `kurtosis()` and `moment()`.
+
 2.  The statistics *min* and *max* (and thus *range* as well) identify
     extreme individuals and we strongly discourage these.
 
@@ -457,7 +466,7 @@ Where:
 
 ## Email Requirements
 
-Your export request email **must explicitly include**:
+Your export request email **must include**:
 
 1.  The full path to your export folder
 2.  A confirmation statement: *“I have checked all files for microdata,
@@ -470,6 +479,8 @@ Your export request email **must explicitly include**:
 
 You may use the following email template:
 
+    Email title: DST server export request <additional details>
+
     Dear data management team,
 
     I would like to make a DST server export request. 
@@ -477,12 +488,28 @@ You may use the following email template:
 
     `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
 
+    Contents of folder:
+      - <2 Excel files with analysis results>
+      - <1 README.txt file with a column name index>
+
     I have checked all files for microdata, small cell counts and other potential
     violations, I have manually opened and reviewed all files, and I guarantee that
     all files requested for export complies with the requirements by DST and
     Sundhedsdatastyrelsen and the DST_server_export_guidelines document.
 
-    Purpose: These results are needed for the project on XXX ... 
+    Column names in the data tables requested for export:
+      - All columns that refer to a number of subjects start with `N_`.
+      - <Optional description of non-intuitive column names>
+
+    Application of R check functions on the data tables requested for export:
+      - I have run the R check functions and no issues were reported.
+      - <Optional description of false negative>
+
+    Purpose and content of export request: 
+      - These results are needed for the project on XXX ... 
+      - <Baseline table for the full cohort>
+      - <Results of Cox regression models>
+      - <Data (smoothed) for cumulative incidence curves by sex>
 
     Best Regards
     Donald Duck
