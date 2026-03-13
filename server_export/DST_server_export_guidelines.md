@@ -37,7 +37,7 @@ DST Server Export Guidelines
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
-> - **Last edits**: 2026-03-01
+> - **Last edits**: 2026-03-13
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
@@ -374,7 +374,7 @@ any meaningful definition of a *baseline*.
   $(6 / N)\cdot 100\%$” where $N$ is the relevant number of subjects.
 - This single-imputation approach is usually also the preferred approach
   for the statistical analyses: Leaving the subjects with unknown income
-  with a value of `NA` will case these subjects to be excluded from the
+  with a value of `NA` will cause these subjects to be excluded from the
   statistical analyses resulting in a so-called complete case analysis,
   which should generally be avoided.
 - More advanced approaches such as multiple imputation are rarely worth
@@ -490,7 +490,7 @@ You may use the following email template:
 
 Before sending your export request email, verify that:
 
-- [ ] All files are in `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
+- [ ] All files are in a `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
   folder
 - [ ] You have manually scrutinized all files for potential violations
 - [ ] You have run the R check functions on all tables

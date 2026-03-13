@@ -212,7 +212,7 @@ By _Baseline table_ we mean the typical `Table 1` that is used to describe the c
 
 - The best solution is often to merge the subjects with unknown income (or other characteristic) into another group. That could be the majority group or the another group which you find more natural.
 - In your statistical methods notes you can add something like "Subjects with missing values on any attribute are single-imputed to the majority group", and further state that "The proportion of missing values for any attribute unless explicitly stated is less than $(6 / N)\cdot 100\%$" where $N$ is the relevant number of subjects. 
-- This single-imputation approach is usually also the preferred approach for the statistical analyses: Leaving the subjects with unknown income with a value of `NA` will case these subjects to be excluded from the statistical analyses resulting in a so-called complete case analysis, which should generally be avoided.
+- This single-imputation approach is usually also the preferred approach for the statistical analyses: Leaving the subjects with unknown income with a value of `NA` will cause these subjects to be excluded from the statistical analyses resulting in a so-called complete case analysis, which should generally be avoided.
 - More advanced approaches such as multiple imputation are rarely worth the effort because the number of subjects with missing values are few and the number of subjects in the analysis are in the millions.
 
 
@@ -304,7 +304,7 @@ Donald Duck
 
 Before sending your export request email, verify that:
 
-- [ ] All files are in `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD` folder
+- [ ] All files are in a `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD` folder
 - [ ] You have manually scrutinized all files for potential violations
 - [ ] You have run the R check functions on all tables
 - [ ] No false negatives from check functions (or you've corrected them)
