@@ -34,9 +34,7 @@ knitr::opts_chunk$set(
 
 These guidelines describes how to export analysis results from the DST servers. The guidelines are meant for researchers working under Michael Eriksen Benros' authorization at the DST registers, and who need to send analysis results from the servers to advance their research projects but do not have direct export rights.
 
-You make a _server export request_ by sending an email to the data management team. The process and requirements of exporting from the DST servers is visualized in the following flowchart and described in the sections below.
-
-![](flowchart.png)
+You make a _server export request_ by sending an email to the data management team. The following sections describes the process and requirements in further detail. 
 
 Our hope is that the guidelines will make for a smooth process for you as well as us with as little waste of time for all involved. If you find our interpretation of regulatory requirements strict, recall that [the consequences for the research on many projects involving a lot of people can be quite severe](https://www.dst.dk/da/TilSalg/data-til-forskning/regler-og-datasikkerhed/sanktionsregler) as detailed in DST requirements. We also aim to stay clear of boundary cases so we can safely export results without spending too much time on manual review. We hope for your understanding on this policy.
 

@@ -53,11 +53,8 @@ analysis results from the servers to advance their research projects but
 do not have direct export rights.
 
 You make a *server export request* by sending an email to the data
-management team. The process and requirements of exporting from the DST
-servers is visualized in the following flowchart and described in the
-sections below.
-
-![](flowchart.png)
+management team. The following sections describes the process and
+requirements in further detail.
 
 Our hope is that the guidelines will make for a smooth process for you
 as well as us with as little waste of time for all involved. If you find
