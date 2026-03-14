@@ -473,12 +473,12 @@ Where:
 Your export request email **must include**:
 
 1.  The full path to your export folder
-2.  A confirmation statement: *“I have checked all files for microdata,
-    small cell counts and other potential violations, I have manually
-    opened and reviewed all files, and I guarantee that all files
-    requested for export complies with the requirements by DST and
-    Sundhedsdatastyrelsen and the DST_server_export_guidelines
-    document.”*
+2.  A statement of compliance with requirements: *“I have checked all
+    files for microdata, small cell counts and other potential
+    violations, I have manually opened and reviewed all files, and I
+    guarantee that all files requested for export complies with the
+    requirements by DST and Sundhedsdatastyrelsen and the
+    DST_server_export_guidelines document.”*
 3.  A description of what the export contains and why it’s needed
 
 You may use the following email template:
@@ -532,5 +532,5 @@ Before sending your export request email, verify that:
 - [ ] All results are based on ≥5 individuals and on ≥5 events
 - [ ] Files are in approved formats (`.xlsx`, `.xls`)
 - [ ] Email contains the full folder path
-- [ ] Email contains the compliance statement
-- [ ] The recipient of the email is the datamanagement-email.
+- [ ] Email contains the statement of compliance with requirements
+- [ ] The recipient of the email is the datamanagement-email
