@@ -6,7 +6,7 @@ DST Server Export Guidelines
   - [Who Handles Exports](#who-handles-exports)
   - [How to Request an Export](#how-to-request-an-export)
   - [Export Office Hours](#export-office-hours)
-  - [Retrieveing Exports](#retrieveing-exports)
+  - [Retrieving Exports](#retrieving-exports)
 - [Data Safety and Compliance
   Requirements](#data-safety-and-compliance-requirements)
   - [Core Principles](#core-principles)
@@ -38,7 +38,7 @@ DST Server Export Guidelines
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall
 > - **Approved by**: Michael E. Benros
-> - **Last edits**: 2026-03-13
+> - **Last edits**: 2026-03-14
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST_server_export_guidelines.Rmd](/server_export/DST_server_export_guidelines.Rmd)
@@ -110,7 +110,7 @@ scheduled basis to avoid continuous on-call demands.
   so contact us to make arrangements if you have time-critical exports
   during such periods.
 
-## Retrieveing Exports
+## Retrieving Exports
 
 - When we export your results we notify you by email.
 - The exported results are available for download through “Danmarks Data
@@ -170,7 +170,7 @@ or table, or at least relevant for inclusion in supplementary materials.
 - All columns should have meaningful variable names.
 - Group data tables: If you have 5 tables, then put them all in the same
   Excel-file because it is easy to browse between sheets when we review
-  you export request. If you have 40 data tables then group them into a
+  your export request. If you have 40 data tables then group them into a
   handful of files, so that the number of sheets is more manageable.
 - Describe the meaning of variables whose meaning is not obvious. Add a
   `variable_explanation` sheet in your Excel file, put a `README.txt`
@@ -328,8 +328,8 @@ or table, or at least relevant for inclusion in supplementary materials.
 # Example: Running R check functions
 
 # Load functions
-source("../../06_data_managment/001_functions/functions.R")
-source("../../06_data_managment/001_functions/check_functions.R")
+source("../../06_data_management/001_functions/functions.R")
+source("../../06_data_management/001_functions/check_functions.R")
 
 # Read tables
 path <- path_to_folder
@@ -383,8 +383,8 @@ any meaningful definition of a *baseline*.
 - In your statistical methods notes you can add something like “Subjects
   with missing values on any attribute are single-imputed to the
   majority group”, and further state that “The proportion of missing
-  values for any attribute unless explicitly stated is less than
-  $(6 / N)\cdot 100\%$” where $N$ is the relevant number of subjects.
+  values for any attribute unless explicitly stated is less than 6/N ×
+  100%” where N is the relevant number of subjects.
 - This single-imputation approach is usually also the preferred approach
   for the statistical analyses: Leaving the subjects with unknown income
   with a value of `NA` will cause these subjects to be excluded from the

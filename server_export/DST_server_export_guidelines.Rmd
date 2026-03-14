@@ -66,7 +66,7 @@ We (ie., the data management team) consider server exports on a scheduled basis 
 -   **Special requests**: We acknowledge that there may be time-critical exports for instance during manuscript review processes. Contact us in advance to arrange exports outside standard hours.
 -   **Vacation periods**: We may be out of office during vacation periods, so contact us to make arrangements if you have time-critical exports during such periods.
 
-## Retrieveing Exports
+## Retrieving Exports
 
 -   When we export your results we notify you by email.
 -   The exported results are available for download through "Danmarks Data Vindue" (DDV) accessible via <https://remote.dst.dk>
@@ -102,7 +102,7 @@ Also note the requirement from both regulatory bodies that server exports should
 
 -   Exports should contain **only** rectangular data tables in (preferably) **Excel** (`*.xlsx` or `*.xls`) or (if need be) **CSV** format (`*.csv`)
 -   All columns should have meaningful variable names.
--   Group data tables: If you have 5 tables, then put them all in the same Excel-file because it is easy to browse between sheets when we review you export request. If you have 40 data tables then group them into a handful of files, so that the number of sheets is more manageable.
+-   Group data tables: If you have 5 tables, then put them all in the same Excel-file because it is easy to browse between sheets when we review your export request. If you have 40 data tables then group them into a handful of files, so that the number of sheets is more manageable.
 -   Describe the meaning of variables whose meaning is not obvious. Add a `variable_explanation` sheet in your Excel file, put a `README.txt` file in the data request folder or put a bullet list in your request email. Remember to ensure that the variable explanation or `README.txt` can be safely exported.
 -   Occasionally server export of code files (eg. `.R`) is needed. This requires substantial manual review and needs to be agreed with the data management team in advance.
 -   Any other exceptions need to be agreed with the data management team in advance.
@@ -126,7 +126,7 @@ Also note the requirement from both regulatory bodies that server exports should
 5.  Pay attention to the rule of totals described in the DST requirements linked to above: you cannot simply hide a cell with too few subjects behind `<5` (or equivalently remove the corresponding row in the data table) because it is possible to figure out how many are in that cell by extraction from the total number. Instead you have to collapse categories. In short: it should not be possible to reverse engineer small cell counts.
 6.  Reverse engineering small counts should also not be possible across multiple tables that may be exported throughout the course of your project.
 7.  Use intuitive variable names, especially for variables that are key to our review. Begin all column names referring to subjects with `N_` and use for example `N_subjects` or `N_persons` rather than `n`, `N`, `Count`, `Cases` etc. If your analysis is event-based such as most survival-type analyses you should also have a column named `N_events` and potentially `N_subjects_with_events` if subjects can have more than one event (note that the last two column names refer to subjects and therefore begin with `N_`).
-8.  If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of \<5 subjects or groups of any size with \<5 subjects with the event of interest.
+8.  If your export request contains the results of analyses such as predictions, hazard ratios, percentages etc. (as many requests do) it has to be clear to us how many subjects and how many events (or similar) went into the computation. This is because estimates such as hazard ratios, rates, percentages etc. cannot be exported if they are based on groups of <5 subjects or groups of any size with <5 subjects with the event of interest.
 
 ## Summary Statistics and Quantiles
 
@@ -182,8 +182,8 @@ Also note the requirement from both regulatory bodies that server exports should
 # Example: Running R check functions
 
 # Load functions
-source("../../06_data_managment/001_functions/functions.R")
-source("../../06_data_managment/001_functions/check_functions.R")
+source("../../06_data_management/001_functions/functions.R")
+source("../../06_data_management/001_functions/check_functions.R")
 
 # Read tables
 path <- path_to_folder
@@ -212,12 +212,12 @@ By *Baseline table* we mean the typical `Table 1` that is used to describe the c
 **Problem**:
 
 -   There is a small number of missing values for some of the covariates in your baseline table. This gives rise to, say, 3, 5 or 10 subjects in an "Unknown" or `"NA"` category. It could for instance be subjects with an unknown income level.
--   It is not allowed to export data if a cell refers to \<5 subjects even if the category is "Unknown". There can be reasons (unknown to you or to us) that would allow identification of such subjects. In the income example, subjects with unknown income could be subjects recently emigrated to DK who were not available at the income register cutoff date, and that would allow an external party to identify that small group of subjects.
+-   It is not allowed to export data if a cell refers to <5 subjects even if the category is "Unknown". There can be reasons (unknown to you or to us) that would allow identification of such subjects. In the income example, subjects with unknown income could be subjects recently emigrated to DK who were not available at the income register cutoff date, and that would allow an external party to identify that small group of subjects.
 
 **Solution**:
 
 -   The best solution is often to merge the subjects with unknown income (or other characteristic) into another group. That could be the majority group or the another group which you find more natural.
--   In your statistical methods notes you can add something like "Subjects with missing values on any attribute are single-imputed to the majority group", and further state that "The proportion of missing values for any attribute unless explicitly stated is less than $(6 / N)\cdot 100\%$" where $N$ is the relevant number of subjects.
+-   In your statistical methods notes you can add something like "Subjects with missing values on any attribute are single-imputed to the majority group", and further state that "The proportion of missing values for any attribute unless explicitly stated is less than 6/N × 100%" where N is the relevant number of subjects.
 -   This single-imputation approach is usually also the preferred approach for the statistical analyses: Leaving the subjects with unknown income with a value of `NA` will cause these subjects to be excluded from the statistical analyses resulting in a so-called complete case analysis, which should generally be avoided.
 -   More advanced approaches such as multiple imputation are rarely worth the effort because the number of subjects with missing values are few and the number of subjects in the analysis are in the millions.
 
