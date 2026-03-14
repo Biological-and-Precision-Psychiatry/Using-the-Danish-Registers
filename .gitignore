@@ -1,6 +1,9 @@
 ## OS files
 .DS_Store
 
+## Claude code files
+.claude
+
 # History files
 .Rhistory
 .Rapp.history
