@@ -172,11 +172,14 @@ or table, or at least relevant for inclusion in supplementary materials.
   Excel-file because it is easy to browse between sheets when we review
   your export request. If you have 40 data tables then group them into a
   handful of files, so that the number of sheets is more manageable.
-- Describe the meaning of variables whose meaning is not obvious. Add a
-  `variable_explanation` sheet in your Excel file, put a `README.txt`
-  file in the data request folder or put a bullet list in your request
-  email. Remember to ensure that the variable explanation or
-  `README.txt` can be safely exported.
+- Describe the meaning of variables whose meaning is not obvious. Use
+  one of the following options, in order of preference:
+  1.  Add a `variable_explanation` sheet to your Excel file (preferred —
+      easiest to review alongside the data)
+  2.  Include a `README.txt` file in the export folder
+  3.  Include a bullet list in your request email Whichever option you
+      choose, ensure the variable descriptions do not contain microdata
+      or otherwise violate export requirements.
 - Occasionally server export of code files (eg. `.R`) is needed. This
   requires substantial manual review and needs to be agreed with the
   data management team in advance.
@@ -490,7 +493,7 @@ You may use the following email template:
     `Workdata/70XXXX/INIT/hjemsendelser/YYYY-MM-DD`
 
     Contents of folder:
-      - <2 Excel files with analysis results>
+      - <3 Excel files with analysis results>
       - <1 README.txt file with a column name index>
 
     I have checked all files for microdata, small cell counts and other potential
