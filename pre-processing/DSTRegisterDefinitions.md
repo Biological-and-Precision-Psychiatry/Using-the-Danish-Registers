@@ -4,7 +4,7 @@ Definition of Study Population and Variables
 > - **Status:** DRAFT document
 > - **Author:** Clara S. Grønkjær, Rune H. B. Christensen, Eva N. S. Wandall
 > - **Date:** 2024-12-18
-> - **Last edit**: 2026-03-11 (ENSW)
+> - **Last edit**: 2026-03-19 (ENSW)
 
 ---
 
@@ -41,7 +41,7 @@ Additional resources are marked as:
 2. [Income](#income)
 3. [Education](#education)
 4. [Employment / Work Status](#employment--work-status)
-5. [Hospital diagnoses](#hospital-diagnoses)
+5. [The Danish National Patient Registry](#the-danish-national-patient-registry)
 6. [Psychiatric Diagnoses](#psychiatric-diagnoses)
 7. [Parental Psychiatric Disorder](#parental-psychiatric-disorder)
 8. [Charlson Comorbidity Index (CCI)](#charlson-comorbidity-index-(cci))
@@ -251,12 +251,14 @@ Primary variable used: `SOCIO_13` (from AKM)
 
 ---
 
-# Hospital diagnoses
+# The Danish National Patient Registry 
 
-Hospital diagnoses including both psychiatric and somatic diagnoses are available in Landspatientsregistret (LPR) which exits in several versions: 
+Hospital diagnoses including are available in Landspatientsregistret (LPR) which exits in several versions: 
 
 * LPR2 (DK: Landspatientregisteret version 2)
 * LPR3 (DK: Landspatientregisteret version 3)
+
+Data on somatic hospital contacts are available since 1977 and data on psychiatric diagnoses are available since 1995. Data on psychiatric inpatient hospital contacts from 1969 are available in The Danish Psychiatric Central Research Register [(cf. Psychiatric Diagnoses)](#psychiatric-diagnoses).
 
 The definition of contacts changes from LPR2 to LPR3. In LPR2, a contact is recorded at the level of a complete treatment sequence, which can be either
 * an inpatient admission
@@ -264,6 +266,8 @@ The definition of contacts changes from LPR2 to LPR3. In LPR2, a contact is reco
 * an emergency department visit.
 
 In LPR3 2019, a contact is recorded at the level of an element in a treatment sequence, e.g. an inpatient admission where the patient has three meetings with a psychiatrist is recorded as one contact in LPR2 and three contacts in LPR3. The number of contacts and diagnoses increases significantly after 2019. Several potential issues arises when combining data from LPR2 and LPR3, e.g. around the time of transition some contacts are artificially closed and reopened. 
+
+Diagnoses are according to ICD-8 until 1994 and afterwards according to ICD-10. A unidirectional mapping of all ICD-8 codes to ICD-10 codes has been proposed by [Pedersen et al. (2023).](https://link.springer.com/article/10.1007/s10654-023-01027-y)
 
 ---
 
@@ -295,17 +299,19 @@ Derived from:
 
 Currently, only diagnoses given at psychiatric departments in LPR2 and LPR3 are considered. Adding diagnoses from neurological departments (or all somatic departments) might make sense, especially for organic mental disorders.
 
-b1diag, b2diag, b3diag are coded as supplementary codes in PCR8. 
+b1diag, b2diag, b3diag are coded as supplementary codes (DK: tillægskode) in PCR8. 
 
-An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and ASD diagnoses) as a tillægskode before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the primary diagnosis will be a Z-code.
+An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and ASD diagnoses) as a supplementary code before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the primary diagnosis will be a Z-code.
+
+Diagnoses are according to ICD-8 until 1994 and afterwards according to ICD-10. A mapping is available at the DST project: *./ENSW/03_keys/psyk_diag_codes.xlsx*
 
 ---
 
 ⚠ **Possible Problems**
 
-* It might be more appropriate to classify b1diag, b2diag, b3diag in PCR8 as secondary diagnoses, cf: https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette.
+* It might be more appropriate to classify b1diag, b2diag, b3diag in PCR8 as secondary diagnoses: [(cf. variablebeskrivelse for det psychiatriske forsningsregister).](https://www.yumpu.com/da/document/read/17645037/variabelbeskrivelse-for-det-psykiatriske-centrale-forskningsregister/9#google_vignette)
 * An increasing number of individuals receive a F-chapter diagnosis (especially ADHD and autism spectrum diagnoses) as a supplementary codes before receiving the diagnosis as a primary or secondary diagnosis. In most cases, the suplementray code specify a primary Z-code diagnosis.
-* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined [(cf. Hospital Diagnoses)](#hospital-diagnoses).
+* Substantial differences exist between LPR2 and LPR3 coding practices. This particularly affects how contacts are defined [(cf. The Danish National Patient Registry )](#the-danish-national-patient-registry).
 * In LPR2, `c_adiag` should not be used — use `c_diag`.
 
 ✔ **Possible Solutions**
