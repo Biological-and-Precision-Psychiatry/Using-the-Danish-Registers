@@ -1,4 +1,4 @@
-DST Server Behaviour Guidelines
+Behaviour Guidelines for Statistics Denmark (DST) Server
 ================
 
 - [Overview](#top)
@@ -37,10 +37,10 @@ DST Server Behaviour Guidelines
 > - **Authors**: Rune Haubo B. Christensen and Clara S. Grønkjær
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall <!-- > - **Approved by**: Michael E. Benros (version) -->
-> - **Last edits**: 2026-10-05
+> - **Last edits**: 2026-10-09
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
->   [DST-server-behaviour-guidelines.Rmd](/server_export/DST-server-behaviour-guidelines.Rmd)
+>   [DST-server-behaviour-guidelines.Rmd](server-export/DST-server-behaviour-guidelines.Rmd)
 
 ------------------------------------------------------------------------
 

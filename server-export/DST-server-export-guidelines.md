@@ -1,4 +1,4 @@
-DST Server Export Guidelines
+Export Guidelines for Statistics Denmark (DST) Server
 ================
 
 <!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md -->
@@ -10,10 +10,10 @@ DST Server Export Guidelines
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall
 > - **Approved by**: Michael E. Benros
-> - **Last edits**: 2026-10-08
+> - **Last edits**: 2026-10-09
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
->   [DST-server-export-guidelines.Rmd](/server-export/DST-server-export-guidelines.Rmd)
+>   [DST-server-export-guidelines.Rmd](server-export/DST-server-export-guidelines.Rmd)
 
 ------------------------------------------------------------------------
 
@@ -48,7 +48,9 @@ the export process.</figcaption>
 
 We use the following icons:
 
-⚠ **Possible problems**
+💻 **Location of program on the DST server**
+
+⚠ **Possible methodological problems**
 
 ✔ **Possible solutions**
 
@@ -363,9 +365,20 @@ counts (`<5`) have been collapsed with other groups.
     2.  **Explain any false negatives that you were unable to remove**
         in a `README.txt` file in your export request folder.
 
-``` r
-# Example: Running R check functions
+💻 **Location of program on the DST server**: The `check_functions.R`
+program is located on the following path:
 
+<pre>
+└── Workdata
+    └── 708237
+        └── 06_data_management
+            └── 001_functions
+                └── check_functions.R
+</pre>
+
+**Example: Running R check functions**
+
+``` r
 # Load functions
 source("../../06_data_management/001_functions/functions.R")
 source("../../06_data_management/001_functions/check_functions.R")
@@ -505,9 +518,9 @@ Reasonable alternatives almost always exist:
     3.  In **R**, combine the functions `cut()` and `quantile()` as
         detailed below:
 
+**Example: Create a categorized version of a numerical variable**
+
 ``` r
-# Example: Create a categorized version of a numerical variable:
-  
 # 0: Make example numerical variable `n_var`
 set.seed(1234) # For reproducibility 
 n_var = rnorm(1e3, 100, 5)

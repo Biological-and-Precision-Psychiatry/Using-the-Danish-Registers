@@ -1,5 +1,5 @@
 ---
-title: DST Server Export Guidelines
+title: Export Guidelines for Statistics Denmark (DST) Server
 output: 
   github_document:
 editor_options: 
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 > * **Approved by**: Michael E. Benros
 > * **Last edits**: `r Sys.Date()`
 > * **Responsible**: The data management team (defined below)
-> * **Source document**: [DST-server-export-guidelines.Rmd](/server-export/DST-server-export-guidelines.Rmd)
+> * **Source document**: [DST-server-export-guidelines.Rmd](server-export/DST-server-export-guidelines.Rmd)
 
 ------------------------------------------------------------------------
 
@@ -48,7 +48,9 @@ These guidelines describes how to export analysis results from the Statistics De
 
 We use the following icons:
 
-⚠ **Possible problems**
+💻 **Location of program on the DST server**
+
+⚠ **Possible methodological problems**
 
 ✔ **Possible solutions**
 
@@ -133,7 +135,6 @@ Most concerns center around the following concepts:
 Your files to be exported should be located in a folder in the following location:
 
 📁 **Path structure**
-
 
 <pre>
 └── E:
@@ -283,9 +284,19 @@ dat
     a. **Eliminate false negatives** (e.g., numeric exposure levels) before submission, or
     b.  **Explain any false negatives that you were unable to remove** in a `README.txt` file in your export request folder.
 
-```{r, eval=FALSE}
-# Example: Running R check functions
+💻 **Location of program on the DST server**: The `check_functions.R` program is located on the following path:
 
+<pre>
+└── Workdata
+    └── 708237
+        └── 06_data_management
+            └── 001_functions
+                └── check_functions.R
+</pre>
+
+**Example: Running R check functions**
+
+```{r, eval=FALSE}
 # Load functions
 source("../../06_data_management/001_functions/functions.R")
 source("../../06_data_management/001_functions/check_functions.R")
@@ -385,9 +396,9 @@ Reasonable alternatives almost always exist:
     b. This is often the best addition to mean (SD) and gives a fairly fine-grained description of the distribution. 
     c. In **R**, combine the functions `cut()` and `quantile()` as detailed below:
 
+**Example: Create a categorized version of a numerical variable**
+
 ```{r, eval=TRUE, include=TRUE}
-# Example: Create a categorized version of a numerical variable:
-  
 # 0: Make example numerical variable `n_var`
 set.seed(1234) # For reproducibility 
 n_var = rnorm(1e3, 100, 5)

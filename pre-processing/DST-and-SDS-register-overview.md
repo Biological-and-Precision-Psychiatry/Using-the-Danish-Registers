@@ -1,4 +1,5 @@
-Overview of registers
+Overview of registers from Statistics Denmark (DST) and the The Danish
+Health Data Authority (SDS)
 ================
 
 <!-- The .md file is generated from an .Rmd file. Please edit the .Rmd; not the .md !! -->
@@ -10,10 +11,10 @@ Overview of registers
 >   Wandall
 > - **Reviewers**: NA
 > - **Approved by**: NA
-> - **Last edits**: 2026-10-08
+> - **Last edits**: 2026-10-09
 > - **Responsible**: NA
 > - **Source document**:
->   [DST-register-overview.Rmd](/pre-processing/DST-register-overview.Rmd)
+>   [DST-and-SDS-register-overview.Rmd](pre-processing/DST-and-SDS-register-overview.Rmd)
 
 ------------------------------------------------------------------------
 
@@ -49,6 +50,8 @@ study using data from:
 
 We use the following icons:
 
+💻 **Location of program on the DST server**
+
 ⚠ **Possible methodological problems**
 
 ✔ **Possible solutions**
@@ -60,21 +63,21 @@ We use the following icons:
 🕮 **Resources**
 
 - Statistics Denmark (DST):
-  - [**Variable definitions from
-    **](https://www.dst.dk/extranet/forskningvariabellister/Oversigt%20over%20registre.html).
-- The Danish Health Data Authority (SDS)
-  - [**Register documentation**](https://www.esundhed.dk/Dokumentation).
+  - [**Variable
+    definitions**](https://www.dst.dk/extranet/forskningvariabellister/Oversigt%20over%20registre.html)
+- The Danish Health Data Authority (SDS):
+  - [**Register documentation**](https://www.esundhed.dk/Dokumentation)
   - [**Definitions of words and
-    terms**](https://www.esundhed.dk/Dokumentation/Dokumentation-af-ord-og-begreber#).
+    terms**](https://www.esundhed.dk/Dokumentation/Dokumentation-af-ord-og-begreber#)
   - [**Codes and
-    mappings**](https://www.esundhed.dk/Emner/Aktuelt/Kodeark-mm).
+    mappings**](https://www.esundhed.dk/Emner/Aktuelt/Kodeark-mm)
 
 [Back to top](#overview)
 
 # Study Population
 
-On the DST server, the population is defined in program
-`10_make_population.rmd` located in:
+💻 **Location of program on the DST server**: The population is defined
+in the program `10_make_population.rmd` located in:
 
 <pre>
 └── E:
@@ -89,6 +92,9 @@ On the DST server, the population is defined in program
 </pre>
 
 Where `YYYY` is a year.
+
+All data are updated at most once a year. When they are, `YYYY` is
+updated to reflect the year of the new data content.
 
 ## Used Registers
 
@@ -105,7 +111,34 @@ To define the study population, some of the used registers are:
 
 **Individuals are linked** across registers using the individual
 identifier Civil Registration Number (*CPR*). In the registers, this
-variable is often named `pnr`.
+variable is often named `pnr`, but in SDS data often `cpr` or
+`cprnummer`. It is an encrypted version of the CPR-number.
+
+### Subject id
+
+A person’s CPR number can change over time, for example after a legal
+gender change, so one person may have two or more `pnr` values. We
+therefore generate a subject identifier, `id`, which is unique per
+person and corresponds to their currently active `pnr`.
+
+💻 **Location of program on the DST server**:
+
+- The subject id is defined in the program `01_get_subject_id.rmd`.
+- The subject id can be merged to a table using the function `pnr2id()`
+  located in:
+
+<pre>
+└── E:
+    └── ProjektDB
+        └── PSYK
+            └── Workdata
+                └── 708237
+                    └── RHBC
+                        └── 001_functions
+                            └── register_functions.R
+</pre>
+
+### Linkage of parents and children
 
 👩‍👩‍👧 **Linkage of parents and children** is available through several
 registers and variables, and we prioritize them as specified in **Table
@@ -121,6 +154,9 @@ registers and variables, and we prioritize them as specified in **Table
 commonly the mom or dad id is used, but for some purposes, the family ID
 [`FAMILIE_ID`](https://www.dst.dk/da/TilSalg/data-til-forskning/generelt-om-data/dokumentation-af-data/hoejkvalitetsvariable/familier/familie-id)
 from BEF is also used.
+
+💻 **Location of program on the DST server**: The parental link is
+defined in the program `11_get_parenta_link.rmd`.
 
 ## Valid Observations
 
@@ -182,6 +218,9 @@ derived from:
 
 For information about familial linkage, see the Section [Linkage of
 Individuals Across Registers](#linkage-of-individuals-across-registers).
+
+💻 **Location of program on the DST server**: The income data is cleaned
+in the program `12_get_income.rmd`.
 
 ## Grouping Income
 
@@ -279,6 +318,9 @@ not a fixed threshold:
 
 - The Highest Education Attained Register (Danish:
   *Uddannelsesregister*, *UDDF*).
+
+💻 **Location of program on the DST server**: The education data is
+cleaned in the program `14_get_education_level.rmd`.
 
 ## Grouping Education
 
@@ -425,6 +467,9 @@ discontinued, superseded by code 18 for 2007 onward.
 - [Register-Based Labour Force
   Statistics](https://www.dst.dk/da/Statistik/dokumentation/statistikdokumentation/registerbaseret-arbejdsstyrkestatistik--ras-)
   (Danish: *Registerbaseret Arbejdsstyrkestatistik*, *RAS*).
+
+💻 **Location of program on the DST server**: The employment data is
+cleaned in the program `13_get_work.rmd`.
 
 ## Grouping Employment Status
 
@@ -664,6 +709,11 @@ contacts increases rapidly after 2019.
 - LPR2
 - LPR3
 
+💻 **Location of program on the DST server**: The psychiatric hospital
+contact data is cleaned in the programs `41_get_psych_pcr.rmd`,
+`42_get_psych_lpr2.rmd`, `43_get_psych_lpr3.rmd` and
+`44_get_psych_all.rmd`.
+
 Currently, all diagnoses from PCR, and only diagnoses given at
 **psychiatric departments** in LPR2 and LPR3 are considered.
 
@@ -762,6 +812,9 @@ for familial risk of psychiatric disorders.
 For information about familial linkage, see the Section [Linkage of
 Individuals Across Registers](#linkage-of-individuals-across-registers).
 
+💻 **Location of program on the DST server**: Parental psychiatric
+history is cleaned in the program `45_get_parental_psych.rmd`.
+
 ⚠ **Possible Problems**
 
 1.  **Missing fathers**
@@ -803,6 +856,10 @@ diagnoses such as:
 - Diabetes
 - Dementia
 - Leukemia
+
+💻 **Location of program on the DST server**: CCI is cleaned in the
+program `21_define_cci_codes_and_points.rmd`,
+`22_get_cci_diags_lpr2.rmd` and `23_get_cci_diags_lpr3.rmd`.
 
 ⚠ **Possible Problems**
 
