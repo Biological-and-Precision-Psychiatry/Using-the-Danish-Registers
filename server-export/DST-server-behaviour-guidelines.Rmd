@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 <!-- > - **Approved by**: Michael E. Benros (version) -->
 > - **Last edits**: `r Sys.Date()`
 > - **Responsible**: The data management team (defined below)
-> - **Source document**: [DST_server_behaviour_guidelines.Rmd](/server_export/DST_server_behaviour_guidelines.Rmd)
+> - **Source document**: [DST-server-behaviour-guidelines.Rmd](/server-export/DST-server-behaviour-guidelines.Rmd)
 
 ---
 
