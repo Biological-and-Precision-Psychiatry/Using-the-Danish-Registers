@@ -13,7 +13,7 @@ Export Guidelines for Statistics Denmark (DST) Server
 > - **Last edits**: 2026-10-09
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
->   [DST-server-export-guidelines.Rmd](server-export/DST-server-export-guidelines.Rmd)
+>   [DST-server-export-guidelines.Rmd](DST-server-export-guidelines.Rmd)
 
 ------------------------------------------------------------------------
 

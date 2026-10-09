@@ -14,7 +14,7 @@ Health Data Authority (SDS)
 > - **Last edits**: 2026-10-09
 > - **Responsible**: NA
 > - **Source document**:
->   [DST-and-SDS-register-overview.Rmd](pre-processing/DST-and-SDS-register-overview.Rmd)
+>   [DST-and-SDS-register-overview.Rmd](DST-and-SDS-register-overview.Rmd)
 
 ------------------------------------------------------------------------
 

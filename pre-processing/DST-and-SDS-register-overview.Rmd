@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 > -   **Approved by**: NA
 > -   **Last edits**: `r Sys.Date()`
 > -   **Responsible**: NA
-> -   **Source document**: [DST-and-SDS-register-overview.Rmd](pre-processing/DST-and-SDS-register-overview.Rmd)
+> -   **Source document**: [DST-and-SDS-register-overview.Rmd](DST-and-SDS-register-overview.Rmd)
 
 ------------------------------------------------------------------------
 

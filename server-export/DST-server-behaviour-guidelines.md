@@ -40,7 +40,7 @@ Behaviour Guidelines for Statistics Denmark (DST) Server
 > - **Last edits**: 2026-10-09
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
->   [DST-server-behaviour-guidelines.Rmd](server-export/DST-server-behaviour-guidelines.Rmd)
+>   [DST-server-behaviour-guidelines.Rmd](DST-server-behaviour-guidelines.Rmd)
 
 ------------------------------------------------------------------------
 
