@@ -9,9 +9,9 @@ Health Data Authority (SDS)
 > - **Version**: 2.0
 > - **Authors**: Clara S. Grønkjær, Rune H. B. Christensen, Eva N. S.
 >   Wandall
-> - **Reviewers**: NA
+> - **Reviewers**: Lena Schlüter Nielsen
 > - **Approved by**: NA
-> - **Last edits**: 2026-10-09
+> - **Last edits**: 2026-10-12
 > - **Responsible**: NA
 > - **Source document**:
 >   [DST-and-SDS-register-overview.Rmd](DST-and-SDS-register-overview.Rmd)
@@ -34,15 +34,18 @@ Health Data Authority (SDS)
 
 # Overview
 
-This document is intended for researchers initiating a register-based
-study using data from:
+This document describes data cleaning of data from:
 
 - Statistics Denmark (Danish: *Danmarks Statistik*, *DST*), and
 - The Danish Health Data Authority (Danish: *Sundhedsdatastyrelsen*,
   *SDS*).
 
+This document is intended for researchers initiating a register-based
+study using this data.
+
 📄 **The document describes:**
 
+- Location of data cleaning programs.
 - The definition of the study population.
 - Implemented variables derived from national registers.
 - Known methodological issues.
@@ -74,21 +77,40 @@ We use the following icons:
 
 [Back to top](#overview)
 
-# Study Population
+# Data Preparation
 
-💻 **Location of program on the DST server**: The population is defined
-in the program `10_make_population.rmd` located in:
+## Raw Data
+
+The raw data delivered from DST and SDS are located in:
 
 <pre>
-└── E:
-    └── ProjektDB
-        └── PSYK
-            └── Workdata
-                └── 708237
-                    └── data_derived_YYYY
-                        └── reports
-                            ├── 10_make_population.rmd
-                            └── 10_make_population.html
+E:/
+└── ProjektDB
+    └── PSYK
+        └── Rawdata
+            └── 708237
+                ├── Eksterne data
+                └── Grunddata
+</pre>
+
+Generally, the data from DST are located in `Grunddata` and data from
+SDS are located in `Eksterne data`.
+
+## Programs and Cleaned Data
+
+💻 **Location of program on the DST server**: The data preparation
+programs are located in the `reports` folder, and the cleaned data in
+the `02_population_full` folder in the following directory:
+
+<pre>
+E:/
+└── ProjektDB
+    └── PSYK
+        └── Workdata
+            └── 708237
+                └── data_derived_YYYY
+                    ├── 02_population_full
+                    └── reports
 </pre>
 
 Where `YYYY` is a year.
@@ -96,7 +118,7 @@ Where `YYYY` is a year.
 All data are updated at most once a year. When they are, `YYYY` is
 updated to reflect the year of the new data content.
 
-## Used Registers
+# Study population
 
 To define the study population, some of the used registers are:
 
@@ -107,6 +129,9 @@ To define the study population, some of the used registers are:
 - The Danish Medical Birth Register (Danish: *Det Medicinske
   Fødselsregister*, *MFR*).
 
+💻 **Location of program on the DST server**: The population is defined
+in the program `10_make_population.rmd`.
+
 ## Linkage of Individuals Across Registers
 
 **Individuals are linked** across registers using the individual
@@ -116,10 +141,10 @@ variable is often named `pnr`, but in SDS data often `cpr` or
 
 ### Subject id
 
-A person’s CPR number can change over time, for example after a legal
-gender change, so one person may have two or more `pnr` values. We
-therefore generate a subject identifier, `id`, which is unique per
-person and corresponds to their currently active `pnr`.
+A person’s `pnr` can change over time, for example after a legal gender
+change, so one person may have two or more `pnr` values. We therefore
+generate a subject identifier, `id`, which is unique per person and
+corresponds to their currently active `pnr`.
 
 💻 **Location of program on the DST server**:
 
@@ -128,15 +153,17 @@ person and corresponds to their currently active `pnr`.
   located in:
 
 <pre>
-└── E:
-    └── ProjektDB
-        └── PSYK
-            └── Workdata
-                └── 708237
-                    └── RHBC
-                        └── 001_functions
-                            └── register_functions.R
+E:
+└── ProjektDB
+    └── PSYK
+        └── Workdata
+            └── 708237
+                └── 06_data_management
+                    └── 001_functions
+                        └── register_functions.R
 </pre>
+
+☐ Are functions in this location automatically updated?
 
 ### Linkage of parents and children
 
@@ -150,7 +177,7 @@ registers and variables, and we prioritize them as specified in **Table
 | 2        | MFR      | `m_cpr`, `cpr_moder` | `fcpr`, `cpr_fader` | .            |
 | 3        | BEF      | `mor_id`             | `far_id`            | `FAMILIE_ID` |
 
-**Table**: List of priority for linking parents and children. Most
+**Table 2**: List of priority for linking parents and children. Most
 commonly the mom or dad id is used, but for some purposes, the family ID
 [`FAMILIE_ID`](https://www.dst.dk/da/TilSalg/data-til-forskning/generelt-om-data/dokumentation-af-data/hoejkvalitetsvariable/familier/familie-id)
 from BEF is also used.
@@ -158,25 +185,31 @@ from BEF is also used.
 💻 **Location of program on the DST server**: The parental link is
 defined in the program `11_get_parenta_link.rmd`.
 
-## Valid Observations
+## Individuals under Observation
 
-To define the valid observations, we create an indicator variable,
-`i_valid`, which is $1$ if the individual
+To define a dynamic study population, we need to condition on people
+being under observation:
+
+- **Under observation** means that they are alive (so they can get sick)
+  and in the country (so they can seek medical help).
+- **Dynamic** means that a person can be under observation for a period,
+  and not be under observation for another period (for example, when
+  leaving the country or dying).
+
+We refer to an individual being under observation as a *valid
+observaion* and create an indicator variable, `i_valid`, which is $1$ if
+the individual:
 
 - Has a valid CPR-number (`i_cprstart == 1`), and
 - Is in Denmark (`f_dkstatus != "exit"`), and
 - Is alive (`is_dead == 0`), and
-- The CRP-number is not censored (`f_cprsens  == "00"`).
+- The CRP-number is not censored (`f_cprsens== "00"`).
 
 Otherwise, the observation is not valid, and the variable `i_valid = 0`.
 
-### Variable Definitions
-
-- `i_cprstart` — The individual has a valid CPR-number start (Danish:
-  *CPR-start*).
-- `f_dkstatus` — Residency status (Danish: *Bopælsstatus*).
-- `is_dead` — Mortality indicator.
-- `f_cprsens` — CPR sensitivity flag (Danish: *CPR-følsomhed*).
+☐ Do we always exclude invalid observations? If yes, why do we include
+it as a flag rather than simply excluding the from the population? ☐
+Elaborate on the meaning of valid CPR and censored CPR.
 
 ⚠ **Possible Problems**
 
@@ -206,6 +239,9 @@ Otherwise, the observation is not valid, and the variable `i_valid = 0`.
 
 # Income
 
+The income data can be used to adjust for individual or household level
+income in analyses of, e.g., psychiatric disorders.
+
 💰 **Individual income** is derived from:
 
 - The Income Statistics Register (Danish: *Indkomstregister*, *IND*).
@@ -220,7 +256,7 @@ For information about familial linkage, see the Section [Linkage of
 Individuals Across Registers](#linkage-of-individuals-across-registers).
 
 💻 **Location of program on the DST server**: The income data is cleaned
-in the program `12_get_income.rmd`.
+in the program `12_get_income.rmd` and the cleaned data is `income.rds`.
 
 ## Grouping Income
 
@@ -314,6 +350,9 @@ not a fixed threshold:
 
 # Education
 
+The education data can be used to adjust for individual level education
+level in analyses of, e.g., psychiatric disorders.
+
 🎓 **The highest education attained** is derived from:
 
 - The Highest Education Attained Register (Danish:
@@ -336,7 +375,7 @@ Danish\]](https://www.dst.dk/da/TilSalg/data-til-forskning/generelt-om-data/doku
 | Higher education (short cycle) | — | Short tertiary education |
 | Higher education (long cycle) | — | Long tertiary education |
 
-**Table 2**: The categorization of education is based on the variable
+**Table 3**: The categorization of education is based on the variable
 `hfaudd`. *Vocational training* and *Gymnasium* can optionally be
 grouped together.
 
@@ -375,7 +414,7 @@ quality, ranging from official student registers to self-reported data.
 Imputations are carried out in case of missing data.
 
 - [**A population and housing
-  census**](https://www.dst.dk/Site/Dst/SingleFiles/GetArchiveFile.aspx?fi=3780817712238&fo=0&ext=kvaldel)
+  census**](https://www-dst-dk.translate.goog/en/Statistik/dokumentation/documentationofstatistics/highest-education-attained/statistical-presentation?_x_tr_sl=en&_x_tr_tl=da&_x_tr_hl=da&_x_tr_pto=sge)
   (official count) was carried out in 1970, obtaining **self-reported**
   education information.
 
@@ -406,7 +445,7 @@ Danish\]](https://www.dst.dk/da/TilSalg/data-til-forskning/generelt-om-data/doku
 | Self-reported | 3 (1999–2006), 17 (2016–) | 2 (1970)\* |
 | Imputed | 9 (–2006), 10 (2008), 18 (2007–)\*\* | 7 (discontinued), 16 (discontinued) |
 
-**Table 3**: The source of each education record can be identified via
+**Table 4**: The source of each education record can be identified via
 the variable `hf_kilde`. Here, we list the codes corresponding to
 self-reported and imputed data. \*: Population and housing census in
 1970. \*\*: Code 9 is the original pre-2006 imputation. Code 10
@@ -459,6 +498,9 @@ discontinued, superseded by code 18 for 2007 onward.
 
 # Employment Status
 
+The employment data can be used to adjust for individual level
+employment status in analyses of, e.g., psychiatric disorders.
+
 💼 **Employment Status** is derived from:
 
 - [The Employment Classification
@@ -485,7 +527,7 @@ from `AKM`.
 | Not in workforce | 220, 330 | Cash benefits (Danish: *Kontanthjælp*), sick leave |
 | Retired | 321–323 | Retired (Danish: *Folkepension*), early retirement (Danish: *Efterløn*), disability pension (Danish: *Førtidspension*) |
 
-**Table 4**: The groupin og Employment Status (currently implemented
+**Table 5**: The grouping of employment Status (currently implemented
 version as at 2024-12-18).
 
 ### Revised Version (Proposed)
@@ -515,8 +557,13 @@ The implemented version has several caveats:
 | Not in workforce | 220, 321, 323 | Sick leave, **early retirement (Danish: *efterløn*)**, **disability pension (Danish: *førtidspension*)** |
 | Retired | 322 | Retired (Danish: *Folkepension*) |
 
-**Table 5**: The proposed revised version with changes marked in
+**Table 6**: The proposed revised version with changes marked in
 **bold** (not yet implemented).
+
+☐ 210 in the DST link refers to “Arbejdsløs mindst halvdelen af året”,
+whereas the table specifies “Unemployment benefits” and “Cash benefits”.
+Does one necessarily receive benefits to count as unemployed? Are
+unemployeds not receiving benefits in the Other category?
 
 ⚠ **Possible Problems**
 
@@ -534,7 +581,7 @@ The implemented version has several caveats:
 
 1.  **Grouping Employment Status**
     1.  Reclassify employment categories based on the proposed version
-        in **Table 5**.
+        in **Table 6**.
         1.  [ ] Should `SOCIO_13 = 323` (early retirement, Danish:
             *Efterløn*) be classified as “Retired”?
     2.  [ ] Should `SOCIO_13 = 410` (“Others outside workforce”, Danish:
@@ -553,6 +600,9 @@ The implemented version has several caveats:
 [Back to top](#overview)
 
 # Hospital Contacts
+
+The hospital data can be used to identify individuals with diagnoses,
+e.g., psychiatric diagnoses.
 
 🏥**Hospital contact** data are available from:
 
@@ -582,7 +632,7 @@ al. (2023)](https://link.springer.com/article/10.1007/s10654-023-01027-y).
 ## Timeline of Patient Registers
 
 <figure>
-<img src="national-patient-register-timeline.png"
+<img src="figures/national-patient-register-timeline.png"
 alt="Figure 1: Timeline of the PCR and LPR registers along with their available years, diagnose types (psychiatric or somatic), contact/patient types and diagnoses classification system." />
 <figcaption aria-hidden="true"><strong>Figure 1:</strong> Timeline of
 the <code>PCR</code> and <code>LPR</code> registers along with their
@@ -596,7 +646,7 @@ contact/patient types and diagnoses classification system.</figcaption>
 | 1977–2019 | LPR2 (“Nationwide patient register”) | Somatic from 1977; both from 1995 | Inpatient only to 1994; Inpatient, outpatient, emergency department from 1995 | ICD-8 (to 1993); ICD-10 (from 1994) |
 | 2019– | LPR3 | Both | All types available; Not reliably identifiable | ICD-10 |
 
-**Table 6**: Timeline of the `PCR` and `LPR` registers along with their
+**Table 7**: Timeline of the `PCR` and `LPR` registers along with their
 available years, diagnose types (psychiatric or somatic),
 contact/patient types and diagnoses classification system.
 
@@ -642,7 +692,7 @@ contacts increases rapidly after 2019.
 | Outpatient | 2 (Danish: *Ambulantpatient*) |
 | Emergency department | 3 (Danish: *Skadestuepatient*) |
 
-**Table 7**: Definition of contact/patient type in LPR2.
+**Table 8**: Definition of contact/patient type in LPR2.
 
 - In **LPR3**, there is no available variable to reliably separate
   contact/patient types [causing inconsistent definitions across
@@ -682,13 +732,12 @@ contacts increases rapidly after 2019.
 
 - [Documentation from SDS \[in
   Danish\]](https://sundhedsdatastyrelsen.dk/data-og-registre/nationale-sundhedsregistre/landspatientregisteret).
-- \[Variable definitions of LPR2 from Statistics Denmark \[in
-  Danish\]\]:
+- Variable definitions of LPR2 from Statistics Denmark \[in Danish\]\]:
   - [Administrative information
     (*LPR_ADM*)](https://www.dst.dk/extranet/ForskningVariabellister/LPR_ADM%20-%20Landspatientregistret%20-%20administrative%20oplysninger.html).
   - [Diagnoses
     (*LPR_DIAG*)](https://www.dst.dk/extranet/ForskningVariabellister/LPR_DIAG%20-%20Landspatientregistret%20-%20diagnoser.html).
-- [Grønkjær et a. (2025): Mental health disorders before, during and
+- [Grønkjær et al. (2025): Mental health disorders before, during and
   after the COVID-19 pandemic: a nationwide
   study](https://academic.oup.com/brain/article/148/5/1829/7879585?login=true).
 - [Schmidt et al. (2015): The Danish National Patient Registry: a review
@@ -731,19 +780,22 @@ Psychiatric diagnoses are located in the following chapters:
 A mapping is available at the DST project:
 
 <pre>
-└── E:
-    └── ProjektDB
-        └── PSYK
-            └── Workdata
-                └── 708237
-                    └── ENSW
-                        └── 03_keys
-                            └── psyk_diag_codes.xlsx
+E:/
+└── ProjektDB
+    └── PSYK
+        └── Workdata
+            └── 708237
+                └── ENSW
+                    └── 03_keys
+                        └── psyk_diag_codes.xlsx
 </pre>
+
+☐ This mapping should be moved from a personal folder to a shared
+folder.
 
 **Primary versus secondary diagnosis**
 
-In PCR8, `b1diag`, `b2diag`, `b3diag` are coded as supplementary codes
+☐ In PCR8, `b1diag`, `b2diag`, `b3diag` are coded as supplementary codes
 (Danish: *Tillægskode*).
 
 ⚠ **Possible Problems**
@@ -849,6 +901,13 @@ history is cleaned in the program `45_get_parental_psych.rmd`.
 
 # Charlson Comorbidity Index (CCI)
 
+Data on comorbidities can be used to adjust for additional diseases in
+analyses of, e.g., psychiatric disorders. The data are derived from the
+following registers:
+
+- LPR2
+- LPR3
+
 🩺 **The Charlson Comorbidity Index (CCI)** summarises a person’s
 comorbidity burden as a single score, based on a weighted set of somatic
 diagnoses such as:
@@ -887,9 +946,14 @@ program `21_define_cci_codes_and_points.rmd`,
 
 🕮 **Resources**
 
+- See section on [hospital contacts](#hospital-contacts).
+
 [Back to top](#overview)
 
 # Medication
+
+Data on prescribed medication can be used to assess disorders not
+necessarily requiring hospital contact.
 
 💊 **Prescription medicines** sold at pharmacies is identified in:
 
@@ -954,6 +1018,10 @@ So the date of treatment end is derived as:
 
 # Laboratory Results
 
+Laboratory results from biological samples (such as blood or
+cerebrospinal fluid (csf)) allows for quantified measurements of disease
+markers.
+
 🩸 **Laboratory results** were first available in the **regional**:
 
 - Clinical Laboratory Information System Research Database (Danish:
@@ -980,3 +1048,5 @@ Danish\]](https://sundhedsdatastyrelsen.dk/indberetning/terminologi/npu).
 - [Håkonsen et al. (2020): Existing Data Sources in Clinical
   Epidemiology: Laboratory Information System Databases in
   Denmark](https://www.dovepress.com/article/download/53821).
+
+[Back to top](#overview)

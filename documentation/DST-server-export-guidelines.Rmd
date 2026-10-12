@@ -37,6 +37,7 @@ knitr::opts_chunk$set(
 * [Data Safety and Compliance Requirements](#data-safety-and-compliance-requirements)
 * [Best Practices and Special Cases](#best-practices-and-special-cases)
 * [Export Request Requirements](#export-request-requirements)
+* [Data Management Team Guidelines](#data-management-team-guidelines)
 
 [Back to top](#table-of-contents)
 
@@ -44,7 +45,7 @@ knitr::opts_chunk$set(
 
 These guidelines describes how to export analysis results from the Statistics Denmark (Danish: _Danmarks Statistik_, _DST_) servers. The guidelines are meant for researchers working under Michael Eriksen Benros' authorization at the DST registers, and who need to send analysis results from the servers to advance their research projects but do not have direct export rights.
 
-![**Figure 1**: Flowchart of the export process.](flowchart.png)
+![**Figure 1**: Flowchart of the export process.](figures/flowchart.png)
 
 We use the following icons:
 
@@ -137,14 +138,14 @@ Your files to be exported should be located in a folder in the following locatio
 📁 **Path structure**
 
 <pre>
-└── E:
-    └── ProjektDB
-        └── PSYK
-            └── Workdata
-                └── 70[XXXX]
-                    └── [INIT]
-                        └── hjemsendelser
-                            └── [YYYY-MM-DD]
+E:/
+└── ProjektDB
+    └── PSYK
+        └── Workdata
+            └── 70[XXXX]
+                └── [INIT]
+                    └── hjemsendelser
+                        └── [YYYY-MM-DD]
 </pre>
 
 where 
@@ -168,12 +169,12 @@ where
 Example of folder structure with one README-file and two Excel-files.
 
 <pre>
-└── [INIT]
-    └── hjemsendelser
-        └── [YYYY-MM-DD]
-            ├── README.txt
-            ├── [filename 1].xlsx
-            └── [filename 2].xlsx
+[INIT]
+└── hjemsendelser
+    └── [YYYY-MM-DD]
+        ├── README.txt
+        ├── [filename 1].xlsx
+        └── [filename 2].xlsx
 </pre>
 
 ### File Format
@@ -287,11 +288,11 @@ dat
 💻 **Location of program on the DST server**: The `check_functions.R` program is located on the following path:
 
 <pre>
-└── Workdata
-    └── 708237
-        └── 06_data_management
-            └── 001_functions
-                └── check_functions.R
+Workdata
+└── 708237
+    └── 06_data_management
+        └── 001_functions
+            └── check_functions.R
 </pre>
 
 **Example: Running R check functions**
@@ -488,6 +489,7 @@ Minimal data requirements:
   * [ ] All results are based on ≥5 individuals and ≥5 events.
   * [ ] All numbers are rounded to at most 7 digits.
   * [ ] There are no problematic summary statistics such as quantiles, minima or maxima.
+  * [ ] Variables representing numerical groups (e.g., 1, 2, 3+) are recoded as strings  (e.g., a, b, c) or with a level prefix (e.g., level1, level2, level3+).
 
 Best Regards
 <Donald Duck>
@@ -495,3 +497,27 @@ Best Regards
 
 [Back to top](#table-of-contents)
 
+# Data Management Team Guidelines
+
+When handling an export request:
+
+1. Read the email.
+2. Note the deadline in the email.
+3. Go to the path given in the email and copy the contents of the folder to your own folder:
+
+<pre>
+Workdata
+└── 70[XXXX]
+    └── [INIT of you]
+        └── hjemsendelser
+            └── [INIT of requester]
+                └── [YYYY-MM-DD]
+</pre>
+
+4. Read the README file.
+5. Manually check all files for microdata, and run the check programs as described in [the validation section](#validation-and-check-of-files).
+6. If you have questions, contact the requester and ask for clarification and a revision if need be.
+7. Export the files only when you are confident that they are suitable for export.
+
+
+[Back to top](#table-of-contents)

@@ -10,7 +10,7 @@ Export Guidelines for Statistics Denmark (DST) Server
 > - **Reviewers**: Lars N. Reiter, Andreas M. Appel, and Eva N. S.
 >   Wandall
 > - **Approved by**: Michael E. Benros
-> - **Last edits**: 2026-10-09
+> - **Last edits**: 2026-10-12
 > - **Responsible**: The data management team (defined below)
 > - **Source document**:
 >   [DST-server-export-guidelines.Rmd](DST-server-export-guidelines.Rmd)
@@ -27,6 +27,7 @@ Export Guidelines for Statistics Denmark (DST) Server
   Requirements](#data-safety-and-compliance-requirements)
 - [Best Practices and Special Cases](#best-practices-and-special-cases)
 - [Export Request Requirements](#export-request-requirements)
+- [Data Management Team Guidelines](#data-management-team-guidelines)
 
 [Back to top](#table-of-contents)
 
@@ -172,14 +173,14 @@ location:
 📁 **Path structure**
 
 <pre>
-└── E:
-    └── ProjektDB
-        └── PSYK
-            └── Workdata
-                └── 70[XXXX]
-                    └── [INIT]
-                        └── hjemsendelser
-                            └── [YYYY-MM-DD]
+E:/
+└── ProjektDB
+    └── PSYK
+        └── Workdata
+            └── 70[XXXX]
+                └── [INIT]
+                    └── hjemsendelser
+                        └── [YYYY-MM-DD]
 </pre>
 
 where
@@ -208,12 +209,12 @@ where
 Example of folder structure with one README-file and two Excel-files.
 
 <pre>
-└── [INIT]
-    └── hjemsendelser
-        └── [YYYY-MM-DD]
-            ├── README.txt
-            ├── [filename 1].xlsx
-            └── [filename 2].xlsx
+[INIT]
+└── hjemsendelser
+    └── [YYYY-MM-DD]
+        ├── README.txt
+        ├── [filename 1].xlsx
+        └── [filename 2].xlsx
 </pre>
 
 ### File Format
@@ -369,11 +370,11 @@ counts (`<5`) have been collapsed with other groups.
 program is located on the following path:
 
 <pre>
-└── Workdata
-    └── 708237
-        └── 06_data_management
-            └── 001_functions
-                └── check_functions.R
+Workdata
+└── 708237
+    └── 06_data_management
+        └── 001_functions
+            └── check_functions.R
 </pre>
 
 **Example: Running R check functions**
@@ -621,5 +622,34 @@ Use the template below as a checklist:
 
     Best Regards
     <Donald Duck>
+
+[Back to top](#table-of-contents)
+
+# Data Management Team Guidelines
+
+When handling an export request:
+
+1.  Read the email.
+2.  Note the deadline in the email.
+3.  Go to the path given in the email and copy the contents of the
+    folder to your own folder:
+
+<pre>
+Workdata
+└── 70[XXXX]
+    └── [INIT of you]
+        └── hjemsendelser
+            └── [INIT of requester]
+                └── [YYYY-MM-DD]
+</pre>
+
+4.  Read the README file.
+5.  Manually check all files for microdata, and run the check programs
+    as described in [the validation
+    section](#validation-and-check-of-files).
+6.  If you have questions, contact the requester and ask for
+    clarification and a revision if need be.
+7.  Export the files only when you are confident that they are suitable
+    for export.
 
 [Back to top](#table-of-contents)
