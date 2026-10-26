@@ -406,6 +406,8 @@ The employment data can be used to adjust for individual level employment status
 
 💻 **Location of program on the DST server**: The employment data is cleaned in the program `13_get_work.rmd`.
 
+☐ Should we add imputation to get_work program?
+
 ## Grouping Employment Status
 
 Grouping of Employment Status based on the variable [`SOCIO13` [in Danish]](https://www.dst.dk/da/TilSalg/data-til-forskning/generelt-om-data/dokumentation-af-data/hoejkvalitetsvariable/personers-tilknytning-til-arbejdsmarkedet-set-over-hele-aaret--akm-/socio13) from `AKM`.
@@ -512,6 +514,12 @@ In **LPR3**, a contact is recorded at the level of an **element in a treatment s
 
 Therefore, after the introduction of LPR3 in 2019, the number of contacts increases rapidly after 2019. 
 
+*Private hospitals**
+
+In **LPR2**, private hospital contacts are identified using distinct files with suffix _priv_, whereas in **LPR3**, they are included in the main files.
+
+☐  Should the private hospital contacts from LPR2 be included in the definition of psychiatric and somatic contacts?
+
 **Administrative closing and reopening of contacts**: 
 
 * Around the transition from LPR2 to LPR3, some contacts were administratively closed and immediately reopened. 
@@ -522,10 +530,10 @@ Therefore, after the introduction of LPR3 in 2019, the number of contacts increa
 * In **LPR2**, the contact type is identified using the variable [`c_pattype` [in Danish]](https://www.dst.dk/da/Statistik/dokumentation/Times/forebyggelsesregistret/pattype).
 
 Contact/patient type     | `c_pattype`	                    
------------------------- | ------------------------------------------------------------ |
-Inpatient	               | 0 (Danish: _Heldøgnspatient_), 1 (Danish: _Deldøgnspatient_)	|
-Outpatient	             | 2 (Danish: _Ambulantpatient_)                              	|
-Emergency department     | 3 (Danish: _Skadestuepatient_)                              	|
+------------------------ | ---------------------------------------------------------------------- |
+Inpatient	               | 0 (Danish: _Heldøgnspatient_), 1 (Danish: _Deldøgnspatient_)	          |
+Outpatient	             | 2 (Danish: _Ambulantpatient_)                  	                      |
+Emergency department     | 3 (Danish: _Skadestuepatient_), From 2014-: 2 with `c_indm` equal to 1 |
 
 **Table 8**: Definition of contact/patient type in LPR2. 
 

@@ -11,7 +11,7 @@ Health Data Authority (SDS)
 >   Wandall
 > - **Reviewers**: Lena Schlüter Nielsen
 > - **Approved by**: NA
-> - **Last edits**: 2026-10-12
+> - **Last edits**: 2026-10-26
 > - **Responsible**: NA
 > - **Source document**:
 >   [DST-and-SDS-register-overview.Rmd](DST-and-SDS-register-overview.Rmd)
@@ -513,6 +513,8 @@ employment status in analyses of, e.g., psychiatric disorders.
 💻 **Location of program on the DST server**: The employment data is
 cleaned in the program `13_get_work.rmd`.
 
+☐ Should we add imputation to get_work program?
+
 ## Grouping Employment Status
 
 Grouping of Employment Status based on the variable [`SOCIO13` \[in
@@ -670,6 +672,15 @@ treatment sequence**.
 Therefore, after the introduction of LPR3 in 2019, the number of
 contacts increases rapidly after 2019.
 
+\*Private hospitals\*\*
+
+In **LPR2**, private hospital contacts are identified using distinct
+files with suffix *priv*, whereas in **LPR3**, they are included in the
+main files.
+
+☐ Should the private hospital contacts from LPR2 be included in the
+definition of psychiatric and somatic contacts?
+
 **Administrative closing and reopening of contacts**:
 
 - Around the transition from LPR2 to LPR3, some contacts were
@@ -690,7 +701,7 @@ contacts increases rapidly after 2019.
 |----|----|
 | Inpatient | 0 (Danish: *Heldøgnspatient*), 1 (Danish: *Deldøgnspatient*) |
 | Outpatient | 2 (Danish: *Ambulantpatient*) |
-| Emergency department | 3 (Danish: *Skadestuepatient*) |
+| Emergency department | 3 (Danish: *Skadestuepatient*), From 2014-: 2 with `c_indm` equal to 1 |
 
 **Table 8**: Definition of contact/patient type in LPR2.
 
